@@ -9,6 +9,6 @@ package Entities;
  *
  * @author John Popovici
  */
-public abstract class Entity {
+public abstract class Movable extends Entity {
     
 }
