@@ -6,6 +6,8 @@
 package Blocks;
 
 /**
+ * The position object is public such that it can be directly modified by any
+ * entity that possesses it, but it is never passed onto the user
  *
  * @author John Popovici
  */
@@ -25,11 +27,11 @@ public class Pos {
     /**
      * the position value of the entity on the x-value
      */
-    private final double x;
+    public final double x;
     /**
      * the position value of the entity on the y-axis
      */
-    private final double y;
+    public final double y;
 
     /**
      * Gets the position value of the entity on the y-axis
