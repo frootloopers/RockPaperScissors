@@ -27,11 +27,11 @@ public class Pos {
     /**
      * the position value of the entity on the x-value
      */
-    public final double x;
+    public double x;
     /**
      * the position value of the entity on the y-axis
      */
-    public final double y;
+    public double y;
 
     /**
      * Gets the position value of the entity on the y-axis

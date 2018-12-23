@@ -27,11 +27,11 @@ public class Vel {
     /**
      * the velocity value of the entity on the x-value
      */
-    public final double x;
+    public double x;
     /**
      * the velocity value of the entity on the y-axis
      */
-    public final double y;
+    public double y;
 
     /**
      * Gets the velocity value of the entity on the y-axis
