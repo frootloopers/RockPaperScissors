@@ -10,5 +10,16 @@ package Entities;
  * @author John Popovici
  */
 public class Ship extends Movable {
-    
+
+    /**
+     * Creates a ship entity
+     *
+     * @param x the position value of the entity on the x-axis
+     * @param y the position value of the entity on the y-axis
+     * @param teamID the ID of the team this entity belongs to
+     */
+    public Ship(double x, double y, int teamID) {
+        //ships hit-box radius of 15
+        super(x, y, 15, teamID);
+    }
 }

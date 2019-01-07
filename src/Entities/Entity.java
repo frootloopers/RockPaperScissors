@@ -6,6 +6,8 @@
 package Entities;
 
 import Blocks.Pos;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -13,17 +15,44 @@ import Blocks.Pos;
  */
 public abstract class Entity {
 
-    protected final double VEL_DECAY = 0.05;
-    protected final double MOVABLE_ROT_STRENGTH = 0.5;
-    protected final double SHIP_STERN_STRENGTH = 0.2;
-    protected final double DRONE_STERN_STRENGTH = 0.5;
-    protected final double DRONE_SIDE_STRENGTH = 0.5;
-    
-    
+    protected final double VEL_DECAY = 0.005;
+    protected final double DRONE_ROT_STRENGTH = 0.05;
+    protected final double SHIP_ROT_STRENGTH = 0.025;
+    protected final double DRONE_STERN_STRENGTH = 0.05;
+    protected final double SHIP_STERN_STRENGTH = 0.025;
+    protected final double DRONE_SIDE_STRENGTH = 0.05;
+
+    /**
+     * Creates an entity
+     *
+     * @param x the position value of the entity on the x-axis
+     * @param y the position value of the entity on the y-axis
+     * @param radius the radius of the hit-box of the entity
+     * @param teamID the ID of the team this entity belongs to
+     */
+    public Entity(double x, double y, int radius, int teamID) {
+        pos = new Pos(x, y);
+        this.teamID = teamID;
+        this.radius = radius;
+    }
+
     /**
      * the position object of this entity
      */
     private Pos pos;
+    /**
+     * the ID of the team this entity belongs to
+     */
+    private final int teamID;
+
+    /**
+     * the icon that represents this entity
+     */
+    private BufferedImage icon;
+    /**
+     * the radius of the hit-box of the entity
+     */
+    protected final int radius;
 
     /**
      * Gets the position object of the entity
@@ -33,4 +62,38 @@ public abstract class Entity {
     public Pos getPos() {
         return new Pos(this.pos.getX(), this.pos.getY());
     }
+
+    /**
+     * Gets the ID of the team the entity belongs to
+     *
+     * @return the ID of the team the entity belongs to
+     */
+    public int getTeamID() {
+        return teamID;
+    }
+
+    /**
+     * Gets the radius of the hit-box of the entity
+     *
+     * @return the radius of the hit-box of the entity
+     */
+    public int getRadius() {
+        return radius;
+    }
+
+    /**
+     * Draw the icon representing the entity
+     *
+     * @param g the graphics used to draw the entity
+     * @param scale the scale of the game board, at which the entity is drawn
+     * @param offsetX the offset of the x-value of the game board, at which the
+     * entity is drawn
+     * @param offsetY the offset of the y-value of the game board, at which the
+     * entity is drawn
+     */
+    public void draw(Graphics g, double scale, int offsetX, int offsetY) {
+        //BufferedImage pos.X+offsetX, pos.Y+offsetY
+        g.drawOval((int) (pos.getX()), (int) (pos.getY()), radius, radius);
+    }
+
 }

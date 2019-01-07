@@ -10,5 +10,16 @@ package Entities;
  * @author John Popovici
  */
 public class Planet extends Entity {
-    
+
+    /**
+     * Creates a planet entity
+     *
+     * @param x the position value of the entity on the x-axis
+     * @param y the position value of the entity on the y-axis
+     * @param teamID the ID of the team this entity belongs to
+     */
+    public Planet(double x, double y, int teamID) {
+        //planets hit-box radius of 20
+        super(x, y, 20, teamID);
+    }
 }
