@@ -16,10 +16,9 @@ public class Harvestable extends Entity {
      *
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
-     * @param teamID the ID of the team this entity belongs to
      */
-    public Harvestable(double x, double y, int teamID) {
-        //harvestables hit-box radius of 5
-        super(x, y, 5, teamID);
+    public Harvestable(double x, double y) {
+        //harvestable is not a team entity
+        super(x, y, RADIUS_HARVESTABLE, 0);
     }
 }

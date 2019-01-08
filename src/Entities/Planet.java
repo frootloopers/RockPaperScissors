@@ -19,7 +19,6 @@ public class Planet extends Entity {
      * @param teamID the ID of the team this entity belongs to
      */
     public Planet(double x, double y, int teamID) {
-        //planets hit-box radius of 20
-        super(x, y, 20, teamID);
+        super(x, y, RADIUS_PLANET, teamID);
     }
 }
