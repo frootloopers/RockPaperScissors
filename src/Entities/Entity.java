@@ -93,7 +93,7 @@ public abstract class Entity {
      */
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         //BufferedImage pos.X+offsetX, pos.Y+offsetY
-        g.drawOval((int) (pos.getX()), (int) (pos.getY()), radius, radius);
+        g.drawOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);
     }
 
 }
