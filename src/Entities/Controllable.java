@@ -65,8 +65,8 @@ public abstract class Controllable extends Movable {
     public int getStorage() {
         return storage;
     }
-    
-        /**
+
+    /**
      * Gets the percent of the forward thruster being used.
      *
      * @return the percent of the forward thruster being used. The value must be
