@@ -7,7 +7,6 @@ package Entities;
 
 import Blocks.Pos;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 /**
  *
@@ -45,10 +44,6 @@ public abstract class Entity {
      */
     private final int teamID;
 
-    /**
-     * the icon that represents this entity
-     */
-    private BufferedImage icon;
     /**
      * the radius of the hit-box of the entity
      */
