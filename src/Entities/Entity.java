@@ -6,6 +6,7 @@
 package Entities;
 
 import Blocks.Pos;
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -94,7 +95,21 @@ public abstract class Entity {
      */
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         //BufferedImage pos.X+offsetX, pos.Y+offsetY
-        g.drawOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);
+        switch(teamID){
+            case(1):
+        g.setColor(Color.RED); break;
+            case(2):
+        g.setColor(Color.BLUE); break;
+            case(3):
+        g.setColor(Color.GREEN); break;
+            case(4):
+        g.setColor(Color.YELLOW); break; 
+        default:
+        g.setColor(Color.LIGHT_GRAY); break;
+        }
+        g.fillOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);
+        g.setColor(Color.black);
+        g.drawOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);  
     }
 
 }
