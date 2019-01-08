@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import java.awt.Graphics;
+
 /**
  *
  * @author John Popovici
@@ -23,10 +25,26 @@ public abstract class Controllable extends Movable {
         super(x, y, radius, teamID);
         storage = 0;
         thrustF = 0;
-        //thrustFAcc
         thrustRotR = 0;
         thrustRotL = 0;
-        //thrustRotVel
+    }
+    
+    @Override
+    public void draw(Graphics g, double scale, int offsetX, int offsetY) {
+        super.draw(g,scale,offsetX,offsetY);        
+        g.drawLine( (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))),
+                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle+120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle+120))) );
+         g.drawLine( (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))),
+                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle-120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle-120))) );
+         g.drawLine( (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle-120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle-120))),
+                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle+120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle+120))) );
+
     }
 
     /**
@@ -48,14 +66,6 @@ public abstract class Controllable extends Movable {
      * between 0 and 100, inclusive. Thruster rotates clockwise
      */
     private int thrustRotL;
-    /**
-     * the acceleration the forward thruster provide at full
-     */
-    private double thrustFAcc;
-    /**
-     * the velocity the rotational thrusters provide at full
-     */
-    private double thrustRotVel;
 
     /**
      * Gets the amount of resources stored by the entity

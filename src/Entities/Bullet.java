@@ -19,7 +19,6 @@ public class Bullet extends Movable {
      * @param teamID the ID of the team this entity belongs to
      */
     public Bullet(double x, double y, int teamID) {
-        //bullet hit-box radius of 1
-        super(x, y, 1, teamID);
+        super(x, y, RADIUS_PROJECTILE, teamID);
     }
 }

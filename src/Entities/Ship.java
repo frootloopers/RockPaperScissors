@@ -19,7 +19,6 @@ public class Ship extends Movable {
      * @param teamID the ID of the team this entity belongs to
      */
     public Ship(double x, double y, int teamID) {
-        //ships hit-box radius of 15
-        super(x, y, 15, teamID);
+        super(x, y, RADIUS_SHIP, teamID);
     }
 }

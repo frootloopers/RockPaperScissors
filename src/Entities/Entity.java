@@ -14,12 +14,18 @@ import java.awt.Graphics;
  */
 public abstract class Entity {
 
-    protected final double VEL_DECAY = 0.005;
-    protected final double DRONE_ROT_STRENGTH = 0.05;
-    protected final double SHIP_ROT_STRENGTH = 0.025;
-    protected final double DRONE_STERN_STRENGTH = 0.05;
-    protected final double SHIP_STERN_STRENGTH = 0.025;
-    protected final double DRONE_SIDE_STRENGTH = 0.05;
+    protected static final int RADIUS_PLANET = 20;
+    protected static final int RADIUS_HARVESTABLE = 5;
+    protected static final int RADIUS_PROJECTILE = 2;
+    protected static final int RADIUS_SHIP = 15;
+    protected static final int RADIUS_DRONE = 5;
+    
+    protected static final double VEL_DECAY = 0.005;
+    protected static final double DRONE_ROT_STRENGTH = 0.05;
+    protected static final double SHIP_ROT_STRENGTH = 0.025;
+    protected static final double DRONE_STERN_STRENGTH = 0.05;
+    protected static final double SHIP_STERN_STRENGTH = 0.025;
+    protected static final double DRONE_SIDE_STRENGTH = 0.05;
 
     /**
      * Creates an entity
@@ -88,7 +94,7 @@ public abstract class Entity {
      */
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         //BufferedImage pos.X+offsetX, pos.Y+offsetY
-        g.drawOval((int) (pos.getX()), (int) (pos.getY()), radius, radius);
+        g.drawOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);
     }
 
 }
