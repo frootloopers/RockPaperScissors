@@ -18,8 +18,7 @@ public class Asteroid extends Movable {
      * @param y the position value of the entity on the y-axis
      */
     public Asteroid(double x, double y) {
-        //asteroid hit-box radius of 1
         //asteroid is not a team entity
-        super(x, y, 1, 0);
+        super(x, y, RADIUS_PROJECTILE, 0);
     }
 }

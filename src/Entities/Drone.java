@@ -19,7 +19,6 @@ public class Drone extends Movable {
      * @param teamID the ID of the team this entity belongs to
      */
     public Drone(double x, double y, int teamID) {
-        //drones hit-box radius of 5
-        super(x, y, 5, teamID);
+        super(x, y, RADIUS_DRONE, teamID);
     }
 }

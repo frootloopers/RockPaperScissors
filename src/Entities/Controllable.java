@@ -23,10 +23,8 @@ public abstract class Controllable extends Movable {
         super(x, y, radius, teamID);
         storage = 0;
         thrustF = 0;
-        //thrustFAcc
         thrustRotR = 0;
         thrustRotL = 0;
-        //thrustRotVel
     }
 
     /**
@@ -48,14 +46,6 @@ public abstract class Controllable extends Movable {
      * between 0 and 100, inclusive. Thruster rotates clockwise
      */
     private int thrustRotL;
-    /**
-     * the acceleration the forward thruster provide at full
-     */
-    private double thrustFAcc;
-    /**
-     * the velocity the rotational thrusters provide at full
-     */
-    private double thrustRotVel;
 
     /**
      * Gets the amount of resources stored by the entity
