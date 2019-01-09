@@ -5,6 +5,7 @@
  */
 package Foundation;
 
+import Entities.Bullet;
 import Entities.Entity;
 import Entities.Harvestable;
 import java.util.ArrayList;
@@ -16,31 +17,42 @@ import java.util.ArrayList;
 public class Map {
 
     private Entity[] Entities;
-    private ArrayList<Harvestable> Resources;
+    private Harvestable[] Harvestables;
+    private ArrayList<Bullet> Bullets;
     private int teams;
-    
-    public Map(int teams){
-        this.teams=teams;
+
+    public Map(int teams, int harvestables) {
+        this.teams = teams;
+        Entities = new Entity[teams * 4];
+        Harvestables = new Harvestable[harvestables];
+        Bullets = new ArrayList<>();
     }
-    
+
     /**
      * Returns a list of entities in a team
+     *
      * @param team
-     * @return 
+     * @return
      */
-    protected Entity[] getTeam(int team){
-        return Teams.get(team);
+    public Harvestable[] getHarvest(int team) {
+        return Harvestables;
     }
-    
+
     /**
      * Returns a list of all teams
-     * @return 
+     *
+     * @return
      */
-    protected ArrayList<Entity[]> getEntities(){
-        return Teams;
+    public Entity[] getEntities() {
+        return Entities;
     }
-    
-    protected Entity getClose(){
-        
+
+    /**
+     * Returns a list of all teams
+     *
+     * @return
+     */
+    public ArrayList<Bullet> getBullets() {
+        return Bullets;
     }
 }
