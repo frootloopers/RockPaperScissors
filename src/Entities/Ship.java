@@ -9,7 +9,7 @@ package Entities;
  *
  * @author John Popovici
  */
-public class Ship extends Movable {
+public class Ship extends Controllable {
 
     /**
      * Creates a ship entity

@@ -9,7 +9,7 @@ package Entities;
  *
  * @author John Popovici
  */
-public class Drone extends Movable {
+public class Drone extends Controllable {
 
     /**
      * Creates a drone entity

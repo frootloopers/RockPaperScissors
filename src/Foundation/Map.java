@@ -20,8 +20,9 @@ public class Map {
     private Harvestable[] Harvestables;
     private ArrayList<Bullet> Bullets;
     private int teams;
-
-    public Map(int teams, int harvestables) {
+    private final static int harvestables = 5;
+    
+    public Map(int teams) {
         this.teams = teams;
         Entities = new Entity[teams * 4];
         Harvestables = new Harvestable[harvestables];
