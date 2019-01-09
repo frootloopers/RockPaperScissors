@@ -19,10 +19,11 @@ public abstract class Controllable extends Movable {
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
      * @param radius the radius of the hit-box of the entity
+     * @param faceAngle the angle the entity faces when created
      * @param teamID the ID of the team this entity belongs to
      */
-    public Controllable(double x, double y, int radius, int teamID) {
-        super(x, y, radius, teamID);
+    public Controllable(double x, double y, int radius, double faceAngle, int teamID) {
+        super(x, y, radius, 0.0, faceAngle, teamID);
         storage = 0;
         thrustF = 0;
         thrustRotR = 0;

@@ -16,9 +16,11 @@ public class Bullet extends Movable {
      *
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
+     * @param speed the speed the entity starts with
+     * @param faceAngle the angle the entity faces when created
      * @param teamID the ID of the team this entity belongs to
      */
-    public Bullet(double x, double y, int teamID) {
-        super(x, y, RADIUS_PROJECTILE, teamID);
+    public Bullet(double x, double y, double speed, double faceAngle, int teamID) {
+        super(x, y, RADIUS_PROJECTILE, speed, faceAngle, teamID);
     }
 }
