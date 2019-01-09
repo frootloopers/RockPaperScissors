@@ -20,8 +20,9 @@ public class Map {
     private Harvestable[] Harvestables;
     private ArrayList<Bullet> Bullets;
     private int teams;
-
-    public Map(int teams, int harvestables) {
+    private final static int harvestables = 5;
+    
+    public Map(int teams) {
         this.teams = teams;
         Entities = new Entity[teams * 4];
         Harvestables = new Harvestable[harvestables];
@@ -29,7 +30,7 @@ public class Map {
     }
 
     /**
-     * Returns a list of entities in a team
+     * Returns a list of harvestables
      *
      * @param team
      * @return
@@ -39,7 +40,7 @@ public class Map {
     }
 
     /**
-     * Returns a list of all teams
+     * Returns a list of all AI objects
      *
      * @return
      */
@@ -48,7 +49,7 @@ public class Map {
     }
 
     /**
-     * Returns a list of all teams
+     * Returns a list of all bullets
      *
      * @return
      */

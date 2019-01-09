@@ -39,11 +39,11 @@ public class GameFrame extends javax.swing.JFrame {
         testingPanel1.setLayout(testingPanel1Layout);
         testingPanel1Layout.setHorizontalGroup(
             testingPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 382, Short.MAX_VALUE)
         );
         testingPanel1Layout.setVerticalGroup(
             testingPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 280, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

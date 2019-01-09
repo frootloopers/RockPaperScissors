@@ -7,11 +7,12 @@ package GUI;
 
 import Entities.Entity;
 import Entities.Ship;
+import Foundation.Map;
 import java.awt.Graphics;
 
 /**
  *
- * @author carlw
+ * @author carlw look at dis -> https://github.com/sean01zhang/ICS4UE_CodeRulers
  */
 public class TestingPanel extends javax.swing.JPanel {
 
@@ -20,6 +21,7 @@ public class TestingPanel extends javax.swing.JPanel {
      */
     public TestingPanel() {
         initComponents();
+        Map GameBoard = new Map(4);
     }
 
     /**
@@ -45,7 +47,7 @@ public class TestingPanel extends javax.swing.JPanel {
 
 public void paintComponent(Graphics g){
 
-        Ship a = new Ship(100,100,50);
+        Ship a = new Ship(100,100,5);
         a.draw(g, 1, 0, 0);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
