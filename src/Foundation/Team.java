@@ -13,6 +13,7 @@ import Entities.Entity;
  */
 public class Team {
     int score;
+    String aiName;
     Entity[] Entities;
     
     public Team(Entity[] Entities){
