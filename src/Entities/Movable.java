@@ -6,6 +6,7 @@
 package Entities;
 
 import Blocks.Vel;
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -60,7 +61,7 @@ public abstract class Movable extends Entity {
 
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
-        g.drawOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);
+        super.draw(g,scale,offsetX,offsetY);
         g.drawLine((int) (getPos().getX()), (int) (getPos().getY()),
                 (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
                 (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))));

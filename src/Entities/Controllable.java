@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import java.awt.Graphics;
+
 /**
  *
  * @author John Popovici
@@ -25,6 +27,24 @@ public abstract class Controllable extends Movable {
         thrustF = 0;
         thrustRotR = 0;
         thrustRotL = 0;
+    }
+    
+    @Override
+    public void draw(Graphics g, double scale, int offsetX, int offsetY) {
+        super.draw(g,scale,offsetX,offsetY);        
+        g.drawLine( (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))),
+                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle+120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle+120))) );
+         g.drawLine( (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))),
+                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle-120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle-120))) );
+         g.drawLine( (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle-120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle-120))),
+                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle+120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle+120))) );
+
     }
 
     /**
