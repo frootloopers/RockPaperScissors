@@ -21,4 +21,6 @@ public class Drone extends Movable {
     public Drone(double x, double y, int teamID) {
         super(x, y, RADIUS_DRONE, teamID);
     }
+    
+    
 }
