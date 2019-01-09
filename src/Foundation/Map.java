@@ -30,7 +30,7 @@ public class Map {
     }
 
     /**
-     * Returns a list of entities in a team
+     * Returns a list of harvestables
      *
      * @param team
      * @return
@@ -40,7 +40,7 @@ public class Map {
     }
 
     /**
-     * Returns a list of all teams
+     * Returns a list of all AI objects
      *
      * @return
      */
@@ -49,7 +49,7 @@ public class Map {
     }
 
     /**
-     * Returns a list of all teams
+     * Returns a list of all bullets
      *
      * @return
      */
