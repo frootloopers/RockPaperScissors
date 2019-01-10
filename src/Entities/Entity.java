@@ -6,6 +6,7 @@
 package Entities;
 
 import Blocks.Pos;
+import Foundation.Map;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -35,13 +36,20 @@ public abstract class Entity {
      * @param y the position value of the entity on the y-axis
      * @param radius the radius of the hit-box of the entity
      * @param teamID the ID of the team this entity belongs to
+     * @param map the map the entity is in
      */
-    public Entity(double x, double y, int radius, int teamID) {
+    public Entity(double x, double y, int radius, int teamID, Map map) {
         pos = new Pos(x, y);
         this.teamID = teamID;
         this.radius = radius;
+        this.map = map;
     }
 
+    /*
+    * The map object the entity is in
+    */
+    private final Map map;
+    
     /**
      * the position object of this entity
      */

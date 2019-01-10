@@ -6,6 +6,7 @@
 package Entities;
 
 import Blocks.Vel;
+import Foundation.Map;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -24,14 +25,15 @@ public abstract class Movable extends Entity {
      * @param speed the speed the entity starts with
      * @param faceAngle the angle the entity faces when created
      * @param teamID the ID of the team this entity belongs to
+     * @param map the map the entity is in
      */
-    public Movable(double x, double y, int radius, double speed, double faceAngle, int teamID) {
-        super(x, y, radius, teamID);
+    public Movable(double x, double y, int radius, double speed, double faceAngle, int teamID, Map map) {
+        super(x, y, radius, teamID, map);
         /*
-        HAVE TO DETERMINE X AND Y VELOCITY BASED OFF OF SPEED AND FACEANAGLE
+         HAVE TO DETERMINE X AND Y VELOCITY BASED OFF OF SPEED AND FACEANAGLE
          */
         vel = new Vel(0.0, 0.0);
-        faceAngle = 90;
+        this.faceAngle = faceAngle;
     }
 
     /**

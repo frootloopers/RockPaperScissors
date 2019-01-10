@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import Foundation.Map;
+
 /**
  *
  * @author John Popovici
@@ -19,8 +21,8 @@ public class Drone extends Controllable {
      * @param faceAngle the angle the entity faces when created
      * @param teamID the ID of the team this entity belongs to
      */
-    public Drone(double x, double y, double faceAngle, int teamID) {
-        super(x, y, RADIUS_DRONE, faceAngle, teamID);
+    public Drone(double x, double y, double faceAngle, int teamID, Map map) {
+        super(x, y, RADIUS_DRONE, faceAngle, teamID, map);
     }
 
 }
