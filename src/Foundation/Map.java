@@ -87,7 +87,7 @@ public class Map {
         //find the ones within the range
 
         for (Entity e : Entities) {
-            if (Math.abs(pos.x - (e.getPos().x)) + Math.abs(pos.y - (e.getPos().y)) <= range) {
+            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x),2) + (Math.pow(pos.y - (e.getPos().y),2)))<= range) {
                 temp.add(e);
             }
         }
