@@ -25,4 +25,10 @@ public class Ship extends Controllable {
     public Ship(double x, double y, double faceAngle, int teamID, Map map) {
         super(x, y, RADIUS_SHIP, faceAngle, teamID, map);
     }
+    
+    private final int FIREPOWER = 10;
+    
+    public void fireBullet(double direction){
+        map.addBullet(new Bullet(pos.x,pos.y,direction,FIREPOWER,teamID,map));
+    }
 }
