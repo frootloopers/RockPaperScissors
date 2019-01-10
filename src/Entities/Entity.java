@@ -27,7 +27,6 @@ public abstract class Entity {
     protected static final double SHIP_ROT_STRENGTH = 0.025;
     protected static final double DRONE_STERN_STRENGTH = 0.05;
     protected static final double SHIP_STERN_STRENGTH = 0.025;
-    protected static final double DRONE_SIDE_STRENGTH = 0.05;
 
     /**
      * Creates an entity
@@ -88,6 +87,13 @@ public abstract class Entity {
      */
     public int getRadius() {
         return radius;
+    }
+
+    public boolean checkCollision(Entity other) {
+        if (Math.sqrt((pos.x - other.pos.x) * (pos.x - other.pos.x)) + ((pos.y - other.pos.y) * (pos.y - other.pos.y)) <= (radius + other.radius)) {
+            return true;
+        }
+        return false;
     }
 
     /**

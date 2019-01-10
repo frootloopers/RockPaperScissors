@@ -39,4 +39,16 @@ public class Ship extends Controllable {
     public void pulse() {
         //todo: find and damage valid targets, remove resources
     }
+
+    @Override
+    protected void move() {
+        //add acceleration
+        vel.x += Math.sin(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);
+        vel.y -= Math.cos(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);
+        //add rotation
+        faceAngle -= thrustRotR * SHIP_ROT_STRENGTH;
+        faceAngle += thrustRotL * SHIP_ROT_STRENGTH;
+        super.move();
+    }
+
 }

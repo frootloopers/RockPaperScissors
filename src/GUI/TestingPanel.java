@@ -58,9 +58,9 @@ public class TestingPanel extends javax.swing.JPanel {
 
     public void paintComponent(Graphics g) {
 
-        Ship a = new Ship(100, 100, 0, 5);
-        a.setThrustF(5);
-        a.draw(g, 1, 0, 0);
+//        Ship a = new Ship(100, 100, 0, 5);
+//        a.setThrustF(5);
+//        a.draw(g, 1, 0, 0);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
