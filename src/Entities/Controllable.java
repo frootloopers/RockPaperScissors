@@ -31,29 +31,29 @@ public abstract class Controllable extends Movable {
         thrustRotR = 0;
         thrustRotL = 0;
     }
-    
+
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
-        super.draw(g,scale,offsetX,offsetY);        
-        g.drawLine( (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
+        super.draw(g, scale, offsetX, offsetY);
+        g.drawLine((int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
                 (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))),
-                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle+120))),
-                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle+120))) );
-         g.drawLine( (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
+                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle + 120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle + 120))));
+        g.drawLine((int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
                 (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))),
-                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle-120))),
-                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle-120))) );
-         g.drawLine( (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle-120))),
-                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle-120))),
-                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle+120))),
-                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle+120))) );
+                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle - 120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle - 120))));
+        g.drawLine((int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle - 120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle - 120))),
+                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle + 120))),
+                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle + 120))));
 
     }
 
     /**
      * the amount of resources stored by the entity
      */
-    private int storage;
+    protected int storage;
     /**
      * the percent of the forward thruster being used. The value must be between
      * 0 and 100, inclusive
@@ -63,12 +63,12 @@ public abstract class Controllable extends Movable {
      * the percent of the right rotation thruster being used. The value must be
      * between 0 and 100, inclusive. Thruster rotates counterclockwise
      */
-    private int thrustRotR;
+    protected int thrustRotR;
     /**
      * the percent of the left rotation thruster being used. The value must be
      * between 0 and 100, inclusive. Thruster rotates clockwise
      */
-    private int thrustRotL;
+    protected int thrustRotL;
 
     /**
      * Gets the amount of resources stored by the entity

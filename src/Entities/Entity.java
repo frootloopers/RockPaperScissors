@@ -7,6 +7,7 @@ package Entities;
 
 import Blocks.Pos;
 import Foundation.Map;
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -20,7 +21,7 @@ public abstract class Entity {
     protected static final int RADIUS_PROJECTILE = 2;
     protected static final int RADIUS_SHIP = 15;
     protected static final int RADIUS_DRONE = 5;
-    
+
     protected static final double VEL_DECAY = 0.005;
     protected static final double DRONE_ROT_STRENGTH = 0.05;
     protected static final double SHIP_ROT_STRENGTH = 0.025;
@@ -45,18 +46,17 @@ public abstract class Entity {
     }
 
     /*
-    * The map object the entity is in
-    */
-    final Map map;
-    
+     * The map object the entity is in
+     */
+    protected final Map map;
     /**
      * the position object of this entity
      */
-    private Pos pos;
+    protected Pos pos;
     /**
      * the ID of the team this entity belongs to
      */
-    private final int teamID;
+    protected final int teamID;
 
     /**
      * the radius of the hit-box of the entity
@@ -91,6 +91,15 @@ public abstract class Entity {
     }
 
     /**
+     * Gets the map the entity is in
+     *
+     * @return the map the entity is in
+     */
+    public Map getMap() {
+        return map;
+    }
+
+    /**
      * Draw the icon representing the entity
      *
      * @param g the graphics used to draw the entity
@@ -102,7 +111,16 @@ public abstract class Entity {
      */
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         //BufferedImage pos.X+offsetX, pos.Y+offsetY
+        /**
+         * switch(teamID){ case(1): g.setColor(Color.RED); break; case(2):
+         * g.setColor(Color.BLUE); break; case(3): g.setColor(Color.GREEN);
+         * break; case(4): g.setColor(Color.YELLOW); break; default:
+         * g.setColor(Color.LIGHT_GRAY); break; }
+         */
+        g.fillOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);
+        g.setColor(Color.black);
         g.drawOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);
+        //color = map.getTeams()[teamID].getColor
     }
 
 }
