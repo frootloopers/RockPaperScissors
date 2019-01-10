@@ -29,7 +29,7 @@ public abstract class Movable extends Entity {
         super(x, y, radius, teamID);
         /*
         HAVE TO DETERMINE X AND Y VELOCITY BASED OFF OF SPEED AND FACEANAGLE
-        */
+         */
         vel = new Vel(0.0, 0.0);
         faceAngle = 90;
     }
@@ -66,7 +66,7 @@ public abstract class Movable extends Entity {
 
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
-        super.draw(g,scale,offsetX,offsetY);
+        super.draw(g, scale, offsetX, offsetY);
         g.drawLine((int) (getPos().getX()), (int) (getPos().getY()),
                 (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
                 (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))));

@@ -9,6 +9,9 @@ import Entities.Entity;
 import Entities.Ship;
 import Foundation.Map;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 /**
  *
@@ -22,6 +25,14 @@ public class TestingPanel extends javax.swing.JPanel {
     public TestingPanel() {
         initComponents();
         Map GameBoard = new Map(4);
+        Timer t = new Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                repaint();
+            }
+        });
+        //starts running the timer
+        t.start();
     }
 
     /**
@@ -45,9 +56,10 @@ public class TestingPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
 
-        Ship a = new Ship(100,100,5);
+        Ship a = new Ship(100, 100, 0, 5);
+        a.setThrustF(5);
         a.draw(g, 1, 0, 0);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
