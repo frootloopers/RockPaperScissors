@@ -44,7 +44,7 @@ public class Map {
      *
      * @param bullet
      */
-    protected void addBullet(Bullet bullet) {
+    public void addBullet(Bullet bullet) {
         Bullets.add(bullet);
     }
 

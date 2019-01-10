@@ -47,7 +47,7 @@ public abstract class Entity {
     /*
     * The map object the entity is in
     */
-    private final Map map;
+    final Map map;
     
     /**
      * the position object of this entity
