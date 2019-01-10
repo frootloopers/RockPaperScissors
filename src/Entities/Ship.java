@@ -11,7 +11,7 @@ import Foundation.Map;
  *
  * @author John Popovici
  */
-public class Ship extends Controllable {
+public class Ship extends Controllable{
 
     /**
      * Creates a ship entity
@@ -28,7 +28,10 @@ public class Ship extends Controllable {
     
     private final int FIREPOWER = 10;
     
-    public void fireBullet(double direction){
-        map.addBullet(new Bullet(pos.x,pos.y,direction,FIREPOWER,teamID,map));
+    /**
+     * By Jia Jia: This spawns a bullet in the map.
+     */
+    public void fireBullet(){
+        map.addBullet(new Bullet(pos.x,pos.y,faceAngle,FIREPOWER,teamID,map));
     }
 }
