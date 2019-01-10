@@ -6,8 +6,11 @@
 package Foundation;
 
 import Entities.Bullet;
+import Entities.Drone;
 import Entities.Entity;
 import Entities.Harvestable;
+import Entities.Planet;
+import Entities.Ship;
 import java.util.ArrayList;
 
 /**
@@ -27,6 +30,22 @@ public class Map {
         Entities = new Entity[teams * 4];
         Harvestables = new Harvestable[harvestables];
         Bullets = new ArrayList<>();
+        
+        for(int x = 0; x<Entities.length;x+=4){
+//        Entities[x]=new Ship();
+//        Entities[x+1]=new Drone();
+//        Entities[x+2]=new Drone();
+//        Entities[x+3]=new Planet();
+        }
+    }
+
+    /**
+     * Returns a list of harvestables
+     *
+     * @param bullet
+     */
+    protected void addBullet(Bullet bullet) {
+        Bullets.add(bullet);
     }
 
     /**
