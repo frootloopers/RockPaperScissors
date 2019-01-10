@@ -21,10 +21,15 @@ public abstract class Movable extends Entity {
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
      * @param radius the radius of the hit-box of the entity
+     * @param speed the speed the entity starts with
+     * @param faceAngle the angle the entity faces when created
      * @param teamID the ID of the team this entity belongs to
      */
-    public Movable(double x, double y, int radius, int teamID) {
+    public Movable(double x, double y, int radius, double speed, double faceAngle, int teamID) {
         super(x, y, radius, teamID);
+        /*
+        HAVE TO DETERMINE X AND Y VELOCITY BASED OFF OF SPEED AND FACEANAGLE
+        */
         vel = new Vel(0.0, 0.0);
         faceAngle = 90;
     }
