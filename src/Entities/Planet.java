@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import Foundation.Map;
+
 /**
  *
  * @author John Popovici
@@ -17,8 +19,9 @@ public class Planet extends Entity {
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
      * @param teamID the ID of the team this entity belongs to
+     * @param map the map the entity is in
      */
-    public Planet(double x, double y, int teamID) {
-        super(x, y, RADIUS_PLANET, teamID);
+    public Planet(double x, double y, int teamID, Map map) {
+        super(x, y, RADIUS_PLANET, teamID, map);
     }
 }

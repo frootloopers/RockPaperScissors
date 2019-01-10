@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import Foundation.Map;
 import java.awt.Graphics;
 
 /**
@@ -21,9 +22,10 @@ public abstract class Controllable extends Movable {
      * @param radius the radius of the hit-box of the entity
      * @param faceAngle the angle the entity faces when created
      * @param teamID the ID of the team this entity belongs to
+     * @param map the map the entity is in
      */
-    public Controllable(double x, double y, int radius, double faceAngle, int teamID) {
-        super(x, y, radius, 0.0, faceAngle, teamID);
+    public Controllable(double x, double y, int radius, double faceAngle, int teamID, Map map) {
+        super(x, y, radius, 0.0, faceAngle, teamID, map);
         storage = 0;
         thrustF = 0;
         thrustRotR = 0;
