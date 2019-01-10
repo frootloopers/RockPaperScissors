@@ -19,7 +19,14 @@ public class Ship extends Controllable {
      * @param faceAngle the angle the entity faces when created
      * @param teamID the ID of the team this entity belongs to
      */
-    public Ship(double x, double y, double faceAngle, int teamID) {
-        super(x, y, RADIUS_SHIP, faceAngle, teamID);
+    public Ship(double x, double y, double faceAngle, int  teamID) {
+        super(x, y, RADIUS_SHIP, faceAngle, teamID);  
+    }
+    
+    /**
+     * Jia
+     */
+    public void fireBullet(){
+        map.addBullet();
     }
 }
