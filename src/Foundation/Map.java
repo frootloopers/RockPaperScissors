@@ -5,6 +5,7 @@
  */
 package Foundation;
 
+import Blocks.Pos;
 import Entities.Bullet;
 import Entities.Drone;
 import Entities.Entity;
@@ -24,14 +25,14 @@ public class Map {
     private ArrayList<Bullet> Bullets;
     private int teams;
     private final static int harvestables = 5;
-    
+
     public Map(int teams) {
         this.teams = teams;
         Entities = new Entity[teams * 4];
         Harvestables = new Harvestable[harvestables];
         Bullets = new ArrayList<>();
-        
-        for(int x = 0; x<Entities.length;x+=4){
+
+        for (int x = 0; x < Entities.length; x += 4) {
 //        Entities[x]=new Ship();
 //        Entities[x+1]=new Drone();
 //        Entities[x+2]=new Drone();
@@ -74,5 +75,22 @@ public class Map {
      */
     public ArrayList<Bullet> getBullets() {
         return Bullets;
+    }
+
+    /**
+     * Returns a list of all bullets
+     *
+     * @return
+     */
+    public ArrayList<Entity> aoe(Pos pos, double range) {
+        ArrayList<Entity> temp = new ArrayList<>();
+        //find the ones within the range
+
+        for (Entity e : Entities) {
+            if (Math.abs(pos.x - (e.getPos().x)) + Math.abs(pos.y - (e.getPos().y)) <= range) {
+                temp.add(e);
+            }
+        }
+        return temp;
     }
 }

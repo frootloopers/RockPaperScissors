@@ -89,6 +89,13 @@ public abstract class Entity {
         return radius;
     }
 
+    public boolean checkCollision(Entity other) {
+        if (Math.sqrt((pos.x - other.pos.x) * (pos.x - other.pos.x)) + ((pos.y - other.pos.y) * (pos.y - other.pos.y)) <= (radius + other.radius)) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Gets the map the entity is in
      *
