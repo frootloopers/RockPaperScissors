@@ -7,7 +7,6 @@ package Entities;
 
 import Blocks.Vel;
 import Foundation.Map;
-import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -29,17 +28,19 @@ public abstract class Movable extends Entity {
      */
     public Movable(double x, double y, int radius, double speed, double faceAngle, int teamID, Map map) {
         super(x, y, radius, teamID, map);
-        /*
-         HAVE TO DETERMINE X AND Y VELOCITY BASED OFF OF SPEED AND FACEANAGLE
-         */
-        vel = new Vel(0.0, 0.0);
+        //the maximum speed is 1 pixel per frame
+        if (speed > 1.0) {
+            speed = 1.0;
+        }
+        vel = new Vel(Math.sin(Math.toRadians(faceAngle)) * speed, Math.cos(Math.toRadians(faceAngle)) * -1 * speed);
+        //the faceAngle does not have to be between 0 and 360
         this.faceAngle = faceAngle;
     }
 
     /**
      * the velocity object of this entity
      */
-    private Vel vel;
+    protected Vel vel;
     /**
      * the angle at which the entity is facing. A value of 0 represents a value
      * horizontally and to the right and the angle is measured in radians

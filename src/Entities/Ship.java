@@ -25,4 +25,18 @@ public class Ship extends Controllable {
     public Ship(double x, double y, double faceAngle, int teamID, Map map) {
         super(x, y, RADIUS_SHIP, faceAngle, teamID, map);
     }
+
+    private final double FIREPOWER = 1;
+
+    /**
+     * By Jia Jia: This spawns a bullet in the map.
+     */
+    public void fireBullet() {
+        map.addBullet(new Bullet(pos.x, pos.y, faceAngle, FIREPOWER, teamID, map));
+        //todo: remove resources
+    }
+
+    public void pulse() {
+        //todo: find and damage valid targets, remove resources
+    }
 }

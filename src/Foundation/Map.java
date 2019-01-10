@@ -5,6 +5,7 @@
  */
 package Foundation;
 
+import Blocks.Pos;
 import Entities.Bullet;
 import Entities.Drone;
 import Entities.Entity;
@@ -44,7 +45,7 @@ public class Map {
      *
      * @param bullet
      */
-    protected void addBullet(Bullet bullet) {
+    public void addBullet(Bullet bullet) {
         Bullets.add(bullet);
     }
 
@@ -74,5 +75,22 @@ public class Map {
      */
     public ArrayList<Bullet> getBullets() {
         return Bullets;
-    }F
+    }
+
+    /**
+     * Returns a list of all bullets
+     *
+     * @return
+     */
+    public ArrayList<Entity> aoe(Pos pos, double range) {
+        ArrayList<Entity> temp = new ArrayList<>();
+        //find the ones within the range
+
+        for (Entity e : Entities) {
+            if (Math.abs(pos.x - (e.getPos().x)) + Math.abs(pos.y - (e.getPos().y)) <= range) {
+                temp.add(e);
+            }
+        }
+        return temp;
+    }
 }

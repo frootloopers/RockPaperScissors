@@ -46,18 +46,17 @@ public abstract class Entity {
     }
 
     /*
-    * The map object the entity is in
+     * The map object the entity is in
      */
-    private final Map map;
-
+    protected final Map map;
     /**
      * the position object of this entity
      */
-    private Pos pos;
+    protected Pos pos;
     /**
      * the ID of the team this entity belongs to
      */
-    private final int teamID;
+    protected final int teamID;
 
     /**
      * the radius of the hit-box of the entity
@@ -96,6 +95,15 @@ public abstract class Entity {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Gets the map the entity is in
+     *
+     * @return the map the entity is in
+     */
+    public Map getMap() {
+        return map;
     }
 
     /**
