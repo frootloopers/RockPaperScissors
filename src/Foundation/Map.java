@@ -24,14 +24,14 @@ public class Map {
     private ArrayList<Bullet> Bullets;
     private int teams;
     private final static int harvestables = 5;
-    
+
     public Map(int teams) {
         this.teams = teams;
         Entities = new Entity[teams * 4];
         Harvestables = new Harvestable[harvestables];
         Bullets = new ArrayList<>();
-        
-        for(int x = 0; x<Entities.length;x+=4){
+
+        for (int x = 0; x < Entities.length; x += 4) {
 //        Entities[x]=new Ship();
 //        Entities[x+1]=new Drone();
 //        Entities[x+2]=new Drone();

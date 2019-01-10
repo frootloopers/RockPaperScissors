@@ -47,9 +47,9 @@ public abstract class Entity {
 
     /*
     * The map object the entity is in
-    */
+     */
     private final Map map;
-    
+
     /**
      * the position object of this entity
      */
@@ -89,6 +89,13 @@ public abstract class Entity {
      */
     public int getRadius() {
         return radius;
+    }
+
+    public boolean checkCollision(Entity other) {
+        if (Math.sqrt((pos.x - other.pos.x) * (pos.x - other.pos.x)) + ((pos.y - other.pos.y) * (pos.y - other.pos.y)) <= (radius + other.radius)) {
+            return true;
+        }
+        return false;
     }
 
     /**
