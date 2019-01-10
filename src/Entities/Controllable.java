@@ -141,7 +141,7 @@ public abstract class Controllable extends Movable {
     /**
      * Set the left rotational thruster to rotate the entity
      *
-     * @param thrustRotL the percent of the right rotation thruster being used.
+     * @param thrustRotL the percent of the left rotation thruster being used.
      * The value must be between 0 and 100, inclusive. Thruster rotates
      * clockwise
      * @throws IllegalArgumentException
@@ -151,6 +151,28 @@ public abstract class Controllable extends Movable {
             throw new IllegalArgumentException();
         }
         this.thrustRotL = thrustRotL;
+    }
+
+    @Override
+    protected void move() {
+        //maintain maximum velocity of 1 pixel per frame
+        if (vel.getSpeed() > 1.0) {
+            vel.x = vel.x / vel.getSpeed();
+            vel.y = vel.y / vel.getSpeed();
+        }
+
+        //apply decay **ONLY WORKS FOR X AXIS NEED TO APPLY TO TOTAL**
+        /*
+         if (vel.x < 0.0005 && vel.x > -0.0005) {
+         vel.x = 0;
+         } else if (vel.x < 0.0) {
+         vel.x += VEL_DECAY;
+         } else if (vel.x > 0.0) {
+         vel.x -= VEL_DECAY;
+         }
+         */
+        
+        super.move();
     }
 
 }

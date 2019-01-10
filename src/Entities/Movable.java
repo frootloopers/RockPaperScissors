@@ -64,7 +64,15 @@ public abstract class Movable extends Entity {
      * radians
      */
     public double getFaceAngle() {
-        return faceAngle;
+        double angle = faceAngle;
+        //reset faceAngle
+        while (angle >= 360.0) {
+            angle -= 360.0;
+        }
+        while (angle < 0.0) {
+            angle += 360.0;
+        }
+        return angle;
     }
 
     @Override
@@ -74,4 +82,14 @@ public abstract class Movable extends Entity {
                 (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
                 (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))));
     }
+
+    /**
+     * Must be called each frame of the game to move the entity
+     */
+    protected void move() {
+        //changes the position according to the velocity
+        pos.x += vel.x;
+        pos.y += vel.y;
+    }
+
 }

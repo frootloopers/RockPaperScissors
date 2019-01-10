@@ -27,7 +27,6 @@ public abstract class Entity {
     protected static final double SHIP_ROT_STRENGTH = 0.025;
     protected static final double DRONE_STERN_STRENGTH = 0.05;
     protected static final double SHIP_STERN_STRENGTH = 0.025;
-    protected static final double DRONE_SIDE_STRENGTH = 0.05;
 
     /**
      * Creates an entity
