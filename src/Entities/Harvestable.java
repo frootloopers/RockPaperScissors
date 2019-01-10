@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import Foundation.Map;
+
 /**
  *
  * @author John Popovici
@@ -16,9 +18,10 @@ public class Harvestable extends Entity {
      *
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
+     * @param map the map the entity is in
      */
-    public Harvestable(double x, double y) {
+    public Harvestable(double x, double y, Map map) {
         //harvestable is not a team entity
-        super(x, y, RADIUS_HARVESTABLE, 0);
+        super(x, y, RADIUS_HARVESTABLE, 0, map);
     }
 }

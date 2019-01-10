@@ -5,6 +5,8 @@
  */
 package Entities;
 
+import Foundation.Map;
+
 /**
  *
  * @author John Popovici
@@ -18,8 +20,9 @@ public class Ship extends Controllable {
      * @param y the position value of the entity on the y-axis
      * @param faceAngle the angle the entity faces when created
      * @param teamID the ID of the team this entity belongs to
+     * @param map the map the entity is in
      */
-    public Ship(double x, double y, double faceAngle, int teamID) {
-        super(x, y, RADIUS_SHIP, faceAngle, teamID);
+    public Ship(double x, double y, double faceAngle, int teamID, Map map) {
+        super(x, y, RADIUS_SHIP, faceAngle, teamID, map);
     }
 }
