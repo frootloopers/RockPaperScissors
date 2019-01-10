@@ -29,17 +29,15 @@ public abstract class Movable extends Entity {
      */
     public Movable(double x, double y, int radius, double speed, double faceAngle, int teamID, Map map) {
         super(x, y, radius, teamID, map);
-        /*
-         HAVE TO DETERMINE X AND Y VELOCITY BASED OFF OF SPEED AND FACEANAGLE
-         */
-        vel = new Vel(0.0, 0.0);
+        faceAngle = 
+        //vel = new Vel(0.0, 0.0);
         this.faceAngle = faceAngle;
     }
 
     /**
      * the velocity object of this entity
      */
-    private Vel vel;
+    protected Vel vel;
     /**
      * the angle at which the entity is facing. A value of 0 represents a value
      * horizontally and to the right and the angle is measured in radians

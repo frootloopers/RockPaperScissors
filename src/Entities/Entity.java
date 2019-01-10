@@ -20,7 +20,7 @@ public abstract class Entity {
     protected static final int RADIUS_PROJECTILE = 2;
     protected static final int RADIUS_SHIP = 15;
     protected static final int RADIUS_DRONE = 5;
-    
+
     protected static final double VEL_DECAY = 0.005;
     protected static final double DRONE_ROT_STRENGTH = 0.05;
     protected static final double SHIP_ROT_STRENGTH = 0.025;
@@ -45,18 +45,17 @@ public abstract class Entity {
     }
 
     /*
-    * The map object the entity is in
-    */
-    private final Map map;
-    
+     * The map object the entity is in
+     */
+    protected final Map map;
     /**
      * the position object of this entity
      */
-    private Pos pos;
+    protected Pos pos;
     /**
      * the ID of the team this entity belongs to
      */
-    private final int teamID;
+    protected final int teamID;
 
     /**
      * the radius of the hit-box of the entity
@@ -88,6 +87,15 @@ public abstract class Entity {
      */
     public int getRadius() {
         return radius;
+    }
+
+    /**
+     * Gets the map the entity is in
+     *
+     * @return the map the entity is in
+     */
+    public Map getMap() {
+        return map;
     }
 
     /**
