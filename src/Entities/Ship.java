@@ -6,6 +6,7 @@
 package Entities;
 
 import Foundation.Map;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,6 +28,8 @@ public class Ship extends Controllable {
     }
 
     private final double FIREPOWER = 1;
+    private final double PULSERANGE = 10;
+    private final double PULSEDMG = 100;
 
     /**
      * By Jia Jia: This spawns a bullet in the map.
@@ -36,8 +39,19 @@ public class Ship extends Controllable {
         //todo: remove resources
     }
 
+    /**
+     * By Jia Jia: Fire a pulse lowering the score of enemies within PULSERANGE by PULSEDMG.
+     */
     public void pulse() {
-        //todo: find and damage valid targets, remove resources
+        //get the enemies within range
+        ArrayList<Entity> temp = map.aoe(pos, PULSERANGE);
+        for (Entity e : temp) {
+            int sc = e.getTeamID();
+            //damage the team if an enemy team
+            if (sc != this.getTeamID()) {
+                map.Teams[sc].subScore(100);
+            }
+        }
     }
 
     @Override

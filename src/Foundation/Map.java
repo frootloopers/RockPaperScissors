@@ -23,11 +23,11 @@ public class Map {
     private Entity[] Entities;
     private Harvestable[] Harvestables;
     private ArrayList<Bullet> Bullets;
-    private int teams;
     private final static int harvestables = 5;
+    public Team[] Teams;
 
     public Map(int teams) {
-        this.teams = teams;
+        this.Teams = new Team[teams];
         Entities = new Entity[teams * 4];
         Harvestables = new Harvestable[harvestables];
         Bullets = new ArrayList<>();
@@ -84,10 +84,9 @@ public class Map {
      */
     public ArrayList<Entity> aoe(Pos pos, double range) {
         ArrayList<Entity> temp = new ArrayList<>();
-        //find the ones within the range
-
+        //find targets within the range
         for (Entity e : Entities) {
-            if (Math.abs(pos.x - (e.getPos().x)) + Math.abs(pos.y - (e.getPos().y)) <= range) {
+            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x),2) + (Math.pow(pos.y - (e.getPos().y),2)))<= range) {
                 temp.add(e);
             }
         }
