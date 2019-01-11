@@ -27,6 +27,7 @@ public class Ship extends Controllable {
         super(x, y, RADIUS_SHIP, faceAngle, teamID, map);
     }
 
+    //bullet 
     private final double FIREPOWER = 1;
     private final double FIRECOST = 1;
     private final double PULSERANGE = 10;
