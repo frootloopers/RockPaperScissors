@@ -91,7 +91,7 @@ public abstract class Movable extends Entity {
     /**
      * Must be called each frame of the game to move the entity
      */
-    protected void move() {
+    public void move() {
         //changes the position according to the velocity
         pos.x += vel.x;
         pos.y += vel.y;

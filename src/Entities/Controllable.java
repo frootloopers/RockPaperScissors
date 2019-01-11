@@ -159,7 +159,7 @@ public abstract class Controllable extends Movable {
     }
 
     @Override
-    protected void move() {
+    public void move() {
         //maintain maximum velocity of 1 pixel per frame
         if (vel.getSpeed() > 1.0) {
             vel.x = vel.x / vel.getSpeed();
