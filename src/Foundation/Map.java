@@ -78,7 +78,7 @@ public class Map {
     }
 
     /**
-     * Returns a list of all bullets
+     * Returns a list of all entities within a striking range
      *
      * @return
      */
