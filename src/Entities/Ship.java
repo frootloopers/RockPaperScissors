@@ -28,29 +28,39 @@ public class Ship extends Controllable {
     }
 
     private final double FIREPOWER = 1;
+    private final double FIRECOST = 1;
     private final double PULSERANGE = 10;
     private final double PULSEDMG = 100;
+    private final double PULSECOST = 1;
 
     /**
      * By Jia Jia: This spawns a bullet in the map.
      */
     public void fireBullet() {
-        map.addBullet(new Bullet(pos.x, pos.y, faceAngle, FIREPOWER, teamID, map));
-        //todo: remove resources
+        if (hasAct) {
+            hasAct = false;
+            map.addBullet(new Bullet(pos.x, pos.y, faceAngle, FIREPOWER, teamID, map));
+            storage-=FIRECOST;
+        }
     }
 
     /**
-     * By Jia Jia: Fire a pulse lowering the score of enemies within PULSERANGE by PULSEDMG.
+     * By Jia Jia: Fire a pulse lowering the score of enemies within PULSERANGE
+     * by PULSEDMG.
      */
     public void pulse() {
-        //get the enemies within range
-        ArrayList<Entity> temp = map.aoe(pos, PULSERANGE);
-        for (Entity e : temp) {
-            int sc = e.getTeamID();
-            //damage the team if an enemy team
-            if (sc != this.getTeamID()) {
-                map.Teams[sc].subScore(100);
+        if (hasAct) {
+            hasAct = false;
+            //get the enemies within range
+            ArrayList<Entity> temp = map.aoe(pos, PULSERANGE);
+            for (Entity e : temp) {
+                int sc = e.getTeamID();
+                //damage the team if an enemy team
+                if (sc != this.getTeamID()) {
+                    map.Teams[sc].subScore(100);
+                }
             }
+            storage-=PULSECOST;
         }
     }
 
