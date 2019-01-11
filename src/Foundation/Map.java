@@ -41,7 +41,7 @@ public class Map {
     }
 
     /**
-     * Returns a list of harvestables
+     * Add a bullet to the map
      *
      * @param bullet
      */
