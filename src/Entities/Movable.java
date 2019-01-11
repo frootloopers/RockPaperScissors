@@ -46,6 +46,11 @@ public abstract class Movable extends Entity {
      * horizontally and to the right and the angle is measured in radians
      */
     protected double faceAngle;
+    /**
+     * whether the entity has moved this frame such that the move method only
+     * functions once per frame even if called multiple times
+     */
+    protected boolean hasMove = true;
 
     /**
      * Gets the velocity object of the entity
@@ -90,6 +95,8 @@ public abstract class Movable extends Entity {
         //changes the position according to the velocity
         pos.x += vel.x;
         pos.y += vel.y;
+        //tells the entity has moved this frame
+        hasMove = false;
     }
 
 }
