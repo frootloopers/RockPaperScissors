@@ -28,6 +28,7 @@ public abstract class Saviour {
             String[] temp = input.nextLine().split(",");
             scores.add(new Team(Integer.parseInt(temp[1]), temp[0]));
         }
+        input.close();
         return scores;
     }
 
