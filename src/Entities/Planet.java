@@ -16,6 +16,7 @@ public class Planet extends Entity {
     /**
      * Creates a planet entity
      *
+     * @author John Popovici
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
      * @param teamID the ID of the team this entity belongs to

@@ -18,6 +18,7 @@ public abstract class Movable extends Entity {
     /**
      * Creates a movable entity
      *
+     * @author John Popovici
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
      * @param radius the radius of the hit-box of the entity
@@ -90,6 +91,8 @@ public abstract class Movable extends Entity {
 
     /**
      * Must be called each frame of the game to move the entity
+     *
+     * @author John Popovici
      */
     public void move() {
         //changes the position according to the velocity
