@@ -6,12 +6,7 @@
 package Foundation;
 
 import Blocks.Pos;
-import Entities.Bullet;
-import Entities.Drone;
-import Entities.Entity;
-import Entities.Harvestable;
-import Entities.Planet;
-import Entities.Ship;
+import Entities.*;
 import java.util.ArrayList;
 
 /**
@@ -107,9 +102,11 @@ public class Map {
      */
     public void moveAll() {
         for (Entity e : Entities) {
-            e.move();
+            if(e instanceof Movable){
+            ((Movable)e).move();
+            }
         }
-        for (Entity e : Bullets) {
+        for (Movable e : Bullets) {
             e.move();
         }
     }
