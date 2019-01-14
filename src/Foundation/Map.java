@@ -8,6 +8,7 @@ package Foundation;
 import Blocks.Pos;
 import Entities.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -27,6 +28,7 @@ public class Map {
     private Team[] Teams;
     private int xMax;
     private int yMax;
+    private Random rand=new Random();
 
     public Map(int teams, int xMax, int yMax) {
         this.Teams = new Team[teams];
@@ -40,16 +42,49 @@ public class Map {
     public void reset() {
         switch (Teams.length) {
             case 2:
+                Entities[0]=new Planet(20,20,1,this);
+                Entities[1]=new Ship(30,30,135,1,this);
+                Entities[2]=new Drone(30,20,135,1,this);
+                Entities[3]=new Drone(20,30,135,1,this);
+                
+                Entities[4]=new Planet(xMax-20,20,3,this);
+                Entities[5]=new Ship(xMax-30,30,225,1,this);
+                Entities[6]=new Drone(xMax-30,20,225,1,this);
+                Entities[7]=new Drone(xMax-20,30,225,1,this);
                 break;
             case 4:
                 Entities[0]=new Planet(20,20,1,this);
-                Entities[0]=new Planet(20,yMax-20,2,this);
-                Entities[0]=new Planet(xMax-20,20,3,this);
-                Entities[0]=new Planet(xMax-20,yMax-20,4,this);
+                Entities[1]=new Ship(30,30,135,1,this);
+                Entities[2]=new Drone(30,20,135,1,this);
+                Entities[3]=new Drone(20,30,135,1,this);
+                
+                Entities[4]=new Planet(xMax-20,20,3,this);
+                Entities[5]=new Ship(xMax-30,30,225,1,this);
+                Entities[6]=new Drone(xMax-30,20,225,1,this);
+                Entities[7]=new Drone(xMax-20,30,225,1,this);
+                
+                Entities[8]=new Planet(20,yMax-20,2,this);
+                Entities[9]=new Ship(30,yMax-30,45,1,this);
+                Entities[10]=new Drone(30,yMax-20,45,1,this);
+                Entities[11]=new Drone(20,yMax-30,45,1,this);
+                
+                Entities[12]=new Planet(xMax-20,yMax-20,4,this);
+                Entities[13]=new Ship(xMax-30,yMax-30,315,1,this);
+                Entities[14]=new Drone(xMax-30,yMax-20,315,1,this);
+                Entities[15]=new Drone(xMax-20,yMax-30,315,1,this);
                 break;
             default:
                 throw new java.lang.Error("ERROR");
         }
+    }
+
+    /**
+     * Put the rock somewhere else
+     * 
+     * @param h The rock you want to reset.
+     */
+    public void newRock(Harvestable h) {
+        h=new Harvestable(rand.nextInt(xMax),rand.nextInt(yMax),this);
     }
 
     /**
