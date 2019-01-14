@@ -74,11 +74,11 @@ public abstract class Movable extends Entity {
         }
         return angle;
     }
-    
+
     /**
-     *  Draw the icon representing the movable has line which represent 
-     * the faceAngle of the movable
-     * 
+     * Draw the icon representing the movable has line which represent the
+     * faceAngle of the movable
+     *
      * @param g the graphics used to draw the entity
      * @param scale the scale of the game board, at which the entity is drawn
      * @param offsetX the offset of the x-value of the game board, at which the
@@ -101,6 +101,11 @@ public abstract class Movable extends Entity {
         //changes the position according to the velocity
         pos.x += vel.x;
         pos.y += vel.y;
+    }
+
+    public void collision() {
+        vel.x = -vel.x;
+        vel.y = -vel.y;
     }
 
 }

@@ -93,4 +93,16 @@ public class Map {
         }
         return temp;
     }
+    
+    public void collide(){
+        for(int i =0; i<Entities.length; i++)
+            for(int j = i; j<Entities.length; j++)
+                if(Entities[i].checkCollision(Entities[j]))
+                    if(Entities[i] isInstancef Moveable)
+                        //Entities[i]
+      //  Entities - Harvestables
+      //  Entities - Bullets
+      //  Bullets - Harvestables
+    }
+    
 }
