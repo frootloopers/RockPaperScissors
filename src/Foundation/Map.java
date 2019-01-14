@@ -81,33 +81,38 @@ public class Map {
         ArrayList<Entity> temp = new ArrayList<>();
         //find targets within the range
         for (Entity e : Entities) {
-            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x),2) + (Math.pow(pos.y - (e.getPos().y),2)))<= range) {
+            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) <= range) {
                 temp.add(e);
             }
         }
         return temp;
     }
-    
-    public void collide(){
+
+    public void collide() {
         //  Entities - Entities
-        for(int i =0; i<Entities.length; i++){
-            for(int j = i; j<Entities.length; j++)
-                if(Entities[i].checkCollision(Entities[j])){
-                    if(Entities[i] instanceof Movable)
-                        ((Movable)Entities[i]).collision();
-                    if(Entities[j] instanceof Movable)
-                        ((Movable)Entities[j]).collision();
+        for (int i = 0; i < Entities.length; i++) {
+            for (int j = i; j < Entities.length; j++) {
+                if (Entities[i].checkCollision(Entities[j])) {
+                    if (Entities[i] instanceof Movable) {
+                        ((Movable) Entities[i]).collision();
+                    }
+                    if (Entities[j] instanceof Movable) {
+                        ((Movable) Entities[j]).collision();
+                    }
                 }
-      //  Entities - Harvestables
-      
-            for(int j = i; j<Harvestables.length; j++)
-                if(Entities[i].checkCollision(Harvestables[j])){
-                    if(Entities[i] instanceof Drone)
- //                       ((Drone)Entities[i]).collideHarvestable(Harvestables[j]);
+            }
+            //  Entities - Harvestables
+
+            for (int j = i; j < Harvestables.length; j++) {
+                if (Entities[i].checkCollision(Harvestables[j])) {
+                    if (Entities[i] instanceof Drone) //                       ((Drone)Entities[i]).collideHarvestable(Harvestables[j]);
+                    {
                         Harvestables[j] = null; //this is temp
-                        }
-      //  Entities - Bullets
-      //  Bullets - Harvestables
-    }
+                    }
+                }
+            }
+            //  Entities - Bullets
+            //  Bullets - Harvestables
+        }
     }
 }
