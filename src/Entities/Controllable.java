@@ -17,6 +17,7 @@ public abstract class Controllable extends Movable {
     /**
      * Creates a controllable entity
      *
+     * @author John Popovici
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
      * @param radius the radius of the hit-box of the entity
@@ -32,17 +33,6 @@ public abstract class Controllable extends Movable {
         thrustRotL = 0;
     }
 
-    /**
-     *  Draw the icon representing the controllable has line and triangle
-     * which represent the faceAngle of the controllable
-     * 
-     * @param g the graphics used to draw the entity
-     * @param scale the scale of the game board, at which the entity is drawn
-     * @param offsetX the offset of the x-value of the game board, at which the
-     * entity is drawn
-     * @param offsetY the offset of the y-value of the game board, at which the
-     * entity is drawn
-     */
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         super.draw(g, scale, offsetX, offsetY);
@@ -173,20 +163,22 @@ public abstract class Controllable extends Movable {
     public void move() {
         //maintain maximum velocity of 1 pixel per frame
         if (vel.getSpeed() > 1.0) {
-            vel.x = vel.x / vel.getSpeed();
-            vel.y = vel.y / vel.getSpeed();
+            double newx = vel.x / vel.getSpeed();
+            double newy = vel.y / vel.getSpeed();
+            vel.x = newx;
+            vel.y = newy;
         }
 
-        //apply decay **ONLY WORKS FOR X AXIS NEED TO APPLY TO TOTAL**
-        /*
-         if (vel.x < 0.0005 && vel.x > -0.0005) {
-         vel.x = 0;
-         } else if (vel.x < 0.0) {
-         vel.x += VEL_DECAY;
-         } else if (vel.x > 0.0) {
-         vel.x -= VEL_DECAY;
-         }
-         */
+        //decay velocity
+        if (vel.x < 0.001 && vel.x > -0.001) {
+            vel.x = 0;
+        } else {
+            double newx = (vel.x / vel.getSpeed()) * (vel.getSpeed() - VEL_DECAY);
+            double newy = (vel.y / vel.getSpeed()) * (vel.getSpeed() - VEL_DECAY);
+            vel.x = newx;
+            vel.y = newy;
+        }
+
         super.move();
     }
 

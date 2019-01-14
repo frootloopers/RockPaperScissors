@@ -5,8 +5,7 @@
  */
 package GUI;
 
-import Entities.Entity;
-import Entities.Ship;
+import Entities.*;
 import Foundation.Map;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -33,7 +32,7 @@ public class TestingPanel extends javax.swing.JPanel {
      */
     public TestingPanel() {
         initComponents();
-        GameBoard = new Map(4);
+        GameBoard = new Map(4, 900, 500);
         Timer t = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -65,13 +64,23 @@ public class TestingPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
     public void paintComponent(Graphics g) {
         Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
-        Ship a = new Ship(100.0, 100.0, 0.0, 5, GameBoard);
+        Ship a = new Ship(400.0, 400.0, 0.0, 5, GameBoard);
         //a.setThrustF(5);
         g.drawImage(img, 0, 0, 400, 300, this);
         a.draw(g, 1, 0, 0);
+
+        Map map = new Map(1, 900, 500);
+        Drone d = new Drone(100.0, 100.0, 135.0, 1, map);
+        d.draw(g, 1.0, 1, 1);
+        d.setThrustF(100);
+        d.move();
+        System.out.println(d.getPos().x);
+        
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

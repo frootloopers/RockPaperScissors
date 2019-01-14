@@ -66,7 +66,8 @@ public class Vel {
      *
      * @return the angle at which the entity is traveling. The angle is in
      * degrees where 0 is vertically upwards and the values increase in a
-     * clockwise direction. Special case if unmoving the angle is 0.0
+     * clockwise direction. The angle of movement is not necessarily equal to
+     * the angle the entity is facing. Special case if unmoving the angle is 0.0
      */
     public double getAngle() {
         if (x == 0.0 && y == 0.0) { //special case, not moving
