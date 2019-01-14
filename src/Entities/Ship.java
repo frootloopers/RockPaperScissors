@@ -6,6 +6,7 @@
 package Entities;
 
 import Foundation.Map;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,22 +27,47 @@ public class Ship extends Controllable {
         super(x, y, RADIUS_SHIP, faceAngle, teamID, map);
     }
 
+    //pertaining to bullet
     private final double FIREPOWER = 1;
+    private final double FIRECOST = 1;
+    //pertaining to the aoe attack
+    private final double PULSERANGE = 10;
+    private final double PULSEDMG = 100;
+    private final double PULSECOST = 1;
 
     /**
      * By Jia Jia: This spawns a bullet in the map.
      */
     public void fireBullet() {
-        map.addBullet(new Bullet(pos.x, pos.y, faceAngle, FIREPOWER, teamID, map));
-        //todo: remove resources
+        if (hasAct) {
+            hasAct = false;
+            map.addBullet(new Bullet(pos.x, pos.y, faceAngle, FIREPOWER, teamID, map));
+            storage-=FIRECOST;
+        }
     }
 
+    /**
+     * By Jia Jia: Fire a pulse lowering the score of enemies within PULSERANGE
+     * by PULSEDMG.
+     */
     public void pulse() {
-        //todo: find and damage valid targets, remove resources
+        if (hasAct) {
+            hasAct = false;
+            //get the enemies within range
+            ArrayList<Entity> temp = map.aoe(pos, PULSERANGE);
+            for (Entity e : temp) {
+                int sc = e.getTeamID();
+                //damage the team if an enemy team
+                if (sc != this.getTeamID()) {
+                    map.Teams[sc].subScore(100);
+                }
+            }
+            storage-=PULSECOST;
+        }
     }
 
     @Override
-    protected void move() {
+    public void move() {
         //add acceleration
         vel.x += Math.sin(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);
         vel.y -= Math.cos(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);

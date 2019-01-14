@@ -27,7 +27,7 @@ public class Drone extends Controllable {
     }
 
     @Override
-    protected void move() {
+    public void move() {
         //add acceleration
         vel.x += Math.sin(Math.toRadians(faceAngle)) * (thrustF / 100.0 * DRONE_STERN_STRENGTH);
         vel.y -= Math.cos(Math.toRadians(faceAngle)) * (thrustF / 100.0 * DRONE_STERN_STRENGTH);

@@ -80,6 +80,11 @@ public abstract class Controllable extends Movable {
      * between 0 and 100, inclusive. Thruster rotates clockwise
      */
     protected int thrustRotL;
+    /**
+     * whether the entity has acted this frame such that the move method only
+     * functions once per frame even if called multiple times
+     */
+    protected boolean hasAct = true;
 
     /**
      * Gets the amount of resources stored by the entity
@@ -165,7 +170,7 @@ public abstract class Controllable extends Movable {
     }
 
     @Override
-    protected void move() {
+    public void move() {
         //maintain maximum velocity of 1 pixel per frame
         if (vel.getSpeed() > 1.0) {
             vel.x = vel.x / vel.getSpeed();
@@ -182,7 +187,6 @@ public abstract class Controllable extends Movable {
          vel.x -= VEL_DECAY;
          }
          */
-        
         super.move();
     }
 
