@@ -33,8 +33,8 @@ public class Drone extends Controllable {
         vel.x += Math.sin(Math.toRadians(faceAngle)) * (thrustF / 100.0 * DRONE_STERN_STRENGTH);
         vel.y -= Math.cos(Math.toRadians(faceAngle)) * (thrustF / 100.0 * DRONE_STERN_STRENGTH);
         //add rotation
-        faceAngle -= thrustRotR * DRONE_ROT_STRENGTH;
-        faceAngle += thrustRotL * DRONE_ROT_STRENGTH;
+        faceAngle -= thrustRotR * DRONE_ROT_STRENGTH / 100.0;
+        faceAngle += thrustRotL * DRONE_ROT_STRENGTH / 100.0;
         super.move();
     }
 
