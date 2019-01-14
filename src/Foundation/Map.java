@@ -16,8 +16,10 @@ import java.util.Random;
  */
 public class Map {
 
-    //All player-owned entities
-    private Entity[] Entities;
+    //All player controllables
+    private Entity[] Controllables;
+    //All planets
+    private Entity[] Planets;
     //all raw resources
     private Harvestable[] Harvestables;
     //all damaging projectiles
@@ -28,63 +30,70 @@ public class Map {
     private Team[] Teams;
     private int xMax;
     private int yMax;
-    private Random rand=new Random();
+    private Random rand = new Random();
+
+    private static final int xPlanet = 20;
+    private static final int yPlanet = 20;
 
     public Map(int teams, int xMax, int yMax) {
         this.Teams = new Team[teams];
-        Entities = new Entity[teams * 4];
+        Controllables = new Controllable[teams * 3];
+        Planets = new Planet[teams];
         Harvestables = new Harvestable[harvestables];
         Bullets = new ArrayList<>();
-        this.xMax=xMax;
-        this.yMax=yMax;
+        this.xMax = xMax;
+        this.yMax = yMax;
+        reset();
     }
 
     public void reset() {
         switch (Teams.length) {
             case 2:
-                Entities[0]=new Planet(20,20,1,this);
-                Entities[1]=new Ship(30,30,135,1,this);
-                Entities[2]=new Drone(30,20,135,1,this);
-                Entities[3]=new Drone(20,30,135,1,this);
-                
-                Entities[4]=new Planet(xMax-20,20,3,this);
-                Entities[5]=new Ship(xMax-30,30,225,1,this);
-                Entities[6]=new Drone(xMax-30,20,225,1,this);
-                Entities[7]=new Drone(xMax-20,30,225,1,this);
+                Planets[0] = new Planet(xPlanet, yPlanet, 1, this);
+                Controllables[1] = new Ship(xPlanet + 10, yPlanet + 10, 135, 1, this);
+                Controllables[2] = new Drone(xPlanet + 10, yPlanet, 135, 1, this);
+                Controllables[3] = new Drone(xPlanet, yPlanet + 10, 135, 1, this);
+
+                Planets[4] = new Planet(xMax - xPlanet, yPlanet, 3, this);
+                Controllables[5] = new Ship(xMax - (xPlanet + 10), (yPlanet + 10), 225, 1, this);
+                Controllables[6] = new Drone(xMax - (xPlanet + 10), yPlanet, 225, 1, this);
+                Controllables[7] = new Drone(xMax - xPlanet, (yPlanet + 10), 225, 1, this);
                 break;
+
             case 4:
-                Entities[0]=new Planet(20,20,1,this);
-                Entities[1]=new Ship(30,30,135,1,this);
-                Entities[2]=new Drone(30,20,135,1,this);
-                Entities[3]=new Drone(20,30,135,1,this);
-                
-                Entities[4]=new Planet(xMax-20,20,3,this);
-                Entities[5]=new Ship(xMax-30,30,225,1,this);
-                Entities[6]=new Drone(xMax-30,20,225,1,this);
-                Entities[7]=new Drone(xMax-20,30,225,1,this);
-                
-                Entities[8]=new Planet(20,yMax-20,2,this);
-                Entities[9]=new Ship(30,yMax-30,45,1,this);
-                Entities[10]=new Drone(30,yMax-20,45,1,this);
-                Entities[11]=new Drone(20,yMax-30,45,1,this);
-                
-                Entities[12]=new Planet(xMax-20,yMax-20,4,this);
-                Entities[13]=new Ship(xMax-30,yMax-30,315,1,this);
-                Entities[14]=new Drone(xMax-30,yMax-20,315,1,this);
-                Entities[15]=new Drone(xMax-20,yMax-30,315,1,this);
+                Planets[0] = new Planet(xPlanet, yPlanet, 1, this);
+                Controllables[1] = new Ship(xPlanet + 10, (yPlanet + 10), 135, 1, this);
+                Controllables[2] = new Drone(xPlanet + 10, yPlanet, 135, 1, this);
+                Controllables[3] = new Drone(xPlanet, (yPlanet + 10), 135, 1, this);
+
+                Planets[4] = new Planet(xMax - xPlanet, yPlanet, 3, this);
+                Controllables[5] = new Ship(xMax - (xPlanet + 10), (yPlanet + 10), 225, 1, this);
+                Controllables[6] = new Drone(xMax - (xPlanet + 10), yPlanet, 225, 1, this);
+                Controllables[7] = new Drone(xMax - xPlanet, (yPlanet + 10), 225, 1, this);
+
+                Planets[8] = new Planet(xPlanet, yMax - yPlanet, 2, this);
+                Controllables[9] = new Ship((xPlanet + 10), yMax - (yPlanet + 10), 45, 1, this);
+                Controllables[10] = new Drone((xPlanet + 10), yMax - yPlanet, 45, 1, this);
+                Controllables[11] = new Drone(xPlanet, yMax - (yPlanet + 10), 45, 1, this);
+
+                Planets[12] = new Planet(xMax - xPlanet, yMax - yPlanet, 4, this);
+                Controllables[13] = new Ship(xMax - (xPlanet + 10), yMax - (yPlanet + 10), 315, 1, this);
+                Controllables[14] = new Drone(xMax - (xPlanet + 10), yMax - yPlanet, 315, 1, this);
+                Controllables[15] = new Drone(xMax - xPlanet, yMax - (yPlanet + 10), 315, 1, this);
                 break;
+
             default:
-                throw new java.lang.Error("ERROR");
+                throw new java.lang.Error("ERROR, UNSUPPORTED TEAM NUMBER");
         }
     }
 
     /**
      * Put the rock somewhere else
-     * 
+     *
      * @param h The rock you want to reset.
      */
     public void newRock(Harvestable h) {
-        h=new Harvestable(rand.nextInt(xMax),rand.nextInt(yMax),this);
+        h = new Harvestable(rand.nextInt(xMax), rand.nextInt(yMax), this);
     }
 
     /**
@@ -137,8 +146,8 @@ public class Map {
      */
     public void moveAll() {
         for (Entity e : Entities) {
-            if(e instanceof Movable){
-            ((Movable)e).move();
+            if (e instanceof Movable) {
+                ((Movable) e).move();
             }
         }
         for (Movable e : Bullets) {
@@ -163,12 +172,21 @@ public class Map {
         }
         return temp;
     }
+
+    public void collide() {
+        for (int i = 0; i < Entities.length; i++) {
+            for (int j = i; j < Entities.length; j++) {
+                if (Entities[i].checkCollision(Entities[j])) {
+                    if (Entities[i] 
+                        
+                        isInstancef 
+                }
+            }
+        }
+        Moveable
     
-    public void collide(){
-        for(int i =0; i<Entities.length; i++)
-            for(int j = i; j<Entities.length; j++)
-                if(Entities[i].checkCollision(Entities[j]))
-                    if(Entities[i] isInstancef Moveable)
+
+)
                         //Entities[i]
       //  Entities - Harvestables
       //  Entities - Bullets
