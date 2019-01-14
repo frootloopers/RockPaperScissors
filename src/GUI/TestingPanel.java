@@ -32,7 +32,7 @@ public class TestingPanel extends javax.swing.JPanel {
      */
     public TestingPanel() {
         initComponents();
-        GameBoard = new Map(4);
+        GameBoard = new Map(4, 900, 500);
         Timer t = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
