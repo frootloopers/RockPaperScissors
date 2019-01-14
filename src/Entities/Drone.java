@@ -37,4 +37,8 @@ public class Drone extends Controllable {
         super.move();
     }
 
+    public void collideHarvestable(Harvestable other){
+        if(this.checkCollision(other))
+            storage++;
+    }
 }

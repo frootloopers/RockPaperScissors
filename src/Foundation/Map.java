@@ -6,12 +6,7 @@
 package Foundation;
 
 import Blocks.Pos;
-import Entities.Bullet;
-import Entities.Drone;
-import Entities.Entity;
-import Entities.Harvestable;
-import Entities.Planet;
-import Entities.Ship;
+import Entities.*;
 import java.util.ArrayList;
 
 /**
@@ -94,14 +89,25 @@ public class Map {
     }
     
     public void collide(){
-        for(int i =0; i<Entities.length; i++)
+        //  Entities - Entities
+        for(int i =0; i<Entities.length; i++){
             for(int j = i; j<Entities.length; j++)
-                if(Entities[i].checkCollision(Entities[j]))
-                    if(Entities[i] isInstancef Moveable)
-                        //Entities[i]
+                if(Entities[i].checkCollision(Entities[j])){
+                    if(Entities[i] instanceof Movable)
+                        ((Movable)Entities[i]).collision();
+                    if(Entities[j] instanceof Movable)
+                        ((Movable)Entities[j]).collision();
+                }
       //  Entities - Harvestables
+      
+            for(int j = i; j<Harvestables.length; j++)
+                if(Entities[i].checkCollision(Harvestables[j])){
+                    if(Entities[i] instanceof Drone)
+ //                       ((Drone)Entities[i]).collideHarvestable(Harvestables[j]);
+                        Harvestables[j] = null; //this is temp
+                        }
       //  Entities - Bullets
       //  Bullets - Harvestables
     }
-    
+    }
 }

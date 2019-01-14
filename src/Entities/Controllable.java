@@ -60,6 +60,11 @@ public abstract class Controllable extends Movable {
                 (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle + 120))));
 
     }
+    
+     public void collideBullet(Bullet other){
+        if(this.checkCollision(other))
+            storage = 0;
+    }
 
     /**
      * the amount of resources stored by the entity
