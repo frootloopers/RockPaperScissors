@@ -20,30 +20,47 @@ import java.util.ArrayList;
  */
 public class Map {
 
+    //All player-owned entities
     private Entity[] Entities;
+    //all raw resources
     private Harvestable[] Harvestables;
+    //all damaging projectiles
     private ArrayList<Bullet> Bullets;
+    //default # of resource nodes that spawn on the map
     private final static int harvestables = 5;
-    public Team[] Teams;
+    //list of teams
+    private Team[] Teams;
+    private int xMax;
+    private int yMax;
 
-    public Map(int teams) {
+    public Map(int teams, int xMax, int yMax) {
         this.Teams = new Team[teams];
         Entities = new Entity[teams * 4];
         Harvestables = new Harvestable[harvestables];
         Bullets = new ArrayList<>();
+        this.xMax=xMax;
+        this.yMax=yMax;
+    }
 
-        for (int x = 0; x < Entities.length; x += 4) {
-//        Entities[x]=new Ship();
-//        Entities[x+1]=new Drone();
-//        Entities[x+2]=new Drone();
-//        Entities[x+3]=new Planet();
+    public void reset() {
+        switch (Teams.length) {
+            case 2:
+                break;
+            case 4:
+                Entities[0]=new Planet(20,20,1,this);
+                Entities[0]=new Planet(20,yMax-20,2,this);
+                Entities[0]=new Planet(xMax-20,20,3,this);
+                Entities[0]=new Planet(xMax-20,yMax-20,4,this);
+                break;
+            default:
+                throw new java.lang.Error("ERROR");
         }
     }
 
     /**
      * Add a bullet to the map
      *
-     * @param bullet
+     * @param bullet What bullet to add
      */
     public void addBullet(Bullet bullet) {
         Bullets.add(bullet);
@@ -52,10 +69,9 @@ public class Map {
     /**
      * Returns a list of harvestables
      *
-     * @param team
      * @return
      */
-    public Harvestable[] getHarvest(int team) {
+    public Harvestable[] getHarvest() {
         return Harvestables;
     }
 
@@ -78,15 +94,38 @@ public class Map {
     }
 
     /**
-     * Returns a list of all entities within a striking range
+     * Returns a list of all bullets
      *
+     * @return
+     */
+    public Team[] getTeams() {
+        return Teams;
+    }
+
+    /**
+     * Makes all entities act.
+     */
+    public void moveAll() {
+        for (Entity e : Entities) {
+            e.move();
+        }
+        for (Entity e : Bullets) {
+            e.move();
+        }
+    }
+
+    /**
+     * Returns a list of all entities within striking range
+     *
+     * @param pos The position from which to scan (Center point of the entity).
+     * @param range The range of the scan.
      * @return
      */
     public ArrayList<Entity> aoe(Pos pos, double range) {
         ArrayList<Entity> temp = new ArrayList<>();
         //find targets within the range
         for (Entity e : Entities) {
-            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x),2) + (Math.pow(pos.y - (e.getPos().y),2)))<= range) {
+            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) <= range) {
                 temp.add(e);
             }
         }
