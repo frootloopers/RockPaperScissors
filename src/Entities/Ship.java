@@ -42,7 +42,7 @@ public class Ship extends Controllable {
         if (hasAct) {
             hasAct = false;
             map.addBullet(new Bullet(pos.x, pos.y, faceAngle, FIREPOWER, teamID, map));
-            storage-=FIRECOST;
+            storage -= FIRECOST;
         }
     }
 
@@ -59,10 +59,10 @@ public class Ship extends Controllable {
                 int sc = e.getTeamID();
                 //damage the team if an enemy team
                 if (sc != this.getTeamID()) {
-                    map.Teams[sc].subScore(100);
+                    map.getTeams()[sc].subScore(100);
                 }
             }
-            storage-=PULSECOST;
+            storage -= PULSECOST;
         }
     }
 

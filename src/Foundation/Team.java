@@ -38,6 +38,7 @@ public class Team implements Comparable{
         this.aiName = aiName;
     }
 
+    
     public void subScore(int score) {
         this.score-=score;
     }
