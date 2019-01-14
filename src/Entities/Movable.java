@@ -80,6 +80,17 @@ public abstract class Movable extends Entity {
         return angle;
     }
 
+    /**
+     * Draw the icon representing the movable has line which represent the
+     * faceAngle of the movable
+     *
+     * @param g the graphics used to draw the entity
+     * @param scale the scale of the game board, at which the entity is drawn
+     * @param offsetX the offset of the x-value of the game board, at which the
+     * entity is drawn
+     * @param offsetY the offset of the y-value of the game board, at which the
+     * entity is drawn
+     */
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         super.draw(g, scale, offsetX, offsetY);
@@ -97,6 +108,11 @@ public abstract class Movable extends Entity {
         pos.y += vel.y;
         //tells the entity has moved this frame
         hasMove = false;
+    }
+
+    public void collision() {
+        vel.x = -vel.x;
+        vel.y = -vel.y;
     }
 
 }
