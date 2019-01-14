@@ -89,6 +89,12 @@ public abstract class Entity {
         return radius;
     }
 
+    /**
+     * Checks if their should be a collision occurring
+     *
+     * @param other the entity it checks with
+     * @return if a collision should occur
+     */
     public boolean checkCollision(Entity other) {
         if (Math.sqrt((pos.x - other.pos.x) * (pos.x - other.pos.x)) + ((pos.y - other.pos.y) * (pos.y - other.pos.y)) <= (radius + other.radius)) {
             return true;
@@ -123,6 +129,7 @@ public abstract class Entity {
          * break; case(4): g.setColor(Color.YELLOW); break; default:
          * g.setColor(Color.LIGHT_GRAY); break; }
          */
+        g.setColor(Color.LIGHT_GRAY);
         g.fillOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);
         g.setColor(Color.black);
         g.drawOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);
