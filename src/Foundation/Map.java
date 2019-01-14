@@ -17,9 +17,9 @@ import java.util.Random;
 public class Map {
 
     //All player controllables
-    private Entity[] Controllables;
+    private Controllable[] Controllables;
     //All planets
-    private Entity[] Planets;
+    private Planet[] Planets;
     //all raw resources
     private Harvestable[] Harvestables;
     //all damaging projectiles
@@ -119,8 +119,17 @@ public class Map {
      *
      * @return
      */
-    public Entity[] getEntities() {
-        return Entities;
+    public Controllable[] getControllables() {
+        return Controllables;
+    }
+
+    /**
+     * Returns a list of all AI objects
+     *
+     * @return
+     */
+    public Planet[] getPlanets() {
+        return Planets;
     }
 
     /**
