@@ -5,8 +5,7 @@
  */
 package GUI;
 
-import Entities.Entity;
-import Entities.Ship;
+import Entities.*;
 import Foundation.Map;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -56,12 +55,17 @@ public class TestingPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    @Override
     public void paintComponent(Graphics g) {
 
-//        Ship a = new Ship(100, 100, 0, 5);
-//        a.setThrustF(5);
-//        a.draw(g, 1, 0, 0);
+        Map map = new Map(1);
+        Drone d = new Drone(100.0, 100.0, 135.0, 1, map);
+        d.draw(g, 1.0, 1, 1);
+        d.setThrustF(100);
+        d.move();
+        
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
