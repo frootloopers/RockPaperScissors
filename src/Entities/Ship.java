@@ -73,8 +73,8 @@ public class Ship extends Controllable {
         vel.x += Math.sin(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);
         vel.y -= Math.cos(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);
         //add rotation
-        faceAngle -= thrustRotR * SHIP_ROT_STRENGTH;
-        faceAngle += thrustRotL * SHIP_ROT_STRENGTH;
+        faceAngle -= thrustRotR * SHIP_ROT_STRENGTH / 100.0;
+        faceAngle += thrustRotL * SHIP_ROT_STRENGTH / 100.0;
         super.move();
     }
 

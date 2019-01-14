@@ -26,6 +26,8 @@ import javax.swing.Timer;
 public class TestingPanel extends javax.swing.JPanel {
 
     Map GameBoard;
+    Drone d;
+    Ship s;
 
     /**
      * Creates new form GamePanel
@@ -33,7 +35,9 @@ public class TestingPanel extends javax.swing.JPanel {
     public TestingPanel() {
         initComponents();
         GameBoard = new Map(4, 900, 500);
-        Timer t = new Timer(100, new ActionListener() {
+        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
+        s = new Ship(500.0, 300.0, 135.0, 1, GameBoard);
+        Timer t = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 repaint();
@@ -67,20 +71,20 @@ public class TestingPanel extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics g) {
         Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
-        Ship a = new Ship(400.0, 400.0, 0.0, 5, GameBoard);
         //a.setThrustF(5);
         g.drawImage(img, 0, 0, 400, 300, this);
-        a.draw(g, 1, 0, 0);
 
-        Map map = new Map(1, 900, 500);
-        Drone d = new Drone(100.0, 100.0, 135.0, 1, map);
         d.draw(g, 1.0, 1, 1);
         d.setThrustF(100);
         d.move();
-        System.out.println(d.getPos().x);
-        
+
+        s.draw(g, 1.0, 1, 1);
+        s.setThrustF(100);
+        s.setThrustRotR(100); //ccw
+        s.move();
+
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
