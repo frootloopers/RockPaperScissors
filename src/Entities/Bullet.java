@@ -16,6 +16,7 @@ public class Bullet extends Movable {
     /**
      * Creates a bullet entity
      *
+     * @author John Popovici
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
      * @param speed the speed the entity starts with

@@ -22,15 +22,16 @@ public abstract class Entity {
     protected static final int RADIUS_SHIP = 15;
     protected static final int RADIUS_DRONE = 5;
 
-    protected static final double VEL_DECAY = 0.005;
-    protected static final double DRONE_ROT_STRENGTH = 0.05;
-    protected static final double SHIP_ROT_STRENGTH = 0.025;
-    protected static final double DRONE_STERN_STRENGTH = 0.05;
-    protected static final double SHIP_STERN_STRENGTH = 0.025;
+    protected static final double VEL_DECAY = 0.01;
+    protected static final double DRONE_ROT_STRENGTH = 2.0;
+    protected static final double SHIP_ROT_STRENGTH = 1.0;
+    protected static final double DRONE_STERN_STRENGTH = 0.04;
+    protected static final double SHIP_STERN_STRENGTH = 0.02;
 
     /**
      * Creates an entity
      *
+     * @author John Popovici
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
      * @param radius the radius of the hit-box of the entity

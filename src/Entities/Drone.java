@@ -16,6 +16,7 @@ public class Drone extends Controllable {
     /**
      * Creates a drone entity
      *
+     * @author John Popovici
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
      * @param faceAngle the angle the entity faces when created

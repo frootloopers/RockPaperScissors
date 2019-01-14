@@ -18,6 +18,7 @@ public abstract class Movable extends Entity {
     /**
      * Creates a movable entity
      *
+     * @author John Popovici
      * @param x the position value of the entity on the x-axis
      * @param y the position value of the entity on the y-axis
      * @param radius the radius of the hit-box of the entity
@@ -80,17 +81,6 @@ public abstract class Movable extends Entity {
         return angle;
     }
 
-    /**
-     * Draw the icon representing the movable has line which represent the
-     * faceAngle of the movable
-     *
-     * @param g the graphics used to draw the entity
-     * @param scale the scale of the game board, at which the entity is drawn
-     * @param offsetX the offset of the x-value of the game board, at which the
-     * entity is drawn
-     * @param offsetY the offset of the y-value of the game board, at which the
-     * entity is drawn
-     */
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         super.draw(g, scale, offsetX, offsetY);
@@ -101,6 +91,8 @@ public abstract class Movable extends Entity {
 
     /**
      * Must be called each frame of the game to move the entity
+     *
+     * @author John Popovici
      */
     public void move() {
         //changes the position according to the velocity
