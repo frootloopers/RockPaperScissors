@@ -28,8 +28,10 @@ public class Ship extends Controllable {
         super(x, y, RADIUS_SHIP, faceAngle, teamID, map);
     }
 
+    //pertaining to bullet
     private final double FIREPOWER = 1;
     private final double FIRECOST = 1;
+    //pertaining to the aoe attack
     private final double PULSERANGE = 10;
     private final double PULSEDMG = 100;
     private final double PULSECOST = 1;
