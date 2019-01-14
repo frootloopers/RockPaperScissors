@@ -67,7 +67,7 @@ public class TestingPanel extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics g) {
         Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
-        Ship a = new Ship(100.0, 100.0, 0.0, 5, GameBoard);
+        Ship a = new Ship(400.0, 400.0, 0.0, 5, GameBoard);
         //a.setThrustF(5);
         g.drawImage(img, 0, 0, 400, 300, this);
         a.draw(g, 1, 0, 0);
@@ -77,6 +77,7 @@ public class TestingPanel extends javax.swing.JPanel {
         d.draw(g, 1.0, 1, 1);
         d.setThrustF(100);
         d.move();
+        System.out.println(d.getPos().x);
         
     }
     

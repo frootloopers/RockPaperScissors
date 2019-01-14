@@ -33,17 +33,6 @@ public abstract class Controllable extends Movable {
         thrustRotL = 0;
     }
 
-    /**
-     *  Draw the icon representing the controllable has line and triangle
-     * which represent the faceAngle of the controllable
-     * 
-     * @param g the graphics used to draw the entity
-     * @param scale the scale of the game board, at which the entity is drawn
-     * @param offsetX the offset of the x-value of the game board, at which the
-     * entity is drawn
-     * @param offsetY the offset of the y-value of the game board, at which the
-     * entity is drawn
-     */
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         super.draw(g, scale, offsetX, offsetY);
