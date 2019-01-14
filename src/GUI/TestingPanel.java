@@ -72,7 +72,7 @@ public class TestingPanel extends javax.swing.JPanel {
         g.drawImage(img, 0, 0, 400, 300, this);
         a.draw(g, 1, 0, 0);
 
-        Map map = new Map(1);
+        Map map = new Map(1, 900, 500);
         Drone d = new Drone(100.0, 100.0, 135.0, 1, map);
         d.draw(g, 1.0, 1, 1);
         d.setThrustF(100);
