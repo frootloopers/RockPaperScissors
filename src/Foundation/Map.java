@@ -194,7 +194,7 @@ public class Map {
                     Controllables[i].collision(Controllables[j]);
                     Controllables[j].collision(Controllables[i]);
                     if (Controllables[i] instanceof Drone && Controllables[j] instanceof Ship)
-                            ;
+                            ((Drone)Controllables[i]).collideShip((Ship) Controllables[j]);
                 }
             }
 
@@ -202,7 +202,7 @@ public class Map {
                 if (Controllables[i].checkCollision(Planets[j])) {
                     Controllables[i].collision(Planets[j]);
                     if (Controllables[i] instanceof Ship)
-                            ;
+                            ((Ship)Controllables[i]).collidePlanet(Planets[j]);
                 }
             }
             //  Entities - Harvestables
