@@ -125,7 +125,7 @@ public abstract class Controllable extends Movable {
      *
      * @param thrustF the percent of the forward thruster being used. The value
      * must be between 0 and 100, inclusive
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException for a value out of bounds
      */
     public void setThrustF(int thrustF) throws IllegalArgumentException {
         if (thrustF < 0 || thrustF > 100) {
@@ -140,7 +140,7 @@ public abstract class Controllable extends Movable {
      * @param thrustRotR the percent of the right rotation thruster being used.
      * The value must be between 0 and 100, inclusive. Thruster rotates
      * counterclockwise
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException for a value out of bounds
      */
     public void setThrustRotR(int thrustRotR) throws IllegalArgumentException {
         if (thrustRotR < 0 || thrustRotR > 100) {
@@ -155,7 +155,7 @@ public abstract class Controllable extends Movable {
      * @param thrustRotL the percent of the left rotation thruster being used.
      * The value must be between 0 and 100, inclusive. Thruster rotates
      * clockwise
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException for a value out of bounds
      */
     public void setThrustRotL(int thrustRotL) throws IllegalArgumentException {
         if (thrustRotL < 0 || thrustRotL > 100) {
