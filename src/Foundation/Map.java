@@ -193,16 +193,18 @@ public class Map {
                 if (Controllables[i].checkCollision(Controllables[j])) {
                     Controllables[i].collision(Controllables[j]);
                     Controllables[j].collision(Controllables[i]);
-                    if (Controllables[i] instanceof Drone && Controllables[j] instanceof Ship)
-                            ((Drone)Controllables[i]).collideShip((Ship) Controllables[j]);
+                    if (Controllables[i] instanceof Drone && Controllables[j] instanceof Ship) {
+                        ((Drone) Controllables[i]).collideShip((Ship) Controllables[j]);
+                    }
                 }
             }
 
             for (int j = i; j < Planets.length; j++) {
                 if (Controllables[i].checkCollision(Planets[j])) {
                     Controllables[i].collision(Planets[j]);
-                    if (Controllables[i] instanceof Ship)
-                            ((Ship)Controllables[i]).collidePlanet(Planets[j]);
+                    if (Controllables[i] instanceof Ship) {
+                        ((Ship) Controllables[i]).collidePlanet(Planets[j]);
+                    }
                 }
             }
             //  Entities - Harvestables

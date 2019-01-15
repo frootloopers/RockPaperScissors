@@ -97,7 +97,7 @@ public class TestingPanel extends javax.swing.JPanel {
     public void paintComponent(Graphics g) {
         Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
         //a.setThrustF(5);
-        g.drawImage(img, 0, 0, this.getWidth() , this.getHeight(), this);
+        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 
         updateGraphics(g, GameBoard);
 

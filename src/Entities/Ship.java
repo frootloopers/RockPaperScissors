@@ -83,8 +83,8 @@ public class Ship extends Controllable {
             storage += input;
         }
     }
-    
-      public void collidePlanet(Planet other) {
+
+    public void collidePlanet(Planet other) {
         if (this.checkCollision(other)) {
             other.collideShip(this, storage);
             storage = 0;

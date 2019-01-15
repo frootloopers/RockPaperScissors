@@ -104,8 +104,8 @@ public abstract class Movable extends Entity {
 
     public void collision(Entity other) {
         if (this.checkCollision(other)) {
-        vel.x = -vel.x;
-        vel.y = -vel.y;
+            vel.x = -vel.x;
+            vel.y = -vel.y;
         }
     }
 
