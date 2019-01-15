@@ -25,7 +25,7 @@ public class Map {
     //all damaging projectiles
     private ArrayList<Bullet> Bullets;
     //default # of resource nodes that spawn on the map
-    private final static int harvestables = 5;
+    private final static int harvestables = 16;
     //list of teams
     private Team[] Teams;
     private int xMax;
@@ -47,39 +47,43 @@ public class Map {
     }
 
     public void reset() {
+        for (int x = 0; x < harvestables; x++) {
+            newRock(Harvestables[x]);
+        }
+
         switch (Teams.length) {
             case 2:
                 Planets[0] = new Planet(xPlanet, yPlanet, 1, this);
-                Controllables[1] = new Ship(xPlanet + 10, yPlanet + 10, 135, 1, this);
-                Controllables[2] = new Drone(xPlanet + 10, yPlanet, 135, 1, this);
-                Controllables[3] = new Drone(xPlanet, yPlanet + 10, 135, 1, this);
+                Controllables[0] = new Ship(xPlanet + 10, yPlanet + 10, 135, 1, this);
+                Controllables[1] = new Drone(xPlanet + 10, yPlanet, 135, 1, this);
+                Controllables[2] = new Drone(xPlanet, yPlanet + 10, 135, 1, this);
 
-                Planets[4] = new Planet(xMax - xPlanet, yPlanet, 3, this);
-                Controllables[5] = new Ship(xMax - (xPlanet + 10), (yPlanet + 10), 225, 1, this);
-                Controllables[6] = new Drone(xMax - (xPlanet + 10), yPlanet, 225, 1, this);
-                Controllables[7] = new Drone(xMax - xPlanet, (yPlanet + 10), 225, 1, this);
+                Planets[1] = new Planet(xMax - xPlanet, yPlanet, 3, this);
+                Controllables[3] = new Ship(xMax - (xPlanet + 10), (yPlanet + 10), 225, 1, this);
+                Controllables[4] = new Drone(xMax - (xPlanet + 10), yPlanet, 225, 1, this);
+                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + 10), 225, 1, this);
                 break;
 
             case 4:
                 Planets[0] = new Planet(xPlanet, yPlanet, 1, this);
-                Controllables[1] = new Ship(xPlanet + 10, (yPlanet + 10), 135, 1, this);
-                Controllables[2] = new Drone(xPlanet + 10, yPlanet, 135, 1, this);
-                Controllables[3] = new Drone(xPlanet, (yPlanet + 10), 135, 1, this);
+                Controllables[0] = new Ship(xPlanet + 10, (yPlanet + 10), 135, 1, this);
+                Controllables[1] = new Drone(xPlanet + 10, yPlanet, 135, 1, this);
+                Controllables[2] = new Drone(xPlanet, (yPlanet + 10), 135, 1, this);
 
-                Planets[4] = new Planet(xMax - xPlanet, yPlanet, 3, this);
-                Controllables[5] = new Ship(xMax - (xPlanet + 10), (yPlanet + 10), 225, 1, this);
-                Controllables[6] = new Drone(xMax - (xPlanet + 10), yPlanet, 225, 1, this);
-                Controllables[7] = new Drone(xMax - xPlanet, (yPlanet + 10), 225, 1, this);
+                Planets[1] = new Planet(xMax - xPlanet, yPlanet, 3, this);
+                Controllables[3] = new Ship(xMax - (xPlanet + 10), (yPlanet + 10), 225, 1, this);
+                Controllables[4] = new Drone(xMax - (xPlanet + 10), yPlanet, 225, 1, this);
+                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + 10), 225, 1, this);
 
-                Planets[8] = new Planet(xPlanet, yMax - yPlanet, 2, this);
-                Controllables[9] = new Ship((xPlanet + 10), yMax - (yPlanet + 10), 45, 1, this);
-                Controllables[10] = new Drone((xPlanet + 10), yMax - yPlanet, 45, 1, this);
-                Controllables[11] = new Drone(xPlanet, yMax - (yPlanet + 10), 45, 1, this);
+                Planets[2] = new Planet(xPlanet, yMax - yPlanet, 2, this);
+                Controllables[6] = new Ship((xPlanet + 10), yMax - (yPlanet + 10), 45, 1, this);
+                Controllables[7] = new Drone((xPlanet + 10), yMax - yPlanet, 45, 1, this);
+                Controllables[8] = new Drone(xPlanet, yMax - (yPlanet + 10), 45, 1, this);
 
-                Planets[12] = new Planet(xMax - xPlanet, yMax - yPlanet, 4, this);
-                Controllables[13] = new Ship(xMax - (xPlanet + 10), yMax - (yPlanet + 10), 315, 1, this);
-                Controllables[14] = new Drone(xMax - (xPlanet + 10), yMax - yPlanet, 315, 1, this);
-                Controllables[15] = new Drone(xMax - xPlanet, yMax - (yPlanet + 10), 315, 1, this);
+                Planets[3] = new Planet(xMax - xPlanet, yMax - yPlanet, 4, this);
+                Controllables[9] = new Ship(xMax - (xPlanet + 10), yMax - (yPlanet + 10), 315, 1, this);
+                Controllables[10] = new Drone(xMax - (xPlanet + 10), yMax - yPlanet, 315, 1, this);
+                Controllables[11] = new Drone(xMax - xPlanet, yMax - (yPlanet + 10), 315, 1, this);
                 break;
 
             default:
@@ -182,31 +186,31 @@ public class Map {
         return temp;
     }
 
-    public void collide() {
-        //  Entities - Entities
-        for (int i = 0; i < Entities.length; i++) {
-            for (int j = i; j < Entities.length; j++) {
-                if (Entities[i].checkCollision(Entities[j])) {
-                    if (Entities[i] instanceof Movable) {
-                        ((Movable) Entities[i]).collision();
-                    }
-                    if (Entities[j] instanceof Movable) {
-                        ((Movable) Entities[j]).collision();
-                    }
-                }
-            }
-            //  Entities - Harvestables
-
-            for (int j = i; j < Harvestables.length; j++) {
-                if (Entities[i].checkCollision(Harvestables[j])) {
-                    if (Entities[i] instanceof Drone) //                       ((Drone)Entities[i]).collideHarvestable(Harvestables[j]);
-                    {
-                        Harvestables[j] = null; //this is temp
-                    }
-                }
-            }
-            //  Entities - Bullets
-            //  Bullets - Harvestables
-        }
-    }
+//    public void collide() {
+//        //  Entities - Entities
+//        for (int i = 0; i < Entities.length; i++) {
+//            for (int j = i; j < Entities.length; j++) {
+//                if (Entities[i].checkCollision(Entities[j])) {
+//                    if (Entities[i] instanceof Movable) {
+//                        ((Movable) Entities[i]).collision();
+//                    }
+//                    if (Entities[j] instanceof Movable) {
+//                        ((Movable) Entities[j]).collision();
+//                    }
+//                }
+//            }
+//            //  Entities - Harvestables
+//
+//            for (int j = i; j < Harvestables.length; j++) {
+//                if (Entities[i].checkCollision(Harvestables[j])) {
+//                    if (Entities[i] instanceof Drone) //                       ((Drone)Entities[i]).collideHarvestable(Harvestables[j]);
+//                    {
+//                        Harvestables[j] = null; //this is temp
+//                    }
+//                }
+//            }
+//            //  Entities - Bullets
+//            //  Bullets - Harvestables
+//        }
+//    }
 }
