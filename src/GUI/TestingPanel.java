@@ -29,14 +29,19 @@ public class TestingPanel extends javax.swing.JPanel {
     Drone d;
     Ship s;
 
+    double zoom;
+    int offsetX;
+    int offsetY;
+
     /**
      * Creates new form GamePanel
      */
     public TestingPanel() {
         initComponents();
         GameBoard = new Map(4, 900, 500);
-        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
-        s = new Ship(500.0, 300.0, 135.0, 1, GameBoard);
+        GameBoard.reset();
+//        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
+//        s = new Ship(500.0, 300.0, 135.0, 1, GameBoard);
         Timer t = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -45,6 +50,26 @@ public class TestingPanel extends javax.swing.JPanel {
         });
         //starts running the timer
         t.start();
+    }
+
+    /**
+     *
+     */
+    private void updateGraphics(Graphics g, Map m) {
+        for (Controllable c : m.getControllables()) {
+            c.draw(g, zoom, offsetX, offsetY);
+        }
+        for (Bullet b : m.getBullets()) {
+            b.draw(g, zoom, offsetX, offsetY);
+        }
+        for (Harvestable h : m.getHarvest()) {
+            if (h != null) {
+                h.draw(g, zoom, offsetX, offsetY);
+            }
+        }
+        for (Planet p : m.getPlanets()) {
+            p.draw(g, zoom, offsetX, offsetY);
+        }
     }
 
     /**
@@ -74,15 +99,16 @@ public class TestingPanel extends javax.swing.JPanel {
         //a.setThrustF(5);
         g.drawImage(img, 0, 0, this.getWidth() , this.getHeight(), this);
 
-        d.draw(g, 1.0, 1, 1);
-        d.setThrustF(100);
-        d.move();
+        updateGraphics(g, GameBoard);
 
-        s.draw(g, 1.0, 1, 1);
-        s.setThrustF(100);
-        s.setThrustRotR(100); //ccw
-        s.move();
-
+//        d.draw(g, 1.0, 1, 1);
+//        d.setThrustF(100);
+//        d.move();
+//
+//        s.draw(g, 1.0, 1, 1);
+//        s.setThrustF(100);
+//        s.setThrustRotR(100); //ccw
+//        s.move();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
