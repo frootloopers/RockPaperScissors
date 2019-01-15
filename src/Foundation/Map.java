@@ -154,7 +154,7 @@ public class Map {
      * Makes all entities act.
      */
     public void moveAll() {
-        for (Entity e : Entities) {
+        for (Entity e : Controllables) {
             if (e instanceof Movable) {
                 ((Movable) e).move();
             }
