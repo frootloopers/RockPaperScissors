@@ -154,7 +154,7 @@ public class Map {
      * Makes all entities act.
      */
     public void moveAll() {
-        for (Entity e : Entities) {
+        for (Entity e : Controllables) {
             if (e instanceof Movable) {
                 ((Movable) e).move();
             }
@@ -174,7 +174,7 @@ public class Map {
     public ArrayList<Entity> aoe(Pos pos, double range) {
         ArrayList<Entity> temp = new ArrayList<>();
         //find targets within the range
-        for (Entity e : Entities) {
+        for (Entity e : Controllables) {
             if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) <= range) {
                 temp.add(e);
             }
