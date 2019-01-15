@@ -130,10 +130,13 @@ public abstract class Entity {
          * break; case(4): g.setColor(Color.YELLOW); break; default:
          * g.setColor(Color.LIGHT_GRAY); break; }
          */
+        int drawX = (int) (getPos().getX()) - radius + offsetX;
+        int drawY = (int) (getPos().getY()) - radius + offsetY;
+        int drawSize = (int)(radius * 2 * scale);
         g.setColor(Color.LIGHT_GRAY);
-        g.fillOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);
+        g.fillOval(drawX, drawY, drawSize, drawSize);
         g.setColor(Color.black);
-        g.drawOval((int) (getPos().getX()) - radius, (int) (getPos().getY()) - radius, radius * 2, radius * 2);
+        g.drawOval(drawX, drawY, drawSize, drawSize);
         //color = map.getTeams()[teamID].getColor
     }
 

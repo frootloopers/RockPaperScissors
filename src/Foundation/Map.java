@@ -183,26 +183,29 @@ public class Map {
     }
 
     public void collide() {
-        for (int i = 0; i < Controllables.length; i++) {            
+        for (int i = 0; i < Controllables.length; i++) {
             //  Entities - Entities
             for (int j = i; j < Controllables.length; j++) {
-                if (Controllables[i].checkCollision(Controllables[j])) {                   
-                        Controllables[i].collision();                    
-                        Controllables[j].collision();
-                    }
-                }            
-            
-             for (int j = i; j < Planets.length; j++) {
-                if (Controllables[i].checkCollision(Planets[j])) {                   
-                        Controllables[i].collision();                                           
-                    }
-                }     
+                if (Controllables[i].checkCollision(Controllables[j])) {
+                    Controllables[i].collision(Controllables[j]);
+                    Controllables[j].collision(Controllables[i]);
+                    if (Controllables[i] instanceof Drone && Controllables[j] instanceof Ship)
+                            ;
+                }
+            }
+
+            for (int j = i; j < Planets.length; j++) {
+                if (Controllables[i].checkCollision(Planets[j])) {
+                    Controllables[i].collision(Planets[j]);
+                    if (Controllables[i] instanceof Ship)
+                            ;
+                }
+            }
             //  Entities - Harvestables
             for (int j = i; j < Harvestables.length; j++) {
                 if (Controllables[i].checkCollision(Harvestables[j])) {
-                    if (Controllables[i] instanceof Drone) //                       ((Drone)Entities[i]).collideHarvestable(Harvestables[j]);
-                    {
-                        ((Drone)Controllables[i]).collideHarvestable(Harvestables[j]);
+                    if (Controllables[i] instanceof Drone) {
+                        ((Drone) Controllables[i]).collideHarvestable(Harvestables[j]);
                         Harvestables[j] = null; //this is temp
                     }
                 }
@@ -210,12 +213,11 @@ public class Map {
             //  Entities - Bullets
             for (int j = i; j < Bullets.size(); j++) {
                 if (Controllables[i].checkCollision(Bullets.get(j))) {
-                        Controllables[i].collideBullet(Bullets.get(j));
-                        Harvestables[j] = null; //this is temp
-                    }
+                    Controllables[i].collideBullet(Bullets.get(j));
                 }
             }
-            //  Bullets - Harvestables        
         }
-    
+        //  Bullets - Harvestables        
+    }
+
 }
