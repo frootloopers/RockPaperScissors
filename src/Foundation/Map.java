@@ -34,6 +34,7 @@ public class Map {
 
     private static final int xPlanet = 20;
     private static final int yPlanet = 20;
+    private static final int offset = 40;
 
     public Map(int teams, int xMax, int yMax) {
         this.Teams = new Team[teams];
@@ -54,36 +55,36 @@ public class Map {
         switch (Teams.length) {
             case 2:
                 Planets[0] = new Planet(xPlanet, yPlanet, 1, this);
-                Controllables[0] = new Ship(xPlanet + 10, yPlanet + 10, 135, 1, this);
-                Controllables[1] = new Drone(xPlanet + 10, yPlanet, 135, 1, this);
-                Controllables[2] = new Drone(xPlanet, yPlanet + 10, 135, 1, this);
+                Controllables[0] = new Ship(xPlanet + offset, yPlanet + offset, 135, 1, this);
+                Controllables[1] = new Drone(xPlanet + offset, yPlanet, 135, 1, this);
+                Controllables[2] = new Drone(xPlanet, yPlanet + offset, 135, 1, this);
 
                 Planets[1] = new Planet(xMax - xPlanet, yPlanet, 3, this);
-                Controllables[3] = new Ship(xMax - (xPlanet + 10), (yPlanet + 10), 225, 1, this);
-                Controllables[4] = new Drone(xMax - (xPlanet + 10), yPlanet, 225, 1, this);
-                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + 10), 225, 1, this);
+                Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 1, this);
+                Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 1, this);
+                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + offset), 225, 1, this);
                 break;
 
             case 4:
                 Planets[0] = new Planet(xPlanet, yPlanet, 1, this);
-                Controllables[0] = new Ship(xPlanet + 10, (yPlanet + 10), 135, 1, this);
-                Controllables[1] = new Drone(xPlanet + 10, yPlanet, 135, 1, this);
-                Controllables[2] = new Drone(xPlanet, (yPlanet + 10), 135, 1, this);
+                Controllables[0] = new Ship(xPlanet + offset, (yPlanet + offset), 135, 1, this);
+                Controllables[1] = new Drone(xPlanet + offset, yPlanet, 135, 1, this);
+                Controllables[2] = new Drone(xPlanet, (yPlanet + offset), 135, 1, this);
 
                 Planets[1] = new Planet(xMax - xPlanet, yPlanet, 3, this);
-                Controllables[3] = new Ship(xMax - (xPlanet + 10), (yPlanet + 10), 225, 1, this);
-                Controllables[4] = new Drone(xMax - (xPlanet + 10), yPlanet, 225, 1, this);
-                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + 10), 225, 1, this);
+                Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 1, this);
+                Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 1, this);
+                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + offset), 225, 1, this);
 
                 Planets[2] = new Planet(xPlanet, yMax - yPlanet, 2, this);
-                Controllables[6] = new Ship((xPlanet + 10), yMax - (yPlanet + 10), 45, 1, this);
-                Controllables[7] = new Drone((xPlanet + 10), yMax - yPlanet, 45, 1, this);
-                Controllables[8] = new Drone(xPlanet, yMax - (yPlanet + 10), 45, 1, this);
+                Controllables[6] = new Ship((xPlanet + offset), yMax - (yPlanet + offset), 45, 1, this);
+                Controllables[7] = new Drone((xPlanet + offset), yMax - yPlanet, 45, 1, this);
+                Controllables[8] = new Drone(xPlanet, yMax - (yPlanet + offset), 45, 1, this);
 
                 Planets[3] = new Planet(xMax - xPlanet, yMax - yPlanet, 4, this);
-                Controllables[9] = new Ship(xMax - (xPlanet + 10), yMax - (yPlanet + 10), 315, 1, this);
-                Controllables[10] = new Drone(xMax - (xPlanet + 10), yMax - yPlanet, 315, 1, this);
-                Controllables[11] = new Drone(xMax - xPlanet, yMax - (yPlanet + 10), 315, 1, this);
+                Controllables[9] = new Ship(xMax - (xPlanet + offset), yMax - (yPlanet + offset), 315, 1, this);
+                Controllables[10] = new Drone(xMax - (xPlanet + offset), yMax - yPlanet, 315, 1, this);
+                Controllables[11] = new Drone(xMax - xPlanet, yMax - (yPlanet + offset), 315, 1, this);
                 break;
 
             default:
