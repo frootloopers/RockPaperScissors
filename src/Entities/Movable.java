@@ -84,9 +84,11 @@ public abstract class Movable extends Entity {
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         super.draw(g, scale, offsetX, offsetY);
-        g.drawLine((int) (getPos().getX()), (int) (getPos().getY()),
-                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
-                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))));
+        int drawX = (int) (getPos().getX()) + offsetX;
+        int drawY = (int) (getPos().getY()) + offsetY;
+        g.drawLine(drawX, drawY,
+                (int) (drawX + radius * Math.sin(Math.toRadians(faceAngle) * scale)),
+                (int) (drawY - radius * Math.cos(Math.toRadians(faceAngle) * scale)));
     }
 
     /**
@@ -104,6 +106,11 @@ public abstract class Movable extends Entity {
 
     public void collision(Entity other) {
         if (this.checkCollision(other)) {
+            if (faceAngle > 180) {
+                faceAngle -= 180;
+            } else {
+                faceAngle += 180;
+            }
             vel.x = -vel.x;
             vel.y = -vel.y;
         }
