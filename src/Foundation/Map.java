@@ -183,30 +183,39 @@ public class Map {
     }
 
     public void collide() {
-        //  Entities - Entities
-        for (int i = 0; i < Entities.length; i++) {
-            for (int j = i; j < Entities.length; j++) {
-                if (Entities[i].checkCollision(Entities[j])) {
-                    if (Entities[i] instanceof Movable) {
-                        ((Movable) Entities[i]).collision();
+        for (int i = 0; i < Controllables.length; i++) {            
+            //  Entities - Entities
+            for (int j = i; j < Controllables.length; j++) {
+                if (Controllables[i].checkCollision(Controllables[j])) {                   
+                        Controllables[i].collision();                    
+                        Controllables[j].collision();
                     }
-                    if (Entities[j] instanceof Movable) {
-                        ((Movable) Entities[j]).collision();
+                }            
+            
+             for (int j = i; j < Planets.length; j++) {
+                if (Controllables[i].checkCollision(Planets[j])) {                   
+                        Controllables[i].collision();                                           
                     }
-                }
-            }
+                }     
             //  Entities - Harvestables
-
             for (int j = i; j < Harvestables.length; j++) {
-                if (Entities[i].checkCollision(Harvestables[j])) {
-                    if (Entities[i] instanceof Drone) //                       ((Drone)Entities[i]).collideHarvestable(Harvestables[j]);
+                if (Controllables[i].checkCollision(Harvestables[j])) {
+                    if (Controllables[i] instanceof Drone) //                       ((Drone)Entities[i]).collideHarvestable(Harvestables[j]);
                     {
+                        ((Drone)Controllables[i]).collideHarvestable(Harvestables[j]);
                         Harvestables[j] = null; //this is temp
                     }
                 }
             }
             //  Entities - Bullets
-            //  Bullets - Harvestables
+            for (int j = i; j < Bullets.size(); j++) {
+                if (Controllables[i].checkCollision(Bullets.get(j))) {
+                        Controllables[i].collideBullet(Bullets.get(j));
+                        Harvestables[j] = null; //this is temp
+                    }
+                }
+            }
+            //  Bullets - Harvestables        
         }
-    }
+    
 }
