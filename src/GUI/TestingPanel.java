@@ -29,16 +29,19 @@ public class TestingPanel extends javax.swing.JPanel {
     Drone d;
     Ship s;
 
-    double zoom;
-    int offsetX;
-    int offsetY;
+    double zoom = 0.5;
+    int offsetX = 0;
+    int offsetY = 0;
+    int mapX = 600;
+    int mapY = 600;
+    int teams = 4;
 
     /**
      * Creates new form GamePanel
      */
     public TestingPanel() {
         initComponents();
-        GameBoard = new Map(4, 900, 500);
+        GameBoard = new Map(teams, mapX, mapY);
         GameBoard.reset();
 //        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
 //        s = new Ship(500.0, 300.0, 135.0, 1, GameBoard);
@@ -53,7 +56,7 @@ public class TestingPanel extends javax.swing.JPanel {
     }
 
     /**
-     *
+     * By Jia Jia: Draw each item on the map
      */
     private void updateGraphics(Graphics g, Map m) {
         for (Controllable c : m.getControllables()) {
