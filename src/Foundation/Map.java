@@ -49,7 +49,7 @@ public class Map {
 
     public void reset() {
         for (int x = 0; x < harvestables; x++) {
-            newRock(Harvestables[x]);
+            Harvestables[x] = new Harvestable(100+rand.nextInt(xMax-200), 100+rand.nextInt(yMax-200), this);
         }
 
         switch (Teams.length) {
@@ -211,7 +211,9 @@ public class Map {
             }
             //  Entities - Harvestables
             for (int j = i; j < Harvestables.length; j++) {
-                if(Harvestables[j] == null) continue;
+                if (Harvestables[j] == null) {
+                    continue;
+                }
                 if (Controllables[i].checkCollision(Harvestables[j])) {
                     if (Controllables[i] instanceof Drone) {
                         ((Drone) Controllables[i]).collideHarvestable(Harvestables[j]);

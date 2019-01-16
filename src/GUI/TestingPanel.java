@@ -55,7 +55,7 @@ public class TestingPanel extends javax.swing.JPanel {
     Timer t2 = new Timer(gameSpeed, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            System.out.println("hey");
+//            System.out.println();
             GameBoard.moveAll();
         }
     });
