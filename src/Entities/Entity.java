@@ -124,15 +124,27 @@ public abstract class Entity {
      */
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         //BufferedImage pos.X+offsetX, pos.Y+offsetY
-        /**
-         * switch(teamID){ case(1): g.setColor(Color.RED); break; case(2):
-         * g.setColor(Color.BLUE); break; case(3): g.setColor(Color.GREEN);
-         * break; case(4): g.setColor(Color.YELLOW); break; default:
-         * g.setColor(Color.LIGHT_GRAY); break; }
-         */
-        int drawX = (int) (getPos().getX()) - radius + offsetX;
-        int drawY = (int) (getPos().getY()) - radius + offsetY;
-        int drawSize = (int)(radius * 2 * scale);
+
+        switch (teamID) {
+            case (1):
+                g.setColor(Color.RED);
+                break;
+            case (2):
+                g.setColor(Color.BLUE);
+                break;
+            case (3):
+                g.setColor(Color.GREEN);
+                break;
+            case (4):
+                g.setColor(Color.YELLOW);
+                break;
+            default:
+                g.setColor(Color.LIGHT_GRAY);
+                break;
+        }
+        int drawX = (int) ((getPos().getX() - radius + offsetX) * scale);
+        int drawY = (int) ((getPos().getY() - radius + offsetY) * scale);
+        int drawSize = (int) (radius * 2 * scale);
         g.setColor(Color.LIGHT_GRAY);
         g.fillOval(drawX, drawY, drawSize, drawSize);
         g.setColor(Color.black);

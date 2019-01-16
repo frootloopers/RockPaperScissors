@@ -25,4 +25,10 @@ public class Planet extends Entity {
     public Planet(double x, double y, int teamID, Map map) {
         super(x, y, RADIUS_PLANET, teamID, map);
     }
+
+    protected void collideShip(Ship other, int input) {
+        if (this.checkCollision(other) && teamID == other.teamID) {
+            map.getTeams()[teamID].addScore(input); // add a way to increase security?
+        }
+    }
 }

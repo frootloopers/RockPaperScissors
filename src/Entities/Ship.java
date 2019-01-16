@@ -78,4 +78,16 @@ public class Ship extends Controllable {
         super.move();
     }
 
+    protected void collideDrone(Drone other, int input) {
+        if (this.checkCollision(other)&& teamID == other.teamID) {
+            storage += input;
+        }
+    }
+
+    public void collidePlanet(Planet other) {
+        if (this.checkCollision(other)&& teamID == other.teamID) {
+            other.collideShip(this, storage);
+            storage = 0;
+        }
+    }
 }

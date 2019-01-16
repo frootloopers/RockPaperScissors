@@ -36,24 +36,24 @@ public abstract class Controllable extends Movable {
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         super.draw(g, scale, offsetX, offsetY);
-        g.drawLine((int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
-                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))),
-                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle + 120))),
-                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle + 120))));
-        g.drawLine((int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle))),
-                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle))),
-                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle - 120))),
-                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle - 120))));
-        g.drawLine((int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle - 120))),
-                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle - 120))),
-                (int) (getPos().getX() + radius * Math.sin(Math.toRadians(faceAngle + 120))),
-                (int) (getPos().getY() - radius * Math.cos(Math.toRadians(faceAngle + 120))));
+        int drawX = (int) ((getPos().getX() + offsetX) * scale);
+        int drawX1 = (int) (drawX + radius * Math.sin(Math.toRadians(faceAngle)) * scale);
+        int drawX2 = (int) (drawX + radius * Math.sin(Math.toRadians(faceAngle + 120)) * scale);
+        int drawX3 = (int) (drawX + radius * Math.sin(Math.toRadians(faceAngle - 120)) * scale);
+        int drawY = (int) ((getPos().getY() + offsetY) * scale);
+        int drawY1 = (int) (drawY - radius * Math.cos(Math.toRadians(faceAngle)) * scale);
+        int drawY2 = (int) (drawY - radius * Math.cos(Math.toRadians(faceAngle + 120)) * scale);
+        int drawY3 = (int) (drawY - radius * Math.cos(Math.toRadians(faceAngle - 120)) * scale);
+        g.drawLine(drawX1, drawY1, drawX2, drawY2);
+        g.drawLine(drawX1, drawY1, drawX3, drawY3);
+        g.drawLine(drawX2, drawY2, drawX3, drawY3);
 
     }
-    
-     public void collideBullet(Bullet other){
-        if(this.checkCollision(other))
+
+    public void collideBullet(Bullet other) {
+        if (this.checkCollision(other) && !(teamID == other.teamID)) {
             storage = 0;
+        }
     }
 
     /**
