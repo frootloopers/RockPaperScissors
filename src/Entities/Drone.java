@@ -45,7 +45,7 @@ public class Drone extends Controllable {
     }
 
     public void collideShip(Ship other) {
-        if (this.checkCollision(other)) {
+        if (this.checkCollision(other) && teamID == other.teamID) {
             other.collideDrone(this, storage);
             storage = 0;
         }

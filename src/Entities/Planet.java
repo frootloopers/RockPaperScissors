@@ -27,7 +27,7 @@ public class Planet extends Entity {
     }
 
     protected void collideShip(Ship other, int input) {
-        if (this.checkCollision(other)) {
+        if (this.checkCollision(other) && teamID == other.teamID) {
             map.getTeams()[teamID].addScore(input); // add a way to increase security?
         }
     }

@@ -94,6 +94,7 @@ public class TestingPanel extends javax.swing.JPanel {
         initComponents();
         GameBoard = new Map(teams, mapX, mapY);
         GameBoard.reset();
+        GameBoard.getControllables()[0].setThrustF(10);
 //        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
 //        s = new Ship(500.0, 300.0, 135.0, 1, GameBoard);
 
