@@ -84,11 +84,11 @@ public abstract class Movable extends Entity {
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         super.draw(g, scale, offsetX, offsetY);
-        int drawX = (int) (getPos().getX()) + offsetX;
-        int drawY = (int) (getPos().getY()) + offsetY;
+        int drawX = (int) ((getPos().getX() + offsetX) * scale);
+        int drawY = (int) ((getPos().getY() + offsetY) * scale);
         g.drawLine(drawX, drawY,
-                (int) (drawX + radius * Math.sin(Math.toRadians(faceAngle) * scale)),
-                (int) (drawY - radius * Math.cos(Math.toRadians(faceAngle) * scale)));
+                (int) (drawX + radius * Math.sin(Math.toRadians(faceAngle)) * scale),
+                (int) (drawY - radius * Math.cos(Math.toRadians(faceAngle)) * scale));
     }
 
     /**

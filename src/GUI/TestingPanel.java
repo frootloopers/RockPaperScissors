@@ -29,7 +29,7 @@ public class TestingPanel extends javax.swing.JPanel {
     Drone d;
     Ship s;
 
-    double zoom = 0.5;
+    double zoom = 5;
     int offsetX = 0;
     int offsetY = 0;
     int mapX = 600;
@@ -100,7 +100,7 @@ public class TestingPanel extends javax.swing.JPanel {
     public void paintComponent(Graphics g) {
         Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
         //a.setThrustF(5);
-        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+        //g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 
         updateGraphics(g, GameBoard);
 
