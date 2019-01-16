@@ -33,7 +33,7 @@ public class TestingPanel extends javax.swing.JPanel {
     Drone d;
     Ship s;
 
-    double zoom = 5;
+    double zoom = 1;
     int offsetX = 0;
     int offsetY = 0;
     int mapX = 600;
@@ -169,6 +169,7 @@ public class TestingPanel extends javax.swing.JPanel {
         g.fillRect(0, 0, mapX, mapY);
 
         updateGraphics(g, GameBoard);
+        GameBoard.getControllables()[0].setThrustF(100);
 
 //        d.draw(g, 1.0, 1, 1);
 //        d.setThrustF(100);
