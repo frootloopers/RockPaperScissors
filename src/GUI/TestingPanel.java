@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Development.Command;
 import Entities.*;
 import Foundation.Map;
 import java.awt.Graphics;
@@ -28,6 +29,8 @@ public class TestingPanel extends javax.swing.JPanel {
     Map GameBoard;
     Drone d;
     Ship s;
+    Ship target;
+    Ship spin;
 
     double zoom = 1;
     int offsetX = 0;
@@ -40,8 +43,12 @@ public class TestingPanel extends javax.swing.JPanel {
         initComponents();
         GameBoard = new Map(4, 900, 500);
         GameBoard.reset();
-//        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
-//        s = new Ship(500.0, 300.0, 135.0, 1, GameBoard);
+
+        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
+        s = new Ship(500.0, 300.0, 135.0, 1, GameBoard);
+        target = new Ship(100.0, 50.0, 0.0, 1, GameBoard);
+        spin = new Ship(200.0, 150.0, -90.0, 1, GameBoard);
+
         Timer t = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -101,14 +108,34 @@ public class TestingPanel extends javax.swing.JPanel {
 
         updateGraphics(g, GameBoard);
 
-//        d.draw(g, 1.0, 1, 1);
-//        d.setThrustF(100);
-//        d.move();
-//
-//        s.draw(g, 1.0, 1, 1);
-//        s.setThrustF(100);
-//        s.setThrustRotR(100); //ccw
-//        s.move();
+        /*
+         Way to do AI:
+         entity.draw(g, zoom, offsetX, offsetY);
+         //algorithm
+         entity.move();
+         */
+        d.draw(g, zoom, offsetX, offsetY);
+        d.setThrustF(100);
+        d.move();
+
+        s.draw(g, zoom, offsetX, offsetY);
+        s.setThrustF(100);
+        s.setThrustRotR(100); //ccw
+        s.move();
+
+        target.draw(g, zoom, offsetX, offsetY);
+        spin.draw(g, zoom, offsetX, offsetY);
+        //Command.turnTo(spin, s.getPos(), 0.5);
+        Command.getTo(spin, s.getPos(), 2.5);
+//        if (Command.turnTo(spin, target.getPos(), 0.5)) {
+//            System.out.println("THRUSTING");
+//            spin.setThrustF(100);
+//        } else {
+//            System.out.println("SPINNING");
+//            spin.setThrustF(0);
+//        }
+        spin.move();
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
