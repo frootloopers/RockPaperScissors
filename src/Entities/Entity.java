@@ -130,8 +130,8 @@ public abstract class Entity {
          * break; case(4): g.setColor(Color.YELLOW); break; default:
          * g.setColor(Color.LIGHT_GRAY); break; }
          */
-        int drawX = (int) (getPos().getX()) - radius + offsetX;
-        int drawY = (int) (getPos().getY()) - radius + offsetY;
+        int drawX = (int) ((getPos().getX() - radius + offsetX) * scale);
+        int drawY = (int) ((getPos().getY() - radius + offsetY) * scale);
         int drawSize = (int) (radius * 2 * scale);
         g.setColor(Color.LIGHT_GRAY);
         g.fillOval(drawX, drawY, drawSize, drawSize);

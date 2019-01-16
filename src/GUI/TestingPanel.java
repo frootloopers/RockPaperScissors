@@ -33,7 +33,7 @@ public class TestingPanel extends javax.swing.JPanel {
     Drone d;
     Ship s;
 
-    double zoom = 0.5;
+    double zoom = 5;
     int offsetX = 0;
     int offsetY = 0;
     int mapX = 600;
