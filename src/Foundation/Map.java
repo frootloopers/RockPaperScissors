@@ -211,6 +211,7 @@ public class Map {
             }
             //  Entities - Harvestables
             for (int j = i; j < Harvestables.length; j++) {
+                if(Harvestables[j] == null) continue;
                 if (Controllables[i].checkCollision(Harvestables[j])) {
                     if (Controllables[i] instanceof Drone) {
                         ((Drone) Controllables[i]).collideHarvestable(Harvestables[j]);
