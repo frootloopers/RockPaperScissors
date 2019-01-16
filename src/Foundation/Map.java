@@ -49,7 +49,7 @@ public class Map {
 
     public void reset() {
         for (int x = 0; x < harvestables; x++) {
-            Harvestables[x] = new Harvestable(100+rand.nextInt(xMax-200), 100+rand.nextInt(yMax-200), this);
+            Harvestables[x] = new Harvestable(100 + rand.nextInt(xMax - 200), 100 + rand.nextInt(yMax - 200), this);
         }
 
         switch (Teams.length) {
@@ -63,6 +63,9 @@ public class Map {
                 Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 1, this);
                 Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 1, this);
                 Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + offset), 225, 1, this);
+
+                Teams[0] = new Team(0, "Player 1");
+                Teams[1] = new Team(0, "Player 2");
                 break;
 
             case 4:
@@ -85,6 +88,11 @@ public class Map {
                 Controllables[9] = new Ship(xMax - (xPlanet + offset), yMax - (yPlanet + offset), 315, 1, this);
                 Controllables[10] = new Drone(xMax - (xPlanet + offset), yMax - yPlanet, 315, 1, this);
                 Controllables[11] = new Drone(xMax - xPlanet, yMax - (yPlanet + offset), 315, 1, this);
+
+                Teams[0] = new Team(0, "Player 1");
+                Teams[1] = new Team(0, "Player 2");
+                Teams[2] = new Team(0, "Player 3");
+                Teams[3] = new Team(0, "Player 4");
                 break;
 
             default:
