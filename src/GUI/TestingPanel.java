@@ -29,7 +29,7 @@ public class TestingPanel extends javax.swing.JPanel {
     Drone d;
     Ship s;
 
-    double zoom = 5;
+    double zoom = 1;
     int offsetX = 0;
     int offsetY = 0;
     int mapX = 600;
@@ -43,6 +43,7 @@ public class TestingPanel extends javax.swing.JPanel {
         initComponents();
         GameBoard = new Map(teams, mapX, mapY);
         GameBoard.reset();
+        GameBoard.getControllables()[0].setThrustF(10);
 //        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
 //        s = new Ship(500.0, 300.0, 135.0, 1, GameBoard);
         Timer t = new Timer(10, new ActionListener() {

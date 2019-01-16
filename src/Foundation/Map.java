@@ -167,6 +167,7 @@ public class Map {
         for (Movable e : Bullets) {
             e.move();
         }
+        collide();
     }
 
     /**

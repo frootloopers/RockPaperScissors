@@ -51,7 +51,7 @@ public abstract class Controllable extends Movable {
     }
 
     public void collideBullet(Bullet other) {
-        if (this.checkCollision(other)) {
+        if (this.checkCollision(other) && !(teamID == other.teamID)) {
             storage = 0;
         }
     }
