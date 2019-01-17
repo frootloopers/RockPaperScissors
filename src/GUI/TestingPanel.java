@@ -47,8 +47,8 @@ public class TestingPanel extends javax.swing.JPanel {
     Ship spin;
 
     double zoom = 1;
-    int offsetX = 0;
-    int offsetY = 0;
+    int offsetX = 300;
+    int offsetY = 300;
     int mapX = 600;
     int mapY = 600;
     int teams = 4;
@@ -166,19 +166,18 @@ public class TestingPanel extends javax.swing.JPanel {
             offsetY -= mouse.y - ms.getPoint().y;
 
             //prevent the camera from moving too far
-            if (offsetX < -mapX) {
-                offsetX = -mapX;
-            }
-            if (offsetX > mapX) {
-                offsetX = mapX;
-            }
-            if (offsetY < -mapY) {
-                offsetY = -mapY;
-            }
-            if (offsetY > mapY) {
-                offsetY = mapY;
-            }
-
+//            if (offsetX < -mapX) {
+//                offsetX = -mapX;
+//            }
+//            if (offsetX > mapX) {
+//                offsetX = mapX;
+//            }
+//            if (offsetY < -mapY) {
+//                offsetY = -mapY;
+//            }
+//            if (offsetY > mapY) {
+//                offsetY = mapY;
+//            }
             mouse = ms.getPoint();
         }
 
@@ -192,7 +191,8 @@ public class TestingPanel extends javax.swing.JPanel {
      */
     MouseWheelListener mWListener = new MouseWheelListener() {
         public void mouseWheelMoved(MouseWheelEvent ms) {
-            zoom += (double) (ms.getWheelRotation()) / 100;
+            double zoomChange = (double) (ms.getWheelRotation()) / 50;
+            zoom -= zoomChange;
         }
     };
 
@@ -233,25 +233,25 @@ public class TestingPanel extends javax.swing.JPanel {
     /**
      * By Jia Jia: Draw each item on the map.
      */
-    private void updateGraphics(Graphics g, Map m) {
+    private void updateGraphics(Graphics g, Map m, int drawX, int drawY) {
         for (Controllable c : m.getControllables()) {
-            c.draw(g, zoom, offsetX, offsetY);
+            c.draw(g, zoom, drawX, drawY);
         }
         if (showRes) {
             for (Controllable c : m.getControllables()) {
-                c.showRes(g, zoom, offsetX, offsetY);
+                c.showRes(g, zoom, drawX, drawY);
             }
         }
         for (Bullet b : m.getBullets()) {
-            b.draw(g, zoom, offsetX, offsetY);
+            b.draw(g, zoom, drawX, drawY);
         }
         for (Harvestable h : m.getHarvest()) {
             if (h != null) {
-                h.draw(g, zoom, offsetX, offsetY);
+                h.draw(g, zoom, drawX, drawY);
             }
         }
         for (Planet p : m.getPlanets()) {
-            p.draw(g, zoom, offsetX, offsetY);
+            p.draw(g, zoom, drawX, drawY);
         }
     }
 
@@ -279,6 +279,8 @@ public class TestingPanel extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics g) {
         Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
+        int drawX = (int) (offsetX - mapX / 2 * Math.pow(zoom, 2));
+        int drawY = (int) (offsetY - mapY / 2 * Math.pow(zoom, 2));
         //a.setThrustF(5);
 //        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         //Draw background
@@ -286,9 +288,9 @@ public class TestingPanel extends javax.swing.JPanel {
         g.fillRect(0, 0, mapX, mapY);
         //Draw gameboard
         g.setColor(Color.WHITE);
-        g.fillRect((int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom));
+        g.fillRect((int) (drawX * zoom), (int) (drawY * zoom), (int) (mapX * zoom), (int) (mapY * zoom));
 
-        updateGraphics(g, GameBoard);
+        updateGraphics(g, GameBoard, drawX, drawY);
         GameBoard.getControllables()[0].setThrustF(100);
 
 //        /*
