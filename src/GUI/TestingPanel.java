@@ -16,6 +16,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -23,6 +25,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -66,10 +70,60 @@ public class TestingPanel extends javax.swing.JPanel {
     Timer t2 = new Timer(gameSpeed, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-//            System.out.println();
             GameBoard.moveAll();
         }
     });
+
+    KeyListener kListener = new KeyListener() {
+        public void keyTyped(KeyEvent key) {
+        }
+
+        private final Set<Integer> pressed = new HashSet<Integer>();
+
+        public void keyPressed(KeyEvent key) {
+            pressed.add(key.getKeyCode());
+            for (Integer k : pressed) {
+                switch (k) {
+                    case KeyEvent.VK_1:
+                        gameSpeed = 3;
+                        break;
+                    case KeyEvent.VK_2:
+                        gameSpeed = 5;
+                        break;
+                    case KeyEvent.VK_3:
+                        gameSpeed = 10;
+                        break;
+                    case KeyEvent.VK_4:
+                        gameSpeed = 15;
+                        break;
+                    case KeyEvent.VK_5:
+                        gameSpeed = 20;
+                        break;
+                }
+            }
+            t2.setDelay(gameSpeed);
+        }
+
+//            public void keyHeld(KeyEvent key) {
+//                switch (key.getKeyCode()) {
+//                    case KeyEvent.VK_LEFT:
+//                        xOff += 1;
+//                        break;
+//                    case KeyEvent.VK_RIGHT:
+//                        xOff -= 1;
+//                        break;
+//                    case KeyEvent.VK_UP:
+//                        yOff += 1;
+//                        break;
+//                    case KeyEvent.VK_DOWN:
+//                        yOff -= 1;
+//                        break;
+//                }
+//            }
+        public void keyReleased(KeyEvent key) {
+            pressed.remove(key.getKeyCode());
+        }
+    };
 
     /**
      * By Jia Jia: Right click toggles whether or not the game is in play.
@@ -150,6 +204,7 @@ public class TestingPanel extends javax.swing.JPanel {
         addMouseListener(mListener);
         addMouseMotionListener(mMListener);
         addMouseWheelListener(mWListener);
+        addKeyListener(kListener);
         setFocusable(true);
         t.start();
     }

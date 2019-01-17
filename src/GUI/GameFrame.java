@@ -54,6 +54,12 @@ public class GameFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        testingPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                testingPanel1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout testingPanel1Layout = new javax.swing.GroupLayout(testingPanel1);
         testingPanel1.setLayout(testingPanel1Layout);
         testingPanel1Layout.setHorizontalGroup(
@@ -79,7 +85,7 @@ public class GameFrame extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "100%", "25%", "50%", "150%", "200%" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "50%", "75%", "100%", "200%", "300%" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -116,6 +122,7 @@ public class GameFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        testingPanel1.requestFocus();
         testingPanel1.togglePlay();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
@@ -125,6 +132,8 @@ public class GameFrame extends javax.swing.JFrame {
      * @param evt
      */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //keep focus on game so keyboard inputs still work
+        testingPanel1.requestFocus();
         if (resetConfirm) {
             //reset the map
             testingPanel1.GameBoard.reset();
@@ -143,8 +152,13 @@ public class GameFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        testingPanel1.requestFocus();
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void testingPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_testingPanel1MouseClicked
+        testingPanel1.requestFocus();
+    }//GEN-LAST:event_testingPanel1MouseClicked
 
     /**
      * By Jia Jia: Allows third-parties to click the button.
