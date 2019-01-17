@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Development.Command;
 import Blocks.Pos;
 import Entities.*;
 import Foundation.Map;
@@ -38,6 +39,8 @@ public class TestingPanel extends javax.swing.JPanel {
     Map GameBoard;
     Drone d;
     Ship s;
+    Ship target;
+    Ship spin;
 
     double zoom = 1;
     int offsetX = 0;
@@ -213,14 +216,34 @@ public class TestingPanel extends javax.swing.JPanel {
         updateGraphics(g, GameBoard);
         GameBoard.getControllables()[0].setThrustF(100);
 
-//        d.draw(g, 1.0, 1, 1);
-//        d.setThrustF(100);
-//        d.move();
-//
-//        s.draw(g, 1.0, 1, 1);
-//        s.setThrustF(100);
-//        s.setThrustRotR(100); //ccw
-//        s.move();
+        /*
+         Way to do AI:
+         entity.draw(g, zoom, offsetX, offsetY);
+         //algorithm
+         entity.move();
+         */
+        d.draw(g, zoom, offsetX, offsetY);
+        d.setThrustF(100);
+        d.move();
+
+        s.draw(g, zoom, offsetX, offsetY);
+        s.setThrustF(100);
+        s.setThrustRotR(100); //ccw
+        s.move();
+
+        target.draw(g, zoom, offsetX, offsetY);
+        spin.draw(g, zoom, offsetX, offsetY);
+        //Command.turnTo(spin, s.getPos(), 0.5);
+        Command.getTo(spin, s.getPos(), 2.5);
+//        if (Command.turnTo(spin, target.getPos(), 0.5)) {
+//            System.out.println("THRUSTING");
+//            spin.setThrustF(100);
+//        } else {
+//            System.out.println("SPINNING");
+//            spin.setThrustF(0);
+//        }
+        spin.move();
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
