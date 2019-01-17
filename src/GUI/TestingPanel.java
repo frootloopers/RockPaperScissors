@@ -123,9 +123,14 @@ public class TestingPanel extends javax.swing.JPanel {
         public void mouseMoved(MouseEvent ms) {
             mouse = ms.getPoint();
         }
+    };
 
+    /**
+     * By Jia Jia: Allows zoom modification via mouse wheel.
+     */
+    MouseWheelListener mWListener = new MouseWheelListener() {
         public void mouseWheelMoved(MouseWheelEvent ms) {
-            zoom += ms.getWheelRotation();
+            zoom += (double) (ms.getWheelRotation()) / 100;
         }
     };
 
@@ -143,6 +148,7 @@ public class TestingPanel extends javax.swing.JPanel {
 
         addMouseListener(mListener);
         addMouseMotionListener(mMListener);
+        addMouseWheelListener(mWListener);
         setFocusable(true);
         t.start();
     }
@@ -211,30 +217,30 @@ public class TestingPanel extends javax.swing.JPanel {
         g.fillRect(0, 0, mapX, mapY);
         //Draw gameboard
         g.setColor(Color.WHITE);
-        g.fillRect(offsetX, offsetY, (int) (mapX * zoom), (int) (mapY * zoom));
+        g.fillRect((int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom));
 
         updateGraphics(g, GameBoard);
         GameBoard.getControllables()[0].setThrustF(100);
 
-        /*
-         Way to do AI:
-         entity.draw(g, zoom, offsetX, offsetY);
-         //algorithm
-         entity.move();
-         */
-        d.draw(g, zoom, offsetX, offsetY);
-        d.setThrustF(100);
-        d.move();
-
-        s.draw(g, zoom, offsetX, offsetY);
-        s.setThrustF(100);
-        s.setThrustRotR(100); //ccw
-        s.move();
-
-        target.draw(g, zoom, offsetX, offsetY);
-        spin.draw(g, zoom, offsetX, offsetY);
-        //Command.turnTo(spin, s.getPos(), 0.5);
-        Command.getTo(spin, s.getPos(), 2.5);
+//        /*
+//         Way to do AI:
+//         entity.draw(g, zoom, offsetX, offsetY);
+//         //algorithm
+//         entity.move();
+//         */
+//        d.draw(g, zoom, offsetX, offsetY);
+//        d.setThrustF(100);
+//        d.move();
+//
+//        s.draw(g, zoom, offsetX, offsetY);
+//        s.setThrustF(100);
+//        s.setThrustRotR(100); //ccw
+//        s.move();
+//
+//        target.draw(g, zoom, offsetX, offsetY);
+//        spin.draw(g, zoom, offsetX, offsetY);
+//        //Command.turnTo(spin, s.getPos(), 0.5);
+//        Command.getTo(spin, s.getPos(), 2.5);
 //        if (Command.turnTo(spin, target.getPos(), 0.5)) {
 //            System.out.println("THRUSTING");
 //            spin.setThrustF(100);
@@ -242,8 +248,7 @@ public class TestingPanel extends javax.swing.JPanel {
 //            System.out.println("SPINNING");
 //            spin.setThrustF(0);
 //        }
-        spin.move();
-
+//        spin.move();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
