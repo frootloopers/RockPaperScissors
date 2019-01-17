@@ -295,7 +295,7 @@ public class TestingPanel extends javax.swing.JPanel {
         GameBoard.getControllables()[0].setThrustF(100);
 
         /*
-         Way to do AI: Coded by John
+         Way to do AI: As Demonstrated by John
          entity.draw(g, zoom, offsetX, offsetY);
          //algorithm code
          entity.move();
