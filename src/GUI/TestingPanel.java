@@ -284,10 +284,12 @@ public class TestingPanel extends javax.swing.JPanel {
 //        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         //Draw background
         g.setColor(Color.CYAN);
-        g.fillRect(0, 0, mapX, mapY);
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
         //Draw gameboard
         g.setColor(Color.WHITE);
         g.fillRect((int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom));
+        
+        
 
         updateGraphics(g, GameBoard);
         GameBoard.getControllables()[0].setThrustF(100);
