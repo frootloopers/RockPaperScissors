@@ -52,9 +52,10 @@ public class TestingPanel extends javax.swing.JPanel {
     int mapX = 600;
     int mapY = 600;
     int teams = 4;
-    boolean playing = false;
     int refreshRate = 10;
     int gameSpeed = 10;
+    boolean playing = false;
+    boolean showRes = false;
     Point mouse = new Point(0, 0);
     GameFrame gameframe;
 
@@ -98,6 +99,13 @@ public class TestingPanel extends javax.swing.JPanel {
                         break;
                     case KeyEvent.VK_5:
                         gameSpeed = 20;
+                        break;
+                    case KeyEvent.VK_R:
+                        if (showRes) {
+                            showRes = false;
+                        } else {
+                            showRes = true;
+                        }
                         break;
                 }
             }
@@ -228,6 +236,11 @@ public class TestingPanel extends javax.swing.JPanel {
     private void updateGraphics(Graphics g, Map m) {
         for (Controllable c : m.getControllables()) {
             c.draw(g, zoom, offsetX, offsetY);
+        }
+        if (showRes) {
+            for (Controllable c : m.getControllables()) {
+                c.showRes(g, zoom, offsetX, offsetY);
+            }
         }
         for (Bullet b : m.getBullets()) {
             b.draw(g, zoom, offsetX, offsetY);
