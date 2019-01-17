@@ -33,7 +33,7 @@ public abstract class Controllable extends Movable {
         thrustRotL = 0;
     }
 
-    @Override
+    @Override //@author Carl Wu hehe
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         super.draw(g, scale, offsetX, offsetY);
         int drawX = (int) ((getPos().getX() + offsetX) * scale);
@@ -49,7 +49,13 @@ public abstract class Controllable extends Movable {
         g.drawLine(drawX2, drawY2, drawX3, drawY3);
 
     }
-
+/**
+ * set the storage to 0 when hit with a bullet 
+ * 
+ * @param other the bullet that's being collided with
+ * 
+ * @author Carl Wu
+ */
     public void collideBullet(Bullet other) {
         if (this.checkCollision(other) && !(teamID == other.teamID)) {
             storage = 0;
