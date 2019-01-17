@@ -146,6 +146,7 @@ public class TestingPanel extends javax.swing.JPanel {
 //        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
 //        s = new Ship(500.0, 300.0, 135.0, 1, GameBoard);
 
+        //attach the listeners when constructing the panel
         addMouseListener(mListener);
         addMouseMotionListener(mMListener);
         addMouseWheelListener(mWListener);
