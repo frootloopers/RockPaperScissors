@@ -43,8 +43,7 @@ public class TestingPanel extends javax.swing.JPanel {
     Map GameBoard;
     Drone d;
     Ship s;
-    Ship target;
-    Ship spin;
+    Ship chaser;
 
     double zoom = 1;
     int offsetX = 0;
@@ -206,8 +205,11 @@ public class TestingPanel extends javax.swing.JPanel {
         GameBoard = new Map(teams, mapX, mapY);
         GameBoard.reset();
         GameBoard.getControllables()[0].setThrustF(10);
-//        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
-//        s = new Ship(500.0, 300.0, 135.0, 1, GameBoard);
+        
+        //testing entities
+        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
+        s = new Ship(400.0, 300.0, 135.0, 1, GameBoard);
+        chaser = new Ship(50.0, 50.0, -90, 1, GameBoard);
 
         //attach the listeners when constructing the panel
         addMouseListener(mListener);
@@ -292,33 +294,24 @@ public class TestingPanel extends javax.swing.JPanel {
         updateGraphics(g, GameBoard);
         GameBoard.getControllables()[0].setThrustF(100);
 
-//        /*
-//         Way to do AI:
-//         entity.draw(g, zoom, offsetX, offsetY);
-//         //algorithm
-//         entity.move();
-//         */
-//        d.draw(g, zoom, offsetX, offsetY);
-//        d.setThrustF(100);
-//        d.move();
-//
-//        s.draw(g, zoom, offsetX, offsetY);
-//        s.setThrustF(100);
-//        s.setThrustRotR(100); //ccw
-//        s.move();
-//
-//        target.draw(g, zoom, offsetX, offsetY);
-//        spin.draw(g, zoom, offsetX, offsetY);
-//        //Command.turnTo(spin, s.getPos(), 0.5);
-//        Command.getTo(spin, s.getPos(), 2.5);
-//        if (Command.turnTo(spin, target.getPos(), 0.5)) {
-//            System.out.println("THRUSTING");
-//            spin.setThrustF(100);
-//        } else {
-//            System.out.println("SPINNING");
-//            spin.setThrustF(0);
-//        }
-//        spin.move();
+        /*
+         Way to do AI: Coded by John
+         entity.draw(g, zoom, offsetX, offsetY);
+         //algorithm code
+         entity.move();
+         */
+        d.draw(g, zoom, offsetX, offsetY);
+        //d.setThrustF(100);
+        d.move();
+
+        s.draw(g, zoom, offsetX, offsetY);
+        s.setThrustF(100);
+        s.setThrustRotR(100); //ccw
+        s.move();
+
+        chaser.draw(g, zoom, offsetX, offsetY);
+        Command.getTo(chaser, s.getPos(), 0.5);
+        chaser.move();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

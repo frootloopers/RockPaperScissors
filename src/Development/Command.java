@@ -47,6 +47,8 @@ public class Command {
 
         //determines the target angle
         if (difx == 0.0 && dify == 0.0) { //special case, target is current position
+            c.setThrustRotR(0);
+            c.setThrustRotL(0);
             return true;
         } else if (difx >= 0.0 && dify <= 0.0) { //top right, x positive, y negative
             targetAngle = (Math.toDegrees(Math.atan(Math.abs(difx) / Math.abs(dify))));
@@ -76,15 +78,16 @@ public class Command {
             if (Math.abs(targetAngle - currentAngle) <= 2.0) {
                 c.setThrustRotR((int) (Math.abs(currentAngle - targetAngle) * 50));
             }
+            c.setThrustRotL(0);
         } else {
             c.setThrustRotL(100);
             //slow down thruster as approach target angle
             if (Math.abs(targetAngle - currentAngle) <= 2.0) {
                 c.setThrustRotL((int) (Math.abs(currentAngle - targetAngle) * 50));
             }
+            c.setThrustRotR(0);
         }
         return false;
-
     }
 
     /**
@@ -92,7 +95,7 @@ public class Command {
      *
      * @param c the controllable entity
      * @param pos the position to be moved to
-     * @param tolerance the tolerance value in pixels away. Must be between 2.5
+     * @param tolerance the tolerance value in pixels away. Must be between 0.5
      * and 300, inclusive. Larger values will make the entity count as moved if
      * farther away
      * @return boolean value true if at the position within the tolerance range.
@@ -100,7 +103,7 @@ public class Command {
      * @throws IllegalArgumentException for a value of tolerance out of bounds
      */
     public static boolean getTo(Controllable c, Pos pos, double tolerance) throws IllegalArgumentException {
-        if (tolerance < 2.5 || tolerance > 300) {
+        if (tolerance < 0.5 || tolerance > 300) {
             throw new IllegalArgumentException();
         }
 
@@ -109,6 +112,7 @@ public class Command {
 
         //return if already at position within tollerance
         if (tolerance >= dist) {
+            c.setThrustF(0);
             return true;
         }
 
@@ -124,14 +128,7 @@ public class Command {
                 c.setThrustF(100);
             }
         }
-
         return false;
-
     }
-
+    
 }
-
-//getTo (position)
-//isFacing (with tollerance)
-//isAt (with tollerance)
-
