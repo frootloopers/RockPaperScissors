@@ -99,8 +99,8 @@ public abstract class Entity {
      * @author Carl Wu
      */
     public boolean checkCollision(Entity other) {
-        if (Math.sqrt((pos.x - other.pos.x) * (pos.x - other.pos.x)) + ((pos.y - other.pos.y) * (pos.y - other.pos.y))
-                <= (radius + other.radius)) {
+        if (((pos.x - other.pos.x) * (pos.x - other.pos.x)) + ((pos.y - other.pos.y) * (pos.y - other.pos.y))
+                <= (radius + other.radius) * (radius + other.radius)) {            
             return true;
         }
         return false;

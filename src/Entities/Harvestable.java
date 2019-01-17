@@ -25,4 +25,6 @@ public class Harvestable extends Entity {
         //harvestable is not a team entity
         super(x, y, RADIUS_HARVESTABLE, 0, map);
     }
+    
+    
 }

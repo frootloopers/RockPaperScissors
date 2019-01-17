@@ -6,6 +6,7 @@
 package Entities;
 
 import Foundation.Map;
+import java.awt.Color;
 import java.awt.Graphics;
 
 /**
@@ -49,13 +50,27 @@ public abstract class Controllable extends Movable {
         g.drawLine(drawX2, drawY2, drawX3, drawY3);
 
     }
-/**
- * set the storage to 0 when hit with a bullet 
- * 
- * @param other the bullet that's being collided with
- * 
- * @author Carl Wu
- */
+
+    /**
+     * By Jia Jia: Shows the resources a controllable has on a panel.
+     *
+     * @param g
+     * @param scale
+     * @param offsetX
+     * @param offsetY
+     */
+    public void showRes(Graphics g, double scale, int offsetX, int offsetY) {
+        g.setColor(Color.MAGENTA);
+        g.drawString(Integer.toString(storage), (int) ((getPos().getX() + offsetX) * scale), (int) ((getPos().getY() + offsetY) * scale));
+    }
+
+    /**
+     * set the storage to 0 when hit with a bullet
+     *
+     * @param other the bullet that's being collided with
+     *
+     * @author Carl Wu
+     */
     public void collideBullet(Bullet other) {
         if (this.checkCollision(other) && !(teamID == other.teamID)) {
             storage = 0;
