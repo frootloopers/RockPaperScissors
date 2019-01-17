@@ -32,8 +32,8 @@ public class Map {
     private int yMax;
     private Random rand = new Random();
 
-    private static final int xPlanet = 20;
-    private static final int yPlanet = 20;
+    private static final int xPlanet = 40;
+    private static final int yPlanet = 40;
     private static final int offset = 40;
 
     public Map(int teams, int xMax, int yMax) {

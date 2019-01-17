@@ -49,6 +49,9 @@
   </Layout>
   <SubComponents>
     <Container class="GUI.TestingPanel" name="testingPanel1">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new GUI.TestingPanel(this)"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
