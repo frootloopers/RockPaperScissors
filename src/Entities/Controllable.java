@@ -5,7 +5,6 @@
  */
 package Entities;
 
-import Foundation.Map;
 import java.awt.Color;
 import java.awt.Graphics;
 

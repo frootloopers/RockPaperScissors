@@ -7,7 +7,7 @@ package GUI;
 
 import Entities.Entity;
 import Entities.Ship;
-import Foundation.Map;
+import Entities.Map;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

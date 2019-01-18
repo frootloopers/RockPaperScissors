@@ -6,7 +6,6 @@
 package Entities;
 
 import Blocks.Pos;
-import Foundation.Map;
 import java.awt.Color;
 import java.awt.Graphics;
 

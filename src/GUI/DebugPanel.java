@@ -6,7 +6,7 @@
 package GUI;
 
 import Entities.*;
-import Foundation.Map;
+import Entities.Map;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;

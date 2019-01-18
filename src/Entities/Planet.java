@@ -5,8 +5,6 @@
  */
 package Entities;
 
-import Foundation.Map;
-
 /**
  *
  * @author John Popovici

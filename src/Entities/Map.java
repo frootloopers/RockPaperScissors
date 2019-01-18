@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Foundation;
+package Entities;
 
+import Entities.Team;
 import Blocks.Pos;
 import Entities.*;
 import java.awt.Point;

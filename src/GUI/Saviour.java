@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Foundation.Team;
+import Entities.Team;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
