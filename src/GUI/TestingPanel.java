@@ -26,11 +26,20 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
@@ -54,9 +63,13 @@ public class TestingPanel extends javax.swing.JPanel {
     int teams = 4;
     int refreshRate = 10;
     int gameSpeed = 10;
+    //Game time default (30000) is 5 minutes on 100% (game timer at 10)
+    int maxTime = 30000;
     boolean playing = false;
     boolean showRes = false;
+    int graphicsMode = 0;
     Point mouse = new Point(0, 0);
+    Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
     GameFrame gameframe;
 
     //---------------------------GUI-UTILITIES----------------------------------
@@ -71,11 +84,16 @@ public class TestingPanel extends javax.swing.JPanel {
     Timer t2 = new Timer(gameSpeed, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            GameBoard.moveAll();
+            if (GameBoard.getTime() >= maxTime) {
+                gameframe.clickToggleButton1();
+                endGame();
+            } else {
+                GameBoard.moveAll();
+            }
         }
     });
 
-    /**
+    /*
      * By Jia Jia: Looks for keyboard inputs, storing them in an array to be
      * processed. Thanks to this revolutionary method, multiple keys can be
      * pressed at once.
@@ -87,6 +105,12 @@ public class TestingPanel extends javax.swing.JPanel {
 
         public void keyPressed(KeyEvent key) {
             pressed.add(key.getKeyCode());
+            /*
+             * Keyboard buttons:
+             * 0-5 for Changing speeds, with 0 being the slowest.
+             * R to toggle the developer resources.
+             * G to change game skin.
+             */
             for (Integer k : pressed) {
                 switch (k) {
                     case KeyEvent.VK_1:
@@ -109,6 +133,12 @@ public class TestingPanel extends javax.swing.JPanel {
                             showRes = false;
                         } else {
                             showRes = true;
+                        }
+                        break;
+                    case KeyEvent.VK_G:
+                        graphicsMode++;
+                        if (graphicsMode > 1) {
+                            graphicsMode = 0;
                         }
                         break;
                 }
@@ -136,7 +166,7 @@ public class TestingPanel extends javax.swing.JPanel {
         }
     };
 
-    /**
+    /*
      * By Jia Jia: Right click toggles whether or not the game is in play.
      */
     MouseListener mListener = new MouseListener() {
@@ -159,7 +189,7 @@ public class TestingPanel extends javax.swing.JPanel {
         }
     };
 
-    /**
+    /*
      * By Jia Jia: Allows camera movement via dragging the mouse.
      */
     MouseMotionListener mMListener = new MouseMotionListener() {
@@ -188,13 +218,17 @@ public class TestingPanel extends javax.swing.JPanel {
         }
     };
 
-    /**
+    /*
      * By Jia Jia: Allows zoom modification via mouse wheel.
      */
     MouseWheelListener mWListener = new MouseWheelListener() {
         public void mouseWheelMoved(MouseWheelEvent ms) {
-            double zoomChange = (double) (ms.getWheelRotation()) / 100;
+            double zoomChange = (double) (ms.getWheelRotation()) / 50;
             zoom -= zoomChange;
+//            int centerX = offsetX + (int) (mapX / 2 * zoom);
+//            int centerY = offsetY + (int) (mapY / 2 * zoom);
+//            offsetX = offsetX + mouse.x - (int) (mapX / 2);
+//            offsetY = offsetY + mouse.y - (int) (mapY / 2);
         }
     };
     //--------------------------------------------------------------------------
@@ -228,6 +262,13 @@ public class TestingPanel extends javax.swing.JPanel {
     }
 
     /**
+     * By Jia Jia: Wraps up the game.
+     */
+    private void endGame() {
+
+    }
+
+    /**
      * By Jia Jia: Toggles the state of the game.
      */
     public void togglePlay() {
@@ -247,21 +288,6 @@ public class TestingPanel extends javax.swing.JPanel {
         for (Controllable c : m.getControllables()) {
             c.draw(g, zoom, offsetX, offsetY);
         }
-        //if developer resources is on
-        if (showRes) {
-            for (Controllable c : m.getControllables()) {
-                c.showRes(g, zoom, offsetX, offsetY);
-            }
-            g.setColor(Color.PINK);
-            g.drawString("Panel Size: " + this.getWidth() + "," + this.getHeight(), 5, 15);
-            g.drawString("Cursor: " + mouse.x + "," + mouse.y, 5, 30);
-            String temp = "";
-            for (Team t : GameBoard.getTeams()) {
-                temp = temp.concat(Integer.toString(t.getScore()) + " | ");
-            }
-            g.drawString("Score: | " + temp, 5, 45);
-            g.drawString("Time (100%=1/100s): " + Integer.toString(GameBoard.getTime()), 5, 60);
-        }
         for (Bullet b : m.getBullets()) {
             b.draw(g, zoom, offsetX, offsetY);
         }
@@ -272,6 +298,33 @@ public class TestingPanel extends javax.swing.JPanel {
         }
         for (Planet p : m.getPlanets()) {
             p.draw(g, zoom, offsetX, offsetY);
+        }
+        updateDev(g, m);
+    }
+
+    /**
+     * By Jia Jia: Draw the developer information on the board.
+     *
+     * @param g
+     * @param m
+     */
+    private void updateDev(Graphics g, Map m) {
+        //if developer resources is on
+        if (showRes) {
+            for (Controllable c : m.getControllables()) {
+                c.showRes(g, zoom, offsetX, offsetY);
+            }
+            g.setColor(Color.PINK);
+            g.drawString("Panel Size: " + this.getWidth() + "," + this.getHeight(), 5, 15);
+            g.drawString("Cursor: " + mouse.x + "," + mouse.y, 5, 30);
+            g.drawString("Camera: " + offsetX + "," + offsetY, 5, 45);
+            g.drawString("Zoom: " + zoom, 5, 60);
+            String temp = "";
+            for (Team t : GameBoard.getTeams()) {
+                temp = temp.concat(Integer.toString(t.getScore()) + " | ");
+            }
+            g.drawString("Score: | " + temp, 5, 85);
+            g.drawString("Time (100%=1/100s): " + Integer.toString(GameBoard.getTime()), 5, 100);
         }
     }
 
@@ -298,14 +351,24 @@ public class TestingPanel extends javax.swing.JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
         //a.setThrustF(5);
 //        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-        //Draw background
-        g.setColor(Color.CYAN);
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        //Draw gameboard
-        g.setColor(Color.WHITE);
+
+        //Background stuff by Jia Jia
+        switch (graphicsMode) {
+            case 0:
+                //Draw background
+                g.setColor(Color.WHITE);
+                g.fillRect(0, 0, this.getWidth(), this.getHeight());
+                g.setColor(Color.CYAN);
+                break;
+            case 1:
+                g.setColor(Color.DARK_GRAY);
+                g.fillRect(0, 0, this.getWidth(), this.getHeight());
+                g.setColor(Color.BLACK);
+                break;
+        }
+        //Draw gameboard background
         g.fillRect((int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom));
 
         updateGraphics(g, GameBoard);

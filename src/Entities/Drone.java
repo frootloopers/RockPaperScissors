@@ -6,6 +6,7 @@
 package Entities;
 
 import Foundation.Map;
+import java.util.Random;
 
 /**
  *
@@ -27,6 +28,8 @@ public class Drone extends Controllable {
         super(x, y, RADIUS_DRONE, faceAngle, teamID, map);
     }
 
+    private Random rand = new Random();
+
     @Override
     public void move() {
         //add acceleration
@@ -41,6 +44,8 @@ public class Drone extends Controllable {
     public void collideHarvestable(Harvestable other) {
         if (this.checkCollision(other)) {
             storage++;
+            //add new harvestable by Jia
+            other = new Harvestable(100 + rand.nextInt(map.getMax().x - 200), 100 + rand.nextInt(map.getMax().y - 200), map);
         }
     }
 

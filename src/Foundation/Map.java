@@ -7,6 +7,7 @@ package Foundation;
 
 import Blocks.Pos;
 import Entities.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -104,22 +105,8 @@ public class Map {
         }
     }
 
-    /**
-     * Put the rock somewhere else
-     *
-     * @param h The rock you want to reset.
-     */
-    public void newRock(Harvestable h) {
-        h = new Harvestable(rand.nextInt(xMax), rand.nextInt(yMax), this);
-    }
-
-    /**
-     * Add a bullet to the map
-     *
-     * @param bullet What bullet to add
-     */
-    public void addBullet(Bullet bullet) {
-        Bullets.add(bullet);
+    public Point getMax() {
+        return new Point(xMax, yMax);
     }
 
     /**
