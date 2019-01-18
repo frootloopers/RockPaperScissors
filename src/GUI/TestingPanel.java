@@ -210,11 +210,11 @@ public class TestingPanel extends javax.swing.JPanel {
         GameBoard.reset();
         GameBoard.getControllables()[0].setThrustF(10);
 
-        //testing entities
-        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
-        e = new Drone(700.0, 100.0, -135.0, 1, GameBoard);
-        s = new Ship(400.0, 300.0, 135.0, 1, GameBoard);
-        chaser = new Ship(50.0, 50.0, -90, 1, GameBoard);
+        //John's testing entities
+        d = new Drone(100.0, 100.0, 135.0, -1, GameBoard);
+        e = new Drone(700.0, 100.0, -135.0, -1, GameBoard);
+        s = new Ship(200.0, 400.0, 135.0, -1, GameBoard);
+        chaser = new Ship(50.0, 50.0, -90, -1, GameBoard);
 
         //attach the listeners when constructing the panel
         addMouseListener(mListener);
@@ -328,15 +328,14 @@ public class TestingPanel extends javax.swing.JPanel {
 
         s.draw(g, zoom, offsetX, offsetY);
         s.setThrustF(100);
-        s.setThrustRotR(100); //ccw
+        s.setThrustRotR(25); //ccw
         s.move();
 
         chaser.draw(g, zoom, offsetX, offsetY);
-        Command.getTo(chaser, s.getPos(), 0.5);
+        Command.chase(chaser, e, 50);
         chaser.move();
 
-        System.out.println(Command.willCollide(s, chaser, 0.5));
-        
+        //System.out.println(Command.willCollide(s, chaser, 0.5));
         Pos predictChaser = Command.willBe(chaser, 40);
         g.fillOval((int) (predictChaser.x - chaser.getRadius()),
                 (int) (predictChaser.y - chaser.getRadius()),
@@ -345,6 +344,10 @@ public class TestingPanel extends javax.swing.JPanel {
         g.fillOval((int) (predictS.x - s.getRadius()),
                 (int) (predictS.y - s.getRadius()),
                 s.getRadius() * 2, s.getRadius() * 2);
+
+        g.drawLine((int) (chaser.getPos().x), (int) (chaser.getPos().y),
+                (int) (s.getPos().x), (int) (s.getPos().y));
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
