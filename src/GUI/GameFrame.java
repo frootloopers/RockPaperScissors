@@ -21,6 +21,7 @@ public class GameFrame extends javax.swing.JFrame {
      */
     public GameFrame() {
         initComponents();
+        testingPanel1.setFrame(this);
     }
 
     boolean resetConfirm = false;
@@ -45,7 +46,7 @@ public class GameFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        testingPanel1 = new GUI.TestingPanel(this);
+        testingPanel1 = new GUI.TestingPanel();
         jToggleButton1 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();

@@ -236,11 +236,11 @@ public class TestingPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form GamePanel
+     *
      * @param gameframe The JFrame this JPanel is in.
      */
-    public TestingPanel(GameFrame gameframe) {
+    public TestingPanel() {
         initComponents();
-        this.gameframe = gameframe;
         GameBoard = new Map(teams, mapX, mapY);
         GameBoard.reset();
         GameBoard.getControllables()[0].setThrustF(10);
@@ -258,6 +258,10 @@ public class TestingPanel extends javax.swing.JPanel {
         addKeyListener(kListener);
         setFocusable(true);
         t.start();
+    }
+
+    public void setFrame(GameFrame gameframe) {
+        this.gameframe = gameframe;
     }
 
     public void timerReset() {
