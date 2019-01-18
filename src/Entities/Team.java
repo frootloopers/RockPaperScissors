@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Foundation;
+package Entities;
 
 import Entities.Entity;
 
@@ -11,7 +11,7 @@ import Entities.Entity;
  *
  * @author Jia Jia Chen
  */
-public class Team implements Comparable{
+public class Team implements Comparable {
 
     private int score;
     private String aiName;
@@ -22,9 +22,10 @@ public class Team implements Comparable{
      *
      * @param Entities
      */
-    public Team(Entity[] Entities) {
+    public Team(Entity[] Entities, String aiName) {
         score = 0;
         this.Entities = Entities;
+        this.aiName = aiName;
     }
 
     /**
@@ -38,13 +39,12 @@ public class Team implements Comparable{
         this.aiName = aiName;
     }
 
-    
     public void subScore(int score) {
-        this.score-=score;
+        this.score -= score;
     }
 
     public void addScore(int score) {
-        this.score+=score;
+        this.score += score;
     }
 
     public int getScore() {

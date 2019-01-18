@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Foundation;
+package Entities;
 
+import Entities.Team;
 import Blocks.Pos;
 import Entities.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,6 +32,7 @@ public class Map {
     private Team[] Teams;
     private int xMax;
     private int yMax;
+    private int time;
     private Random rand = new Random();
 
     private static final int xPlanet = 40;
@@ -37,6 +40,7 @@ public class Map {
     private static final int offset = 40;
 
     public Map(int teams, int xMax, int yMax) {
+        time = 0;
         this.Teams = new Team[teams];
         Controllables = new Controllable[teams * 3];
         Planets = new Planet[teams];
@@ -48,6 +52,8 @@ public class Map {
     }
 
     public void reset() {
+        time = 0;
+
         for (int x = 0; x < harvestables; x++) {
             Harvestables[x] = new Harvestable(100 + rand.nextInt(xMax - 200), 100 + rand.nextInt(yMax - 200), this);
         }
@@ -59,10 +65,10 @@ public class Map {
                 Controllables[1] = new Drone(xPlanet + offset, yPlanet, 135, 1, this);
                 Controllables[2] = new Drone(xPlanet, yPlanet + offset, 135, 1, this);
 
-                Planets[1] = new Planet(xMax - xPlanet, yPlanet, 3, this);
-                Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 1, this);
-                Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 1, this);
-                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + offset), 225, 1, this);
+                Planets[1] = new Planet(xMax - xPlanet, yPlanet, 2, this);
+                Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 2, this);
+                Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 2, this);
+                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + offset), 225, 2, this);
 
                 Teams[0] = new Team(0, "Player 1");
                 Teams[1] = new Team(0, "Player 2");
@@ -74,20 +80,20 @@ public class Map {
                 Controllables[1] = new Drone(xPlanet + offset, yPlanet, 135, 1, this);
                 Controllables[2] = new Drone(xPlanet, (yPlanet + offset), 135, 1, this);
 
-                Planets[1] = new Planet(xMax - xPlanet, yPlanet, 3, this);
-                Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 1, this);
-                Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 1, this);
-                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + offset), 225, 1, this);
+                Planets[1] = new Planet(xMax - xPlanet, yPlanet, 2, this);
+                Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 2, this);
+                Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 2, this);
+                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + offset), 225, 2, this);
 
-                Planets[2] = new Planet(xPlanet, yMax - yPlanet, 2, this);
-                Controllables[6] = new Ship((xPlanet + offset), yMax - (yPlanet + offset), 45, 1, this);
-                Controllables[7] = new Drone((xPlanet + offset), yMax - yPlanet, 45, 1, this);
-                Controllables[8] = new Drone(xPlanet, yMax - (yPlanet + offset), 45, 1, this);
+                Planets[2] = new Planet(xPlanet, yMax - yPlanet, 3, this);
+                Controllables[6] = new Ship((xPlanet + offset), yMax - (yPlanet + offset), 45, 3, this);
+                Controllables[7] = new Drone((xPlanet + offset), yMax - yPlanet, 45, 3, this);
+                Controllables[8] = new Drone(xPlanet, yMax - (yPlanet + offset), 45, 3, this);
 
                 Planets[3] = new Planet(xMax - xPlanet, yMax - yPlanet, 4, this);
-                Controllables[9] = new Ship(xMax - (xPlanet + offset), yMax - (yPlanet + offset), 315, 1, this);
-                Controllables[10] = new Drone(xMax - (xPlanet + offset), yMax - yPlanet, 315, 1, this);
-                Controllables[11] = new Drone(xMax - xPlanet, yMax - (yPlanet + offset), 315, 1, this);
+                Controllables[9] = new Ship(xMax - (xPlanet + offset), yMax - (yPlanet + offset), 315, 4, this);
+                Controllables[10] = new Drone(xMax - (xPlanet + offset), yMax - yPlanet, 315, 4, this);
+                Controllables[11] = new Drone(xMax - xPlanet, yMax - (yPlanet + offset), 315, 4, this);
 
                 Teams[0] = new Team(0, "Player 1");
                 Teams[1] = new Team(0, "Player 2");
@@ -100,22 +106,17 @@ public class Map {
         }
     }
 
-    /**
-     * Put the rock somewhere else
-     *
-     * @param h The rock you want to reset.
-     */
-    public void newRock(Harvestable h) {
-        h = new Harvestable(rand.nextInt(xMax), rand.nextInt(yMax), this);
+    public Point getMax() {
+        return new Point(xMax, yMax);
     }
 
     /**
-     * Add a bullet to the map
+     * Returns the time
      *
-     * @param bullet What bullet to add
+     * @return The number of game ticks that have passed since reset.
      */
-    public void addBullet(Bullet bullet) {
-        Bullets.add(bullet);
+    public int getTime() {
+        return time;
     }
 
     /**
@@ -164,9 +165,13 @@ public class Map {
     }
 
     /**
-     * Makes all entities act.
+     * Main game loop.
      */
     public void moveAll() {
+        //keep time
+        time++;
+
+        //move all things that move
         for (Entity e : Controllables) {
             if (e instanceof Movable) {
                 ((Movable) e).move();
@@ -175,6 +180,8 @@ public class Map {
         for (Movable e : Bullets) {
             e.move();
         }
+
+        //use Carl's collision detection
         collide();
     }
 
@@ -199,7 +206,7 @@ public class Map {
     public void collide() {
         for (int i = 0; i < Controllables.length; i++) {
             //  Entities - Entities
-            for (int j = i+1; j < Controllables.length; j++) {
+            for (int j = i; j < Controllables.length; j++) {
                 if (Controllables[i].checkCollision(Controllables[j])) {
                     Controllables[i].collision(Controllables[j]);
                     Controllables[j].collision(Controllables[i]);
@@ -218,7 +225,7 @@ public class Map {
                 }
             }
             //  Entities - Harvestables
-            for (int j = i+1; j < Harvestables.length; j++) {
+            for (int j = i; j < Harvestables.length; j++) {
                 if (Harvestables[j] == null) {
                     continue;
                 }

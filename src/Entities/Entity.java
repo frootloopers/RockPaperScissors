@@ -6,7 +6,6 @@
 package Entities;
 
 import Blocks.Pos;
-import Foundation.Map;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -131,6 +130,9 @@ public abstract class Entity {
         //BufferedImage pos.X+offsetX, pos.Y+offsetY
 
         switch (teamID) {
+            case (0):
+                g.setColor(Color.LIGHT_GRAY);
+                break;
             case (1):
                 g.setColor(Color.RED);
                 break;
@@ -144,13 +146,12 @@ public abstract class Entity {
                 g.setColor(Color.YELLOW);
                 break;
             default:
-                g.setColor(Color.LIGHT_GRAY);
+                g.setColor(Color.GRAY);
                 break;
         }
         int drawX = (int) ((getPos().getX() - radius + offsetX) * scale);
         int drawY = (int) ((getPos().getY() - radius + offsetY) * scale);
         int drawSize = (int) (radius * 2 * scale);
-        g.setColor(Color.LIGHT_GRAY);
         g.fillOval(drawX, drawY, drawSize, drawSize);
         g.setColor(Color.black);
         g.drawOval(drawX, drawY, drawSize, drawSize);

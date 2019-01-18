@@ -5,7 +5,6 @@
  */
 package Entities;
 
-import Foundation.Map;
 import java.util.ArrayList;
 
 /**
@@ -42,7 +41,7 @@ public class Ship extends Controllable {
     public void fireBullet() {
         if (hasAct) {
             hasAct = false;
-            map.addBullet(new Bullet(pos.x, pos.y, faceAngle, FIREPOWER, teamID, map));
+            map.getBullets().add(new Bullet(pos.x, pos.y, faceAngle, FIREPOWER, teamID, map));
             storage -= FIRECOST;
         }
     }
@@ -85,7 +84,7 @@ public class Ship extends Controllable {
      * @param input 
      */
     protected void collideDrone(Drone other, int input) {
-        if (this.checkCollision(other)&& teamID == other.teamID) {
+        if (this.checkCollision(other) && teamID == other.teamID) {
             storage += input;
         }
     }
@@ -96,7 +95,7 @@ public class Ship extends Controllable {
      * @param other 
      */
     public void collidePlanet(Planet other) {
-        if (this.checkCollision(other)&& teamID == other.teamID) {
+        if (this.checkCollision(other) && teamID == other.teamID) {
             other.collideShip(this, storage);
             storage = 0;
         }
