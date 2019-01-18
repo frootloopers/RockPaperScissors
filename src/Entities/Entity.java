@@ -94,9 +94,12 @@ public abstract class Entity {
      *
      * @param other the entity it checks with
      * @return if a collision should occur
+     *
+     * @author Carl Wu
      */
     public boolean checkCollision(Entity other) {
-        if (Math.sqrt((pos.x - other.pos.x) * (pos.x - other.pos.x)) + ((pos.y - other.pos.y) * (pos.y - other.pos.y)) <= (radius + other.radius)) {
+        if (((pos.x - other.pos.x) * (pos.x - other.pos.x)) + ((pos.y - other.pos.y) * (pos.y - other.pos.y))
+                <= (radius + other.radius) * (radius + other.radius)) {            
             return true;
         }
         return false;
@@ -120,6 +123,8 @@ public abstract class Entity {
      * entity is drawn
      * @param offsetY the offset of the y-value of the game board, at which the
      * entity is drawn
+     *
+     * @author Carl Wu
      */
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         //BufferedImage pos.X+offsetX, pos.Y+offsetY

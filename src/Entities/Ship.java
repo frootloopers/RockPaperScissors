@@ -81,13 +81,23 @@ public class Ship extends Controllable {
         super.move();
     }
 
-    //Carl is in charge of collisions
+    /**
+     * 
+     * 
+     * @param other
+     * @param input 
+     */
     protected void collideDrone(Drone other, int input) {
         if (this.checkCollision(other) && teamID == other.teamID) {
             storage += input;
         }
     }
 
+    /**
+     * transfers the storage of the ship to the planet
+     * 
+     * @param other 
+     */
     public void collidePlanet(Planet other) {
         if (this.checkCollision(other) && teamID == other.teamID) {
             other.collideShip(this, storage);

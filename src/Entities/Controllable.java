@@ -77,6 +77,13 @@ public abstract class Controllable extends Movable {
         g.drawString(Integer.toString(storage) + " res", temp.x + 2, temp.y + 28);
     }
 
+    /**
+     * set the storage to 0 when hit with a bullet
+     *
+     * @param other the bullet that's being collided with
+     *
+     * @author Carl Wu
+     */
     public void collideBullet(Bullet other) {
         if (this.checkCollision(other) && !(teamID == other.teamID)) {
             storage = 0;
