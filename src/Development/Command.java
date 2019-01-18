@@ -21,7 +21,7 @@ import Entities.*;
 public class Command {
 
     /**
-     * Turn the entity to be facing towards the position
+     * Turn a controllable entity to be facing towards a specific position
      *
      * @param c the controllable entity
      * @param pos the position to be faced
@@ -55,7 +55,7 @@ public class Command {
         } else if (difx >= 0.0 && dify >= 0.0) { //bottom right, x positive, y positive
             targetAngle = (180 - Math.toDegrees(Math.atan(Math.abs(difx) / Math.abs(dify))));
         } else if (difx <= 0.0 && dify >= 0.0) { //bottom left, x negative, y positive
-            targetAngle = (270 - Math.toDegrees(Math.atan(Math.abs(difx) / Math.abs(dify))));
+            targetAngle = (180 + Math.toDegrees(Math.atan(Math.abs(difx) / Math.abs(dify))));
         } else { //if (x <= 0.0 && y <= 0.0) { //top left, x negative, y negative
             targetAngle = (360 - Math.toDegrees(Math.atan(Math.abs(difx) / Math.abs(dify))));
         }
@@ -91,7 +91,7 @@ public class Command {
     }
 
     /**
-     * Move the entity to a specific position
+     * Move a controllable entity to a specific position
      *
      * @param c the controllable entity
      * @param pos the position to be moved to
@@ -108,7 +108,7 @@ public class Command {
         }
 
         //calculate distance from entity to destination
-        double dist = Math.sqrt(Math.pow(Math.abs(c.getPos().x - pos.x), 2) + Math.pow(Math.abs(c.getPos().y - pos.y), 2));
+        double dist = distance(c.getPos(), pos);
 
         //return if already at position within tollerance
         if (tolerance >= dist) {
@@ -130,5 +130,77 @@ public class Command {
         }
         return false;
     }
-    
+
+    /**
+     * Calculates the position the movable entity will be at in a certain amount
+     * of frames based off of the current velocity and direction. Cannot account
+     * for change in direction of velocity
+     *
+     * @param m the movable entity
+     * @param frames the amount of frames in which the position is estimated.
+     * The value must be greater than or equal to 0
+     * @return the position the entity is predicted to be at
+     * @throws IllegalArgumentException for a value of frames out of bounds
+     */
+    public static Pos willBe(Movable m, int frames) throws IllegalArgumentException {
+        if (frames < 0) {
+            throw new IllegalArgumentException();
+        }
+        return new Pos(m.getPos().x + (m.getVel().x * frames),
+                m.getPos().y + (m.getVel().y * frames));
+    }
+
+    /**
+     * Calculates the distance between two positions
+     *
+     * @param p1 the first position
+     * @param p2 the second position
+     * @return the distance between the positions as a double
+     */
+    public static double distance(Pos p1, Pos p2) {
+        return Math.sqrt(Math.pow(Math.abs(p1.x - p2.x), 2) + Math.pow(Math.abs(p1.y - p2.y), 2));
+    }
+
+    /**
+     * Check if a controllable entity will collide with a movable entity. Cannot
+     * account for change in direction of velocities
+     *
+     * @param c the controllable entity
+     * @param m the movable entity
+     * @param tolerance the tolerance value in pixels away. Must be between 0.5
+     * and 20, inclusive. Larger values will make the entities count as collided
+     * even if further away
+     * @return boolean value if the entities are calculated to collide
+     * @throws IllegalArgumentException for a value of tolerance out of bounds
+     */
+    public static boolean willCollide(Controllable c, Movable m, double tolerance) throws IllegalArgumentException {
+        double dist = c.getRadius() + m.getRadius() + tolerance;
+        for (int i = 5; i <= 150; i += 5) {
+            if (distance(willBe(c, i), willBe(m, i)) <= dist) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Move a controllable entity to intercept the future position of a movable
+     * entity in a certain amount of frames
+     *
+     * @param c the controllable entity
+     * @param m the movable entity
+     * @param frames the amount of frames in which the position of the movable.
+     * The value must be greater than or equal to 0 entity is predicted
+     */
+    public static void chase(Controllable c, Movable m, int frames) throws IllegalArgumentException {
+        Pos pos = willBe(m, frames);
+
+        //if facing at a difference of 60 degrees, accelerating towards target
+        //continue turning towards target
+        if (turnTo(c, pos, 60)) {
+            c.setThrustF(100);
+        }
+        turnTo(c, pos, 0.5);
+    }
+
 }
