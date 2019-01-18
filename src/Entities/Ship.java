@@ -27,21 +27,24 @@ public class Ship extends Controllable {
         super(x, y, RADIUS_SHIP, faceAngle, teamID, map);
     }
 
-    //pertaining to bullet
-    private final double FIREPOWER = 1;
-    private final double FIRECOST = 1;
-    //pertaining to the aoe attack
+    //bullet velocity
+    private final double FIREPOWER = 2;
+    //firing resource cost
+    private final double FIRECOST = 10;
+    //aoe attack range
     private final double PULSERANGE = 10;
+    //aoe damage
     private final double PULSEDMG = 100;
+    //aoe attack resource cost
     private final double PULSECOST = 1;
 
     /**
      * By Jia Jia: This spawns a bullet in the map.
      */
     public void fireBullet() {
-        if (hasAct) {
-            hasAct = false;
-            map.getBullets().add(new Bullet(pos.x, pos.y, faceAngle, FIREPOWER, teamID, map));
+        if (hasAct == false && storage >= FIRECOST) {
+            hasAct = true;
+            map.getBullets().add(new Bullet(pos.x, pos.y, FIREPOWER, faceAngle, teamID, map));
             storage -= FIRECOST;
         }
     }
@@ -51,8 +54,8 @@ public class Ship extends Controllable {
      * by PULSEDMG.
      */
     public void pulse() {
-        if (hasAct) {
-            hasAct = false;
+        if (hasAct == false) {
+            hasAct = true;
             //get the enemies within range
             ArrayList<Entity> temp = map.aoe(pos, PULSERANGE);
             for (Entity e : temp) {
@@ -68,6 +71,7 @@ public class Ship extends Controllable {
 
     @Override
     public void move() {
+        hasAct = false;
         //add acceleration
         vel.x += Math.sin(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);
         vel.y -= Math.cos(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);
@@ -77,6 +81,7 @@ public class Ship extends Controllable {
         super.move();
     }
 
+    //Carl is in charge of collisions
     protected void collideDrone(Drone other, int input) {
         if (this.checkCollision(other) && teamID == other.teamID) {
             storage += input;

@@ -112,7 +112,7 @@ public abstract class Entity {
     }
 
     /**
-     * Draw the icon representing the entity
+     * Carl Wu: Draw the icon representing the entity
      *
      * @param g the graphics used to draw the entity
      * @param scale the scale of the game board, at which the entity is drawn

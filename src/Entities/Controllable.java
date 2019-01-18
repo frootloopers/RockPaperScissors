@@ -34,6 +34,14 @@ public abstract class Controllable extends Movable {
         thrustRotL = 0;
     }
 
+    /**
+     * The work of Carl Wu:
+     *
+     * @param g
+     * @param scale
+     * @param offsetX
+     * @param offsetY
+     */
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         super.draw(g, scale, offsetX, offsetY);
@@ -98,7 +106,7 @@ public abstract class Controllable extends Movable {
      * whether the entity has acted this frame such that the move method only
      * functions once per frame even if called multiple times
      */
-    protected boolean hasAct = true;
+    protected boolean hasAct = false;
 
     /**
      * Gets the amount of resources stored by the entity
