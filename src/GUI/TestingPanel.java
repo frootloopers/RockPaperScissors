@@ -322,6 +322,7 @@ public class TestingPanel extends javax.swing.JPanel {
         d.draw(g, zoom, offsetX, offsetY);
         d.setThrustF(100);
         d.move();
+        
         e.draw(g, zoom, offsetX, offsetY);
         e.setThrustF(100);
         e.move();
@@ -332,21 +333,8 @@ public class TestingPanel extends javax.swing.JPanel {
         s.move();
 
         chaser.draw(g, zoom, offsetX, offsetY);
-        Command.chase(chaser, e, 50);
+        Command.chase(chaser, s, 50);
         chaser.move();
-
-        //System.out.println(Command.willCollide(s, chaser, 0.5));
-        Pos predictChaser = Command.willBe(chaser, 40);
-        g.fillOval((int) (predictChaser.x - chaser.getRadius()),
-                (int) (predictChaser.y - chaser.getRadius()),
-                chaser.getRadius() * 2, chaser.getRadius() * 2);
-        Pos predictS = Command.willBe(s, 40);
-        g.fillOval((int) (predictS.x - s.getRadius()),
-                (int) (predictS.y - s.getRadius()),
-                s.getRadius() * 2, s.getRadius() * 2);
-
-        g.drawLine((int) (chaser.getPos().x), (int) (chaser.getPos().y),
-                (int) (s.getPos().x), (int) (s.getPos().y));
 
     }
 

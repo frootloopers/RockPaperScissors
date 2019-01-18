@@ -121,6 +121,7 @@ public abstract class Entity {
      * entity is drawn
      * @param offsetY the offset of the y-value of the game board, at which the
      * entity is drawn
+     * @author Carl Wu
      */
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         //BufferedImage pos.X+offsetX, pos.Y+offsetY
