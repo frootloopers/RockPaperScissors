@@ -9,6 +9,7 @@ import Development.Command;
 import Blocks.Pos;
 import Entities.*;
 import Foundation.Map;
+import Foundation.Team;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -59,6 +60,7 @@ public class TestingPanel extends javax.swing.JPanel {
     Point mouse = new Point(0, 0);
     GameFrame gameframe;
 
+    //---------------------------GUI-UTILITIES----------------------------------
     //Graphics timer
     Timer t = new Timer(refreshRate, new ActionListener() {
         @Override
@@ -66,7 +68,6 @@ public class TestingPanel extends javax.swing.JPanel {
             repaint();
         }
     });
-
     //Game interaction timer
     Timer t2 = new Timer(gameSpeed, new ActionListener() {
         @Override
@@ -75,10 +76,14 @@ public class TestingPanel extends javax.swing.JPanel {
         }
     });
 
+    /**
+     * By Jia Jia: Looks for keyboard inputs, storing them in an array to be
+     * processed. Thanks to this revolutionary method, multiple keys can be
+     * pressed at once.
+     */
     KeyListener kListener = new KeyListener() {
         public void keyTyped(KeyEvent key) {
         }
-
         private final Set<Integer> pressed = new HashSet<Integer>();
 
         public void keyPressed(KeyEvent key) {
@@ -86,19 +91,19 @@ public class TestingPanel extends javax.swing.JPanel {
             for (Integer k : pressed) {
                 switch (k) {
                     case KeyEvent.VK_1:
-                        gameSpeed = 3;
+                        gameframe.selectComboBox1(0);
                         break;
                     case KeyEvent.VK_2:
-                        gameSpeed = 5;
+                        gameframe.selectComboBox1(1);
                         break;
                     case KeyEvent.VK_3:
-                        gameSpeed = 10;
+                        gameframe.selectComboBox1(2);
                         break;
                     case KeyEvent.VK_4:
-                        gameSpeed = 15;
+                        gameframe.selectComboBox1(3);
                         break;
                     case KeyEvent.VK_5:
-                        gameSpeed = 20;
+                        gameframe.selectComboBox1(4);
                         break;
                     case KeyEvent.VK_R:
                         if (showRes) {
@@ -109,9 +114,7 @@ public class TestingPanel extends javax.swing.JPanel {
                         break;
                 }
             }
-            t2.setDelay(gameSpeed);
         }
-
 //            public void keyHeld(KeyEvent key) {
 //                switch (key.getKeyCode()) {
 //                    case KeyEvent.VK_LEFT:
@@ -128,6 +131,7 @@ public class TestingPanel extends javax.swing.JPanel {
 //                        break;
 //                }
 //            }
+
         public void keyReleased(KeyEvent key) {
             pressed.remove(key.getKeyCode());
         }
@@ -164,7 +168,6 @@ public class TestingPanel extends javax.swing.JPanel {
             //add the change in mouse position when dragging to the camera position
             offsetX -= mouse.x - ms.getPoint().x;
             offsetY -= mouse.y - ms.getPoint().y;
-
             //prevent the camera from moving too far
             if (offsetX < -mapX) {
                 offsetX = -mapX;
@@ -178,7 +181,6 @@ public class TestingPanel extends javax.swing.JPanel {
             if (offsetY > mapY) {
                 offsetY = mapY;
             }
-
             mouse = ms.getPoint();
         }
 
@@ -196,6 +198,7 @@ public class TestingPanel extends javax.swing.JPanel {
             zoom -= zoomChange;
         }
     };
+    //--------------------------------------------------------------------------
 
     /**
      * Creates new form GamePanel
@@ -222,6 +225,10 @@ public class TestingPanel extends javax.swing.JPanel {
         t.start();
     }
 
+    public void timerReset() {
+        t2.setDelay(gameSpeed);
+    }
+
     /**
      * By Jia Jia: Toggles the state of the game.
      */
@@ -242,10 +249,20 @@ public class TestingPanel extends javax.swing.JPanel {
         for (Controllable c : m.getControllables()) {
             c.draw(g, zoom, offsetX, offsetY);
         }
+        //if developer resources is on
         if (showRes) {
             for (Controllable c : m.getControllables()) {
                 c.showRes(g, zoom, offsetX, offsetY);
             }
+            g.setColor(Color.PINK);
+            g.drawString("Panel Size: " + this.getWidth() + "," + this.getHeight(), 5, 15);
+            g.drawString("Cursor: " + mouse.x + "," + mouse.y, 5, 30);
+            String temp = "";
+            for (Team t : GameBoard.getTeams()) {
+                temp = temp.concat(Integer.toString(t.getScore()) + " | ");
+            }
+            g.drawString("Score: | " + temp, 5, 45);
+            g.drawString("Time (100%=1/100s): " + Integer.toString(GameBoard.getTime()), 5, 60);
         }
         for (Bullet b : m.getBullets()) {
             b.draw(g, zoom, offsetX, offsetY);
@@ -288,7 +305,7 @@ public class TestingPanel extends javax.swing.JPanel {
 //        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
         //Draw background
         g.setColor(Color.CYAN);
-        g.fillRect(0, 0, mapX, mapY);
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
         //Draw gameboard
         g.setColor(Color.WHITE);
         g.fillRect((int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom));

@@ -7,6 +7,7 @@ package GUI;
 
 import Entities.Entity;
 import Entities.Ship;
+import Foundation.Map;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -64,7 +65,7 @@ public class GameFrame extends javax.swing.JFrame {
         testingPanel1.setLayout(testingPanel1Layout);
         testingPanel1Layout.setHorizontalGroup(
             testingPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
         testingPanel1Layout.setVerticalGroup(
             testingPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,7 +86,9 @@ public class GameFrame extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "50%", "75%", "100%", "200%", "300%" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10%", "50%", "100%", "200%", "300%" }));
+        jComboBox1.setSelectedIndex(2);
+        jComboBox1.setToolTipText("");
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -98,24 +101,24 @@ public class GameFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(testingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(testingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(460, Short.MAX_VALUE)
+                .addContainerGap(459, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+            .addComponent(testingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
         );
 
         pack();
@@ -151,11 +154,43 @@ public class GameFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * By Jia Jia: Applies applicable change based on what was selected from the
+     * combo box.
+     *
+     * @param evt
+     */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         testingPanel1.requestFocus();
-        // TODO add your handling code here:
+        //set the game speed to the one matching the option selected
+        switch (jComboBox1.getSelectedItem().toString()) {
+            case "10%":
+                testingPanel1.gameSpeed = 100;
+                break;
+            case "50%":
+                testingPanel1.gameSpeed = 15;
+                break;
+            case "100%":
+                testingPanel1.gameSpeed = 10;
+                break;
+            case "200%":
+                testingPanel1.gameSpeed = 5;
+                break;
+            case "300%":
+                //Actually 333.33...%
+                testingPanel1.gameSpeed = 3;
+                break;
+            default:
+                break;
+        }
+        testingPanel1.timerReset();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    /**
+     * Jia Jia
+     *
+     * @param evt
+     */
     private void testingPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_testingPanel1MouseClicked
         testingPanel1.requestFocus();
     }//GEN-LAST:event_testingPanel1MouseClicked
@@ -164,7 +199,18 @@ public class GameFrame extends javax.swing.JFrame {
      * By Jia Jia: Allows third-parties to click the button.
      */
     public void clickToggleButton1() {
-        this.jToggleButton1.doClick();
+        jToggleButton1.doClick();
+    }
+
+    /**
+     * By Jia Jia: Allows third-parties to select from the drop down.
+     */
+    public void selectComboBox1(int index) {
+        jComboBox1.setSelectedIndex(index);
+    }
+
+    public Map getMapData() {
+        return testingPanel1.GameBoard;
     }
 
     /**
