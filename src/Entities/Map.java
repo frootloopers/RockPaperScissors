@@ -241,9 +241,21 @@ public class Map {
                 if (Controllables[i].checkCollision(Bullets.get(j))) {
                     Controllables[i].collideBullet(Bullets.get(j));
                 }
+                if ((Bullets.get(j).getPos().getX() - Bullets.get(j).getRadius()
+                    <= 0 && Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)
+                    || (Bullets.get(j).getPos().getX() + Bullets.get(j).getRadius()
+                    >= xMax && Bullets.get(j).getPos().getY() + Bullets.get(j).getRadius() >= yMax)) {
+                    Bullets.remove(j);
+                }
+            }
+
+            if ((Controllables[i].getPos().getX() - Controllables[i].getRadius()
+                    <= 0 && Controllables[i].getPos().getY() - Controllables[i].getRadius() <= 0)
+                    || (Controllables[i].getPos().getX() + Controllables[i].getRadius()
+                    >= xMax && Controllables[i].getPos().getY() + Controllables[i].getRadius() >= yMax)) {
+                Controllables[i].collision();
             }
         }
-        //  Bullets - Harvestables        
     }
 
 }
