@@ -13,13 +13,13 @@ import Foundation.Map;
  */
 public class Debugger extends javax.swing.JFrame {
 
-    TestingPanel pointer;
+    GameFrame game;
 
     /**
      * Creates new form Debugger
      */
-    public Debugger(TestingPanel pointer) {
-        this.pointer=pointer;
+    public Debugger(GameFrame game) {
+        this.game=game;
         initComponents();
     }
 
@@ -32,7 +32,7 @@ public class Debugger extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        debugPanel1 = new GUI.DebugPanel(pointer);
+        debugPanel1 = new GUI.DebugPanel(game);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 

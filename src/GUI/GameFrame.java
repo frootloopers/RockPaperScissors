@@ -7,6 +7,7 @@ package GUI;
 
 import Entities.Entity;
 import Entities.Ship;
+import Foundation.Map;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,9 +25,9 @@ public class GameFrame extends javax.swing.JFrame {
     public GameFrame() {
         initComponents();
     }
-    
+
     boolean resetConfirm = false;
-    
+
     Timer t = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -55,6 +56,7 @@ public class GameFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        testingPanel1.setPreferredSize(new java.awt.Dimension(600, 0));
         testingPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 testingPanel1MouseClicked(evt);
@@ -105,8 +107,8 @@ public class GameFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(testingPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(testingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -126,7 +128,7 @@ public class GameFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(testingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(testingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
 
         pack();
@@ -172,7 +174,7 @@ public class GameFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_testingPanel1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Debugger debug = new Debugger(this.testingPanel1);
+        Debugger debug = new Debugger(this);
         debug.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -181,6 +183,10 @@ public class GameFrame extends javax.swing.JFrame {
      */
     public void clickToggleButton1() {
         this.jToggleButton1.doClick();
+    }
+
+    public Map getMapData() {
+        return testingPanel1.GameBoard;
     }
 
     /**

@@ -30,6 +30,7 @@ public class Map {
     private Team[] Teams;
     private int xMax;
     private int yMax;
+    private int time;
     private Random rand = new Random();
 
     private static final int xPlanet = 40;
@@ -37,6 +38,7 @@ public class Map {
     private static final int offset = 40;
 
     public Map(int teams, int xMax, int yMax) {
+        time = 0;
         this.Teams = new Team[teams];
         Controllables = new Controllable[teams * 3];
         Planets = new Planet[teams];
@@ -48,6 +50,8 @@ public class Map {
     }
 
     public void reset() {
+        time = 0;
+
         for (int x = 0; x < harvestables; x++) {
             Harvestables[x] = new Harvestable(100 + rand.nextInt(xMax - 200), 100 + rand.nextInt(yMax - 200), this);
         }
@@ -121,6 +125,15 @@ public class Map {
     /**
      * Returns a list of harvestables
      *
+     * @return The number of game ticks that have passed since reset.
+     */
+    public int getTime() {
+        return time;
+    }
+
+    /**
+     * Returns a list of harvestables
+     *
      * @return
      */
     public Harvestable[] getHarvest() {
@@ -164,9 +177,13 @@ public class Map {
     }
 
     /**
-     * Makes all entities act.
+     * Main game loop.
      */
     public void moveAll() {
+        //keep time
+        time++;
+
+        //move all things that move
         for (Entity e : Controllables) {
             if (e instanceof Movable) {
                 ((Movable) e).move();
@@ -175,6 +192,8 @@ public class Map {
         for (Movable e : Bullets) {
             e.move();
         }
+
+        //use Carl's collision detection
         collide();
     }
 

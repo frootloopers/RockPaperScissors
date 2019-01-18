@@ -19,7 +19,7 @@ import javax.swing.Timer;
  */
 public class DebugPanel extends javax.swing.JPanel {
 
-    TestingPanel pointer;
+    GameFrame origin;
 
     Timer t = new Timer(10, new ActionListener() {
         @Override
@@ -31,19 +31,28 @@ public class DebugPanel extends javax.swing.JPanel {
     /**
      * Creates new form DebugPanel
      */
-    public DebugPanel(TestingPanel pointer) {
-        this.pointer = pointer;
+    public DebugPanel(GameFrame origin) {
+        this.origin = origin;
         initComponents();
         t.start();
     }
 
     public void paintComponent(Graphics g) {
-        Controllable[] controls = pointer.GameBoard.getControllables();
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         g.setColor(Color.BLACK);
+        Map temp = origin.getMapData();
+        Controllable[] controls = temp.getControllables();
         for (int x = 0; x < controls.length; x++) {
             g.drawString(controls[x].getPos().x + " " + controls[x].getPos().y, 0, x * 10);
+        }
+        Harvestable[] harvest = temp.getHarvest();
+        for (int x = 0; x < harvest.length; x++) {
+            g.drawString(harvest[x].getPos().x + " " + harvest[x].getPos().y, 100, x * 10);
+        }
+        Planet[] planets = temp.getPlanets();
+        for (int x = 0; x < planets.length; x++) {
+            g.drawString(planets[x].getPos().x + " " + planets[x].getPos().y, 200, x * 10);
         }
     }
 
