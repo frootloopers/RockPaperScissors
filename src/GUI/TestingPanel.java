@@ -9,6 +9,7 @@ import Development.Command;
 import Blocks.Pos;
 import Entities.*;
 import Foundation.Map;
+import Foundation.Team;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -85,19 +86,19 @@ public class TestingPanel extends javax.swing.JPanel {
             for (Integer k : pressed) {
                 switch (k) {
                     case KeyEvent.VK_1:
-                        gameSpeed = 3;
+                        gameframe.selectComboBox1(0);
                         break;
                     case KeyEvent.VK_2:
-                        gameSpeed = 5;
+                        gameframe.selectComboBox1(1);
                         break;
                     case KeyEvent.VK_3:
-                        gameSpeed = 10;
+                        gameframe.selectComboBox1(2);
                         break;
                     case KeyEvent.VK_4:
-                        gameSpeed = 15;
+                        gameframe.selectComboBox1(3);
                         break;
                     case KeyEvent.VK_5:
-                        gameSpeed = 20;
+                        gameframe.selectComboBox1(4);
                         break;
                     case KeyEvent.VK_R:
                         if (showRes) {
@@ -108,7 +109,6 @@ public class TestingPanel extends javax.swing.JPanel {
                         break;
                 }
             }
-            t2.setDelay(gameSpeed);
         }
 
 //            public void keyHeld(KeyEvent key) {
@@ -205,7 +205,7 @@ public class TestingPanel extends javax.swing.JPanel {
         GameBoard = new Map(teams, mapX, mapY);
         GameBoard.reset();
         GameBoard.getControllables()[0].setThrustF(10);
-        
+
         //testing entities
         d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
         s = new Ship(400.0, 300.0, 135.0, 1, GameBoard);
@@ -218,6 +218,10 @@ public class TestingPanel extends javax.swing.JPanel {
         addKeyListener(kListener);
         setFocusable(true);
         t.start();
+    }
+
+    public void timerReset() {
+        t2.setDelay(gameSpeed);
     }
 
     /**
@@ -244,6 +248,14 @@ public class TestingPanel extends javax.swing.JPanel {
             for (Controllable c : m.getControllables()) {
                 c.showRes(g, zoom, offsetX, offsetY);
             }
+            g.setColor(Color.PINK);
+            g.drawString(mouse.x + "," + mouse.y, 5, 15);
+            g.setColor(Color.ORANGE);
+            String temp = "";
+            for (Team t : GameBoard.getTeams()) {
+                temp = temp.concat(Integer.toString(t.getScore()) + " | ");
+            }
+            g.drawString(temp, 5, 30);
         }
         for (Bullet b : m.getBullets()) {
             b.draw(g, zoom, offsetX, offsetY);
@@ -290,8 +302,6 @@ public class TestingPanel extends javax.swing.JPanel {
         //Draw gameboard
         g.setColor(Color.WHITE);
         g.fillRect((int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom));
-        
-        
 
         updateGraphics(g, GameBoard);
         GameBoard.getControllables()[0].setThrustF(100);

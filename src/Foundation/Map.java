@@ -63,10 +63,10 @@ public class Map {
                 Controllables[1] = new Drone(xPlanet + offset, yPlanet, 135, 1, this);
                 Controllables[2] = new Drone(xPlanet, yPlanet + offset, 135, 1, this);
 
-                Planets[1] = new Planet(xMax - xPlanet, yPlanet, 3, this);
-                Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 1, this);
-                Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 1, this);
-                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + offset), 225, 1, this);
+                Planets[1] = new Planet(xMax - xPlanet, yPlanet, 2, this);
+                Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 2, this);
+                Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 2, this);
+                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + offset), 225, 2, this);
 
                 Teams[0] = new Team(0, "Player 1");
                 Teams[1] = new Team(0, "Player 2");
@@ -78,20 +78,20 @@ public class Map {
                 Controllables[1] = new Drone(xPlanet + offset, yPlanet, 135, 1, this);
                 Controllables[2] = new Drone(xPlanet, (yPlanet + offset), 135, 1, this);
 
-                Planets[1] = new Planet(xMax - xPlanet, yPlanet, 3, this);
-                Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 1, this);
-                Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 1, this);
-                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + offset), 225, 1, this);
+                Planets[1] = new Planet(xMax - xPlanet, yPlanet, 2, this);
+                Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 2, this);
+                Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 2, this);
+                Controllables[5] = new Drone(xMax - xPlanet, (yPlanet + offset), 225, 2, this);
 
-                Planets[2] = new Planet(xPlanet, yMax - yPlanet, 2, this);
-                Controllables[6] = new Ship((xPlanet + offset), yMax - (yPlanet + offset), 45, 1, this);
-                Controllables[7] = new Drone((xPlanet + offset), yMax - yPlanet, 45, 1, this);
-                Controllables[8] = new Drone(xPlanet, yMax - (yPlanet + offset), 45, 1, this);
+                Planets[2] = new Planet(xPlanet, yMax - yPlanet, 3, this);
+                Controllables[6] = new Ship((xPlanet + offset), yMax - (yPlanet + offset), 45, 3, this);
+                Controllables[7] = new Drone((xPlanet + offset), yMax - yPlanet, 45, 3, this);
+                Controllables[8] = new Drone(xPlanet, yMax - (yPlanet + offset), 45, 3, this);
 
                 Planets[3] = new Planet(xMax - xPlanet, yMax - yPlanet, 4, this);
-                Controllables[9] = new Ship(xMax - (xPlanet + offset), yMax - (yPlanet + offset), 315, 1, this);
-                Controllables[10] = new Drone(xMax - (xPlanet + offset), yMax - yPlanet, 315, 1, this);
-                Controllables[11] = new Drone(xMax - xPlanet, yMax - (yPlanet + offset), 315, 1, this);
+                Controllables[9] = new Ship(xMax - (xPlanet + offset), yMax - (yPlanet + offset), 315, 4, this);
+                Controllables[10] = new Drone(xMax - (xPlanet + offset), yMax - yPlanet, 315, 4, this);
+                Controllables[11] = new Drone(xMax - xPlanet, yMax - (yPlanet + offset), 315, 4, this);
 
                 Teams[0] = new Team(0, "Player 1");
                 Teams[1] = new Team(0, "Player 2");

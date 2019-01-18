@@ -43,8 +43,8 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jToggleButton1" min="-2" pref="50" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jToggleButton1" min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
           </Group>
           <Component id="testingPanel1" alignment="0" pref="600" max="32767" attributes="0"/>
       </Group>
@@ -97,13 +97,15 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="5">
-            <StringItem index="0" value="50%"/>
-            <StringItem index="1" value="75%"/>
+            <StringItem index="0" value="10%"/>
+            <StringItem index="1" value="50%"/>
             <StringItem index="2" value="100%"/>
             <StringItem index="3" value="200%"/>
             <StringItem index="4" value="300%"/>
           </StringArray>
         </Property>
+        <Property name="selectedIndex" type="int" value="2"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
