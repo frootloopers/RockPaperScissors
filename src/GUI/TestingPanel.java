@@ -236,6 +236,7 @@ public class TestingPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form GamePanel
+     * @param gameframe The JFrame this JPanel is in.
      */
     public TestingPanel(GameFrame gameframe) {
         initComponents();
