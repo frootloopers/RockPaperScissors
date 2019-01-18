@@ -209,10 +209,10 @@ public class TestingPanel extends javax.swing.JPanel {
         GameBoard.reset();
         GameBoard.getControllables()[0].setThrustF(10);
 
-        //testing entities
-        d = new Drone(100.0, 100.0, 135.0, 1, GameBoard);
-        s = new Ship(400.0, 300.0, 135.0, 1, GameBoard);
-        chaser = new Ship(50.0, 50.0, -90, 1, GameBoard);
+        //John's testing entities
+        d = new Drone(100.0, 100.0, 135.0, -1, GameBoard);
+        s = new Ship(400.0, 300.0, 135.0, -1, GameBoard);
+        chaser = new Ship(50.0, 50.0, -90, -2, GameBoard);
 
         //attach the listeners when constructing the panel
         addMouseListener(mListener);
@@ -247,18 +247,20 @@ public class TestingPanel extends javax.swing.JPanel {
         for (Controllable c : m.getControllables()) {
             c.draw(g, zoom, offsetX, offsetY);
         }
+        //if developer resources is on
         if (showRes) {
             for (Controllable c : m.getControllables()) {
                 c.showRes(g, zoom, offsetX, offsetY);
             }
             g.setColor(Color.PINK);
-            g.drawString(mouse.x + "," + mouse.y, 5, 15);
-            g.setColor(Color.ORANGE);
+            g.drawString("Panel Size: " + this.getWidth() + "," + this.getHeight(), 5, 15);
+            g.drawString("Cursor: " + mouse.x + "," + mouse.y, 5, 30);
             String temp = "";
             for (Team t : GameBoard.getTeams()) {
                 temp = temp.concat(Integer.toString(t.getScore()) + " | ");
             }
-            g.drawString(temp, 5, 30);
+            g.drawString("Score: | " + temp, 5, 45);
+            g.drawString("Time (100%=1/100s): " + Integer.toString(GameBoard.getTime()), 5, 60);
         }
         for (Bullet b : m.getBullets()) {
             b.draw(g, zoom, offsetX, offsetY);
