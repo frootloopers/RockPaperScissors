@@ -59,6 +59,7 @@ public class TestingPanel extends javax.swing.JPanel {
     Point mouse = new Point(0, 0);
     GameFrame gameframe;
 
+    //---------------------------GUI-UTILITIES----------------------------------
     //Graphics timer
     Timer t = new Timer(refreshRate, new ActionListener() {
         @Override
@@ -66,7 +67,6 @@ public class TestingPanel extends javax.swing.JPanel {
             repaint();
         }
     });
-
     //Game interaction timer
     Timer t2 = new Timer(gameSpeed, new ActionListener() {
         @Override
@@ -75,10 +75,14 @@ public class TestingPanel extends javax.swing.JPanel {
         }
     });
 
+    /**
+     * By Jia Jia: Looks for keyboard inputs, storing them in an array to be
+     * processed. Thanks to this revolutionary method, multiple keys can be
+     * pressed at once.
+     */
     KeyListener kListener = new KeyListener() {
         public void keyTyped(KeyEvent key) {
         }
-
         private final Set<Integer> pressed = new HashSet<Integer>();
 
         public void keyPressed(KeyEvent key) {
@@ -110,7 +114,6 @@ public class TestingPanel extends javax.swing.JPanel {
                 }
             }
         }
-
 //            public void keyHeld(KeyEvent key) {
 //                switch (key.getKeyCode()) {
 //                    case KeyEvent.VK_LEFT:
@@ -127,6 +130,7 @@ public class TestingPanel extends javax.swing.JPanel {
 //                        break;
 //                }
 //            }
+
         public void keyReleased(KeyEvent key) {
             pressed.remove(key.getKeyCode());
         }
@@ -163,7 +167,6 @@ public class TestingPanel extends javax.swing.JPanel {
             //add the change in mouse position when dragging to the camera position
             offsetX -= mouse.x - ms.getPoint().x;
             offsetY -= mouse.y - ms.getPoint().y;
-
             //prevent the camera from moving too far
             if (offsetX < -mapX) {
                 offsetX = -mapX;
@@ -177,7 +180,6 @@ public class TestingPanel extends javax.swing.JPanel {
             if (offsetY > mapY) {
                 offsetY = mapY;
             }
-
             mouse = ms.getPoint();
         }
 
@@ -195,6 +197,7 @@ public class TestingPanel extends javax.swing.JPanel {
             zoom -= zoomChange;
         }
     };
+    //--------------------------------------------------------------------------
 
     /**
      * Creates new form GamePanel
