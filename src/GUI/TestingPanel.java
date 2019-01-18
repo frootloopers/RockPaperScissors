@@ -320,10 +320,10 @@ public class TestingPanel extends javax.swing.JPanel {
             g.fillRect(0, 0, 200, 130);
             g.setColor(Color.PINK);
             g.drawRect(0, 0, 200, 130);
-            g.drawString("Panel Size: " + this.getWidth() + "," + this.getHeight(), 5, 15);
-            g.drawString("Cursor Panel: " + mouse.x + "," + mouse.y, 5, 30);
-            g.drawString("Cursor Map: " + Math.round((mouse.x - (offsetX * zoom)) / zoom) + "," + Math.round((mouse.y - (offsetY * zoom)) / zoom), 5, 45);
-            g.drawString("Map Offset: " + (int) (offsetX * zoom) + "," + (int) (offsetY * zoom), 5, 60);
+            g.drawString("Panel Size: " + this.getWidth() + ", " + this.getHeight(), 5, 15);
+            g.drawString("Cursor Panel: " + mouse.x + ", " + mouse.y, 5, 30);
+            g.drawString("Cursor Map: " + Math.round((mouse.x - (offsetX * zoom)) / zoom) + ", " + Math.round((mouse.y - (offsetY * zoom)) / zoom), 5, 45);
+            g.drawString("Map Offset: " + (int) (offsetX * zoom) + ", " + (int) (offsetY * zoom), 5, 60);
             g.drawString("Zoom: " + zoom, 5, 75);
             String temp = "";
             for (Team t : GameBoard.getTeams()) {

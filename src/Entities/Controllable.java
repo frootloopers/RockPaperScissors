@@ -61,12 +61,12 @@ public abstract class Controllable extends Movable {
      */
     public void showRes(Graphics g, double scale, int offsetX, int offsetY) {
         g.setColor(Color.MAGENTA);
-        Point temp = new Point((int) ((getPos().getX() + offsetX + 4) * scale), (int) ((getPos().getY() + offsetY) * scale));
-        g.fillRect(temp.x - 2, temp.y - 12, 60, 30);
+        Point temp = new Point((int) ((getPos().getX() + offsetX) * scale), (int) ((getPos().getY() + offsetY) * scale));
+        g.fillRect(temp.x, temp.y, 60, 30);
         g.setColor(Color.BLACK);
-        g.drawRect(temp.x - 2, temp.y - 12, 60, 30);
-        g.drawString(Math.round(getPos().x) + ", " + Math.round(getPos().y), temp.x, temp.y);
-        g.drawString(Integer.toString(storage) + " res", temp.x, temp.y + 15);
+        g.drawRect(temp.x, temp.y, 60, 30);
+        g.drawString(Math.round(getPos().x) + ", " + Math.round(getPos().y), temp.x + 2, temp.y + 13);
+        g.drawString(Integer.toString(storage) + " res", temp.x + 2, temp.y + 28);
     }
 
     public void collideBullet(Bullet other) {
