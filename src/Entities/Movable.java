@@ -6,7 +6,6 @@
 package Entities;
 
 import Blocks.Vel;
-import Foundation.Map;
 import java.awt.Graphics;
 
 /**

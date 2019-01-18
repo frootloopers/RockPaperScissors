@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Foundation;
+package Entities;
 
+import Entities.Team;
 import Blocks.Pos;
 import Entities.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -104,26 +106,12 @@ public class Map {
         }
     }
 
-    /**
-     * Put the rock somewhere else
-     *
-     * @param h The rock you want to reset.
-     */
-    public void newRock(Harvestable h) {
-        h = new Harvestable(rand.nextInt(xMax), rand.nextInt(yMax), this);
+    public Point getMax() {
+        return new Point(xMax, yMax);
     }
 
     /**
-     * Add a bullet to the map
-     *
-     * @param bullet What bullet to add
-     */
-    public void addBullet(Bullet bullet) {
-        Bullets.add(bullet);
-    }
-
-    /**
-     * Returns a list of harvestables
+     * Returns the time
      *
      * @return The number of game ticks that have passed since reset.
      */

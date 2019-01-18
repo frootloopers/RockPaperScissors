@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Foundation.Team;
+import Entities.Team;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,7 +23,7 @@ public abstract class Saviour {
 
     protected static ArrayList<Team> loadScore() throws FileNotFoundException {
         ArrayList<Team> scores = new ArrayList<>();
-        Scanner input = new Scanner(new FileReader("High_Scores.txt"));
+        Scanner input = new Scanner(new FileReader("src/High_Scores.txt"));
         while (input.hasNextLine()) {
             String[] temp = input.nextLine().split(",");
             scores.add(new Team(Integer.parseInt(temp[1]), temp[0]));
@@ -44,7 +44,7 @@ public abstract class Saviour {
     }
 
     private static void saveTo(String toSave) throws IOException {
-        PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter("High_Scores.txt", true)));
+        PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter("src/High_Scores.txt", true)));
         output.append(toSave);
         output.close();
     }

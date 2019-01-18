@@ -5,7 +5,7 @@
  */
 package GUI;
 
-import Foundation.Map;
+import Entities.Map;
 
 /**
  *
