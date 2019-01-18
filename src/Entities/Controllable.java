@@ -7,6 +7,7 @@ package Entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 
 /**
  *
@@ -60,7 +61,12 @@ public abstract class Controllable extends Movable {
      */
     public void showRes(Graphics g, double scale, int offsetX, int offsetY) {
         g.setColor(Color.MAGENTA);
-        g.drawString(Integer.toString(storage), (int) ((getPos().getX() + offsetX) * scale), (int) ((getPos().getY() + offsetY) * scale));
+        Point temp = new Point((int) ((getPos().getX() + offsetX + 4) * scale), (int) ((getPos().getY() + offsetY) * scale));
+        g.fillRect(temp.x - 2, temp.y - 12, 60, 30);
+        g.setColor(Color.BLACK);
+        g.drawRect(temp.x - 2, temp.y - 12, 60, 30);
+        g.drawString(Math.round(getPos().x) + ", " + Math.round(getPos().y), temp.x, temp.y);
+        g.drawString(Integer.toString(storage) + " res", temp.x, temp.y + 15);
     }
 
     public void collideBullet(Bullet other) {

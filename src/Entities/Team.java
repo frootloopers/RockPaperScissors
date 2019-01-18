@@ -22,9 +22,10 @@ public class Team implements Comparable{
      *
      * @param Entities
      */
-    public Team(Entity[] Entities) {
+    public Team(Entity[] Entities, String aiName) {
         score = 0;
         this.Entities = Entities;
+        this.aiName = aiName;
     }
 
     /**
