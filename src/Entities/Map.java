@@ -111,7 +111,7 @@ public class Map {
     }
 
     /**
-     * Returns a list of harvestables
+     * Returns the time
      *
      * @return The number of game ticks that have passed since reset.
      */
