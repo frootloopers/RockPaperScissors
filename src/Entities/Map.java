@@ -206,12 +206,12 @@ public class Map {
     public void collide() {
         for (int i = 0; i < Controllables.length; i++) {
             //  Entities - Entities
-            for (int j = i; j < Controllables.length; j++) {
+            for (int j = i+1; j < Controllables.length; j++) {
                 if (Controllables[i].checkCollision(Controllables[j])) {
                     Controllables[i].collision(Controllables[j]);
                     Controllables[j].collision(Controllables[i]);
-                    if (Controllables[i] instanceof Drone && Controllables[j] instanceof Ship) {
-                        ((Drone) Controllables[i]).collideShip((Ship) Controllables[j]);
+                    if (Controllables[j] instanceof Drone && Controllables[i] instanceof Ship) {
+                        ((Drone) Controllables[j]).collideShip((Ship) Controllables[i]);
                     }
                 }
             }
