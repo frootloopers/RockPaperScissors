@@ -111,7 +111,7 @@ public class TestingPanel extends javax.swing.JPanel {
              * 0-5 for Changing speeds, with 0 being the slowest.
              * R to toggle the developer resources.
              * G to change game skin.
-             * O to manually take control of the unit your pointer is over.
+             * O to manually take control of the unit your pointer is over. Press O again to lose control.
              * W to move forward, A and D to turn the unit you control.
              */
             for (Integer k : pressed) {
@@ -135,7 +135,11 @@ public class TestingPanel extends javax.swing.JPanel {
                         gameframe.clickToggleButton1();
                         break;
                     case KeyEvent.VK_O:
-                        manualOverride();
+                        if (selected == null) {
+                            manualOverride();
+                        } else {
+                            restore();
+                        }
                         break;
                     case KeyEvent.VK_R:
                         if (showRes) {
@@ -179,6 +183,37 @@ public class TestingPanel extends javax.swing.JPanel {
             }
         }
 
+//        public void keyHeld(KeyEvent key) {
+//            if (selected != null) {
+//                switch (key.getKeyCode()) {
+//                    case KeyEvent.VK_W:
+//                        if (selected != null) {
+//                            selected.setThrustF(100);
+//                        }
+//                        break;
+//                    case KeyEvent.VK_A:
+//                        if (selected != null) {
+//                            selected.setThrustRotR(100);
+//                        }
+//                        break;
+//                    case KeyEvent.VK_D:
+//                        if (selected != null) {
+//                            selected.setThrustRotL(100);
+//                        }
+//                        break;
+//                    case KeyEvent.VK_N:
+//                        if (selected instanceof Ship) {
+//                            ((Ship) selected).fireBullet();
+//                        }
+//                        break;
+//                    case KeyEvent.VK_M:
+//                        if (selected instanceof Ship) {
+//                            ((Ship) selected).pulse();
+//                        }
+//                        break;
+//                }
+//            }
+//        }
         public void keyReleased(KeyEvent key) {
             //
             pressed.remove(key.getKeyCode());
@@ -199,14 +234,11 @@ public class TestingPanel extends javax.swing.JPanel {
         }
     };
 
-    /*
-     * By Jia Jia: Right click toggles whether or not the game is in play.
-     */
     MouseListener mListener = new MouseListener() {
         public void mouseClicked(MouseEvent ms) {
             if (SwingUtilities.isRightMouseButton(ms)) {
                 if (selected != null) {
-                    restore();
+                    //something
                 }
             }
         }
@@ -224,9 +256,6 @@ public class TestingPanel extends javax.swing.JPanel {
         }
     };
 
-    /*
-     * By Jia Jia: Allows camera movement via dragging the mouse.
-     */
     MouseMotionListener mMListener = new MouseMotionListener() {
         public void mouseDragged(MouseEvent ms) {
             //add the change in mouse position when dragging to the camera position
@@ -302,6 +331,7 @@ public class TestingPanel extends javax.swing.JPanel {
      */
     private void manualOverride() {
         for (Controllable c : GameBoard.getControllables()) {
+            //detect if the cursor is over a controllable
             double dist = Math.sqrt(Math.pow(((mouse.x - (offsetX * zoom)) / zoom) - (c.getPos().x), 2) + (Math.pow(((mouse.y - (offsetY * zoom)) / zoom) - (c.getPos().y), 2)));
             if (dist <= c.getRadius()) {
                 selected = c;
@@ -341,16 +371,24 @@ public class TestingPanel extends javax.swing.JPanel {
      * By Jia Jia: Draw each item on the map.
      */
     private void updateGraphics(Graphics g) {
-        for (Controllable c : GameBoard.getControllables()) {
-            c.draw(g, zoom, offsetX, offsetY);
-        }
-        for (Bullet b : GameBoard.getBullets()) {
-            b.draw(g, zoom, offsetX, offsetY);
-        }
         for (Harvestable h : GameBoard.getHarvest()) {
             if (h != null) {
                 h.draw(g, zoom, offsetX, offsetY);
             }
+        }
+        for (Bullet b : GameBoard.getBullets()) {
+            b.draw(g, zoom, offsetX, offsetY);
+        }
+        //highlight the player's character
+        if (selected != null) {
+            int rad = selected.getRadius() + 3;
+            int x1 = (int) ((selected.getPos().x - rad + offsetX) * zoom);
+            int y1 = (int) ((selected.getPos().y - rad + offsetY) * zoom);
+            g.setColor(Color.ORANGE);
+            g.fillOval(x1, y1, (int) (rad * 2 * zoom), (int) (rad * 2 * zoom));
+        }
+        for (Controllable c : GameBoard.getControllables()) {
+            c.draw(g, zoom, offsetX, offsetY);
         }
         for (Planet p : GameBoard.getPlanets()) {
             p.draw(g, zoom, offsetX, offsetY);
