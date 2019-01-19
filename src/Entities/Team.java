@@ -5,7 +5,9 @@
  */
 package Entities;
 
+import Development.AI;
 import Entities.Entity;
+import java.awt.Color;
 
 /**
  *
@@ -15,16 +17,22 @@ public class Team implements Comparable {
 
     private int score;
     private String aiName;
-    private Entity[] Entities;
+    private Entity[] entities;
+//    private AI ai;
 
     /**
      * For sorting game pieces into teams and keeping score
      *
      * @param Entities
      */
-    public Team(Entity[] Entities, String aiName) {
+    public Team(Planet planet, Ship ship, Drone drone1, Drone drone2, String aiName) {
         score = 0;
-        this.Entities = Entities;
+//        this.ai = ai;
+        entities = new Entity[4];
+        entities[0] = planet;
+        entities[1] = ship;
+        entities[2] = drone1;
+        entities[3] = drone2;
         this.aiName = aiName;
     }
 
@@ -39,11 +47,11 @@ public class Team implements Comparable {
         this.aiName = aiName;
     }
 
-    public void subScore(int score) {
+    protected void subScore(int score) {
         this.score -= score;
     }
 
-    public void addScore(int score) {
+    protected void addScore(int score) {
         this.score += score;
     }
 
@@ -56,11 +64,34 @@ public class Team implements Comparable {
     }
 
     public Entity[] getEntities() {
-        return Entities;
+        return entities;
     }
 
     public String toString() {
         return aiName + "," + Integer.toString(score);
+    }
+
+    /**
+     * Get the associated color of a team.
+     *
+     * @param teamID The ID of the team.
+     * @return The official team Color.
+     */
+    public static Color getColor(int teamID) {
+        switch (teamID) {
+            case (0):
+                return Color.LIGHT_GRAY;
+            case (1):
+                return Color.RED;
+            case (2):
+                return Color.BLUE;
+            case (3):
+                return Color.GREEN;
+            case (4):
+                return Color.YELLOW;
+            default:
+                return Color.GRAY;
+        }
     }
 
     @Override

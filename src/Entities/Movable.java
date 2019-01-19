@@ -99,8 +99,8 @@ public abstract class Movable extends Entity {
         hasMove = false;
     }
 
-    public void collision(Entity other) {
-        if (this.checkCollision(other)) {
+    protected void collision() {
+        
             if (faceAngle > 180) {
                 faceAngle -= 180;
             } else {
@@ -108,6 +108,12 @@ public abstract class Movable extends Entity {
             }
             vel.x = -vel.x;
             vel.y = -vel.y;
+        
+    }
+    
+    public void collision(Entity other) {
+        if (this.checkCollision(other)) {
+            collision();
         }
     }
 

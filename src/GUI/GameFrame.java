@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Development.AI;
 import Entities.Map;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +16,7 @@ import javax.swing.Timer;
  * @author carlw
  */
 public class GameFrame extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form GameFrame
      */
@@ -23,6 +24,21 @@ public class GameFrame extends javax.swing.JFrame {
         initComponents();
         //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
         testingPanel1.setFrame(this);
+        scoreboard1.linkMap(testingPanel1.GameBoard);
+    }
+    
+    public GameFrame(AI p1, AI p2) {
+        initComponents();
+        //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
+        testingPanel1.setFrame(this);
+        scoreboard1.linkMap(testingPanel1.GameBoard);
+    }
+
+    public GameFrame(AI p1, AI p2, AI p3, AI p4) {
+        initComponents();
+        //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
+        testingPanel1.setFrame(this);
+        scoreboard1.linkMap(testingPanel1.GameBoard);
     }
 
     boolean resetConfirm = false;
@@ -52,9 +68,11 @@ public class GameFrame extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        scoreboard1 = new GUI.Scoreboard();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        testingPanel1.setPreferredSize(new java.awt.Dimension(600, 600));
         testingPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 testingPanel1MouseClicked(evt);
@@ -95,6 +113,17 @@ public class GameFrame extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout scoreboard1Layout = new javax.swing.GroupLayout(scoreboard1);
+        scoreboard1.setLayout(scoreboard1Layout);
+        scoreboard1Layout.setHorizontalGroup(
+            scoreboard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        scoreboard1Layout.setVerticalGroup(
+            scoreboard1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,20 +134,23 @@ public class GameFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, 0, 185, Short.MAX_VALUE)
+                    .addComponent(scoreboard1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(7, 7, 7))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(459, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(scoreboard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
-            .addComponent(testingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(testingPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
         );
 
         pack();
@@ -183,7 +215,7 @@ public class GameFrame extends javax.swing.JFrame {
             default:
                 break;
         }
-        testingPanel1.timerReset();
+        testingPanel1.timerUpdate();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
@@ -194,6 +226,14 @@ public class GameFrame extends javax.swing.JFrame {
     private void testingPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_testingPanel1MouseClicked
         testingPanel1.requestFocus();
     }//GEN-LAST:event_testingPanel1MouseClicked
+
+    public void linkScore(Map map) {
+        scoreboard1.repaint();
+    }
+
+    public void updateScore() {
+        scoreboard1.repaint();
+    }
 
     /**
      * By Jia Jia: Allows third-parties to click the button.
@@ -252,6 +292,7 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JToggleButton jToggleButton1;
+    private GUI.Scoreboard scoreboard1;
     private GUI.TestingPanel testingPanel1;
     // End of variables declaration//GEN-END:variables
 }
