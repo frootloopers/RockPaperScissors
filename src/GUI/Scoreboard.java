@@ -45,7 +45,7 @@ public class Scoreboard extends javax.swing.JPanel {
         for (int x = 1; x < teams.length; x++) {
             g.setColor(Color.BLACK);
             g.drawRect(10, x * 25 + 30, 10, 10);
-            g.drawString(teams[x].getName() + ":  " + decimal.format(teams[x].getScore()), 35, x * 25 + 40);
+            g.drawString(teams[x].getName() + ":  " + decimal.format(teams[x].getScore())+" pts", 35, x * 25 + 40);
             g.setColor(Team.getColor(x));
             g.fillRect(10, x * 25 + 30, 10, 10);
         }

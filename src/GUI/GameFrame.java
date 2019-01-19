@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Development.AI;
 import Entities.Map;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,11 +16,25 @@ import javax.swing.Timer;
  * @author carlw
  */
 public class GameFrame extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form GameFrame
      */
     public GameFrame() {
+        initComponents();
+        //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
+        testingPanel1.setFrame(this);
+        scoreboard1.linkMap(testingPanel1.GameBoard);
+    }
+    
+    public GameFrame(AI p1, AI p2) {
+        initComponents();
+        //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
+        testingPanel1.setFrame(this);
+        scoreboard1.linkMap(testingPanel1.GameBoard);
+    }
+
+    public GameFrame(AI p1, AI p2, AI p3, AI p4) {
         initComponents();
         //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
         testingPanel1.setFrame(this);
@@ -200,7 +215,7 @@ public class GameFrame extends javax.swing.JFrame {
             default:
                 break;
         }
-        testingPanel1.timerReset();
+        testingPanel1.timerUpdate();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
