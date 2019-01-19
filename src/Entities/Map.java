@@ -178,7 +178,7 @@ public class Map {
 
         //spawn a new meteor if the time is right (time is divisible by asteroidTick without a remainder)
         if (time % asteroidTick == 0) {
-            Bullets.add(new Bullet(2, rand.nextInt(xMax - (xPlanet + offset * 3) * 2) + (xPlanet + offset * 3), 0.5, rand.nextInt(20) + 80, 0, this));
+            Bullets.add(new Bullet(3, rand.nextInt(xMax - (xPlanet + offset * 3) * 2) + (xPlanet + offset * 3), 0.5, rand.nextInt(20) + 80, 0, this));
         }
 
         //use Carl's collision detection
@@ -196,7 +196,7 @@ public class Map {
         ArrayList<Bullet> temp = new ArrayList<>();
         //find targets within the range
         for (Bullet e : Bullets) {
-            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) + e.radius <= range) {
+            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) - e.radius <= range) {
                 temp.add(e);
             }
         }
@@ -242,13 +242,13 @@ public class Map {
                     Controllables[i].collideBullet(Bullets.get(j));
                 }
                 if ((Bullets.get(j).getPos().getX() - Bullets.get(j).getRadius()
-                    <= 0 || Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)
-                    || (Bullets.get(j).getPos().getX() + Bullets.get(j).getRadius()
-                    >= xMax || Bullets.get(j).getPos().getY() + Bullets.get(j).getRadius() >= yMax)) {
+                        <= 0 || Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)
+                        || (Bullets.get(j).getPos().getX() + Bullets.get(j).getRadius()
+                        >= xMax || Bullets.get(j).getPos().getY() + Bullets.get(j).getRadius() >= yMax)) {
                     Bullets.remove(j);
                 }
             }
- 
+
             if ((Controllables[i].getPos().getX() - Controllables[i].getRadius()
                     <= 0 || Controllables[i].getPos().getY() - Controllables[i].getRadius() <= 0)
                     || (Controllables[i].getPos().getX() + Controllables[i].getRadius()

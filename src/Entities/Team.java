@@ -23,7 +23,11 @@ public class Team implements Comparable {
     /**
      * For sorting game pieces into teams and keeping score
      *
-     * @param Entities
+     * @param planet
+     * @param ship
+     * @param drone1
+     * @param drone2
+     * @param aiName
      */
     public Team(Planet planet, Ship ship, Drone drone1, Drone drone2, String aiName) {
         score = 0;
