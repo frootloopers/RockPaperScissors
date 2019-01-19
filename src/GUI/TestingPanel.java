@@ -135,11 +135,7 @@ public class TestingPanel extends javax.swing.JPanel {
                         gameframe.clickToggleButton1();
                         break;
                     case KeyEvent.VK_O:
-                        if (selected == null) {
-                            manualOverride();
-                        } else {
-                            restore();
-                        }
+                        manualOverride();
                         break;
                     case KeyEvent.VK_R:
                         if (showRes) {
@@ -234,7 +230,11 @@ public class TestingPanel extends javax.swing.JPanel {
         }
     };
 
+    /**
+     * Jia Jia
+     */
     MouseListener mListener = new MouseListener() {
+        //right click to do one game loop
         public void mouseClicked(MouseEvent ms) {
             if (SwingUtilities.isRightMouseButton(ms)) {
                 GameBoard.moveAll();
@@ -254,6 +254,9 @@ public class TestingPanel extends javax.swing.JPanel {
         }
     };
 
+    /**
+     * Jia Jia
+     */
     MouseMotionListener mMListener = new MouseMotionListener() {
         public void mouseDragged(MouseEvent ms) {
             //add the change in mouse position when dragging to the camera position
@@ -334,15 +337,10 @@ public class TestingPanel extends javax.swing.JPanel {
             if (dist <= c.getRadius()) {
                 selected = c;
                 return;
+            } else {
+                selected = null;
             }
         }
-    }
-
-    /**
-     * By Jia Jia:
-     */
-    private void restore() {
-        selected = null;
     }
 
     /**
