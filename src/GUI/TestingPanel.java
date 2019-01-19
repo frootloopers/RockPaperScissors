@@ -380,7 +380,15 @@ public class TestingPanel extends javax.swing.JPanel {
 
         updateGraphics(g, GameBoard);
         GameBoard.getControllables()[0].setThrustF(100);
-
+        GameBoard.getControllables()[1].setThrustF(100);
+        GameBoard.getControllables()[2].setThrustF(100);
+        GameBoard.getControllables()[3].setThrustF(100);
+        GameBoard.getControllables()[4].setThrustF(100);
+        GameBoard.getControllables()[5].setThrustF(100);
+        GameBoard.getControllables()[6].setThrustF(100);
+        GameBoard.getControllables()[7].setThrustF(100);
+        GameBoard.getControllables()[8].setThrustF(100);
+        GameBoard.getControllables()[9].setThrustF(100);
         /*
          Way to do AI: As Demonstrated by John
          entity.draw(g, zoom, offsetX, offsetY);

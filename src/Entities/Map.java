@@ -216,7 +216,7 @@ public class Map {
                 }
             }
 
-            for (int j = i; j < Planets.length; j++) {
+            for (int j = 0; j < Planets.length; j++) {
                 if (Controllables[i].checkCollision(Planets[j])) {
                     Controllables[i].collision(Planets[j]);
                     if (Controllables[i] instanceof Ship) {
@@ -225,7 +225,7 @@ public class Map {
                 }
             }
             //  Entities - Harvestables
-            for (int j = i; j < Harvestables.length; j++) {
+            for (int j = 0; j < Harvestables.length; j++) {
                 if (Harvestables[j] == null) {
                     continue;
                 }
@@ -237,22 +237,22 @@ public class Map {
                 }
             }
             //  Entities - Bullets
-            for (int j = i; j < Bullets.size(); j++) {
+            for (int j = 0; j < Bullets.size(); j++) {
                 if (Controllables[i].checkCollision(Bullets.get(j))) {
                     Controllables[i].collideBullet(Bullets.get(j));
                 }
                 if ((Bullets.get(j).getPos().getX() - Bullets.get(j).getRadius()
-                    <= 0 && Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)
+                    <= 0 || Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)
                     || (Bullets.get(j).getPos().getX() + Bullets.get(j).getRadius()
-                    >= xMax && Bullets.get(j).getPos().getY() + Bullets.get(j).getRadius() >= yMax)) {
+                    >= xMax || Bullets.get(j).getPos().getY() + Bullets.get(j).getRadius() >= yMax)) {
                     Bullets.remove(j);
                 }
             }
-
+ 
             if ((Controllables[i].getPos().getX() - Controllables[i].getRadius()
-                    <= 0 && Controllables[i].getPos().getY() - Controllables[i].getRadius() <= 0)
+                    <= 0 || Controllables[i].getPos().getY() - Controllables[i].getRadius() <= 0)
                     || (Controllables[i].getPos().getX() + Controllables[i].getRadius()
-                    >= xMax && Controllables[i].getPos().getY() + Controllables[i].getRadius() >= yMax)) {
+                    >= xMax || Controllables[i].getPos().getY() + Controllables[i].getRadius() >= yMax)) {
                 Controllables[i].collision();
             }
         }
