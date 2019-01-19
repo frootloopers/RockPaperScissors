@@ -27,21 +27,24 @@ public class Ship extends Controllable {
         super(x, y, RADIUS_SHIP, faceAngle, teamID, map);
     }
 
-    //pertaining to bullet
-    private final double FIREPOWER = 1;
-    private final double FIRECOST = 1;
-    //pertaining to the aoe attack
+    //bullet velocity
+    private final double FIREPOWER = 2;
+    //firing resource cost
+    private final double FIRECOST = 0;
+    //aoe attack range
     private final double PULSERANGE = 10;
+    //aoe damage
     private final double PULSEDMG = 100;
-    private final double PULSECOST = 1;
+    //aoe attack resource cost
+    private final double PULSECOST = 0;
 
     /**
      * By Jia Jia: This spawns a bullet in the map.
      */
     public void fireBullet() {
-        if (hasAct) {
-            hasAct = false;
-            map.getBullets().add(new Bullet(pos.x, pos.y, faceAngle, FIREPOWER, teamID, map));
+        if (hasAct == false && storage >= FIRECOST) {
+            hasAct = true;
+            map.getBullets().add(new Bullet(pos.x, pos.y, FIREPOWER, faceAngle, teamID, map));
             storage -= FIRECOST;
         }
     }
@@ -51,16 +54,12 @@ public class Ship extends Controllable {
      * by PULSEDMG.
      */
     public void pulse() {
-        if (hasAct) {
-            hasAct = false;
+        if (hasAct == false) {
+            hasAct = true;
             //get the enemies within range
-            ArrayList<Entity> temp = map.aoe(pos, PULSERANGE);
-            for (Entity e : temp) {
-                int sc = e.getTeamID();
-                //damage the team if an enemy team
-                if (sc != this.getTeamID()) {
-                    map.getTeams()[sc].subScore(100);
-                }
+            ArrayList<Bullet> temp = map.aoe(pos, PULSERANGE + radius);
+            for (Bullet e : temp) {
+                map.getBullets().remove(e);
             }
             storage -= PULSECOST;
         }
@@ -68,6 +67,7 @@ public class Ship extends Controllable {
 
     @Override
     public void move() {
+        hasAct = false;
         //add acceleration
         vel.x += Math.sin(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);
         vel.y -= Math.cos(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);
@@ -78,10 +78,10 @@ public class Ship extends Controllable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param other
-     * @param input 
+     * @param input
      */
     protected void collideDrone(Drone other, int input) {
         if (this.checkCollision(other) && teamID == other.teamID) {
@@ -91,8 +91,8 @@ public class Ship extends Controllable {
 
     /**
      * transfers the storage of the ship to the planet
-     * 
-     * @param other 
+     *
+     * @param other
      */
     public void collidePlanet(Planet other) {
         if (this.checkCollision(other) && teamID == other.teamID) {

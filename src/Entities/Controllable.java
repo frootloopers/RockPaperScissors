@@ -6,6 +6,7 @@
 package Entities;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 
@@ -34,7 +35,15 @@ public abstract class Controllable extends Movable {
         thrustRotL = 0;
     }
 
-    @Override //@author Carl Wu hehe
+    /**
+     * The work of Carl Wu:
+     *
+     * @param g
+     * @param scale
+     * @param offsetX
+     * @param offsetY
+     */
+    @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         super.draw(g, scale, offsetX, offsetY);
         int drawX = (int) ((getPos().getX() + offsetX) * scale);
@@ -51,6 +60,8 @@ public abstract class Controllable extends Movable {
 
     }
 
+    Font mini = new Font("TimesRoman", Font.PLAIN, 10);
+
     /**
      * By Jia Jia: Shows the resources a controllable has on a panel.
      *
@@ -60,13 +71,14 @@ public abstract class Controllable extends Movable {
      * @param offsetY
      */
     public void showRes(Graphics g, double scale, int offsetX, int offsetY) {
+        g.setFont(mini);
         g.setColor(Color.MAGENTA);
         Point temp = new Point((int) ((getPos().getX() + offsetX) * scale), (int) ((getPos().getY() + offsetY) * scale));
-        g.fillRect(temp.x, temp.y, 60, 30);
+        g.fillRect(temp.x, temp.y, 60, 24);
         g.setColor(Color.BLACK);
-        g.drawRect(temp.x, temp.y, 60, 30);
-        g.drawString(Math.round(getPos().x) + ", " + Math.round(getPos().y), temp.x + 2, temp.y + 13);
-        g.drawString(Integer.toString(storage) + " res", temp.x + 2, temp.y + 28);
+        g.drawRect(temp.x, temp.y, 60, 24);
+        g.drawString(Math.round(getPos().x) + ", " + Math.round(getPos().y), temp.x + 3, temp.y + 11);
+        g.drawString(Integer.toString(storage) + " res", temp.x + 3, temp.y + 22);
     }
 
     /**
@@ -105,7 +117,7 @@ public abstract class Controllable extends Movable {
      * whether the entity has acted this frame such that the move method only
      * functions once per frame even if called multiple times
      */
-    protected boolean hasAct = true;
+    protected boolean hasAct = false;
 
     /**
      * Gets the amount of resources stored by the entity

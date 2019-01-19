@@ -14,13 +14,13 @@ import java.awt.Graphics;
  * @author John Popovici
  */
 public abstract class Entity {
-
+    
     protected static final int RADIUS_PLANET = 20;
     protected static final int RADIUS_HARVESTABLE = 5;
     protected static final int RADIUS_PROJECTILE = 2;
     protected static final int RADIUS_SHIP = 15;
     protected static final int RADIUS_DRONE = 5;
-
+    
     protected static final double VEL_DECAY = 0.01;
     protected static final double DRONE_ROT_STRENGTH = 2.0;
     protected static final double SHIP_ROT_STRENGTH = 1.0;
@@ -115,7 +115,7 @@ public abstract class Entity {
     }
 
     /**
-     * Draw the icon representing the entity
+     * Carl Wu: Draw the icon representing the entity
      *
      * @param g the graphics used to draw the entity
      * @param scale the scale of the game board, at which the entity is drawn
@@ -127,28 +127,8 @@ public abstract class Entity {
      * @author Carl Wu
      */
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
+        g.setColor(Team.getColor(teamID));
         //BufferedImage pos.X+offsetX, pos.Y+offsetY
-
-        switch (teamID) {
-            case (0):
-                g.setColor(Color.LIGHT_GRAY);
-                break;
-            case (1):
-                g.setColor(Color.RED);
-                break;
-            case (2):
-                g.setColor(Color.BLUE);
-                break;
-            case (3):
-                g.setColor(Color.GREEN);
-                break;
-            case (4):
-                g.setColor(Color.YELLOW);
-                break;
-            default:
-                g.setColor(Color.GRAY);
-                break;
-        }
         int drawX = (int) ((getPos().getX() - radius + offsetX) * scale);
         int drawY = (int) ((getPos().getY() - radius + offsetY) * scale);
         int drawSize = (int) (radius * 2 * scale);
@@ -157,5 +137,5 @@ public abstract class Entity {
         g.drawOval(drawX, drawY, drawSize, drawSize);
         //color = map.getTeams()[teamID].getColor
     }
-
+    
 }
