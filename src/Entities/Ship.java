@@ -57,7 +57,7 @@ public class Ship extends Controllable {
         if (hasAct == false) {
             hasAct = true;
             //get the enemies within range
-            ArrayList<Bullet> temp = map.aoe(pos, PULSERANGE);
+            ArrayList<Bullet> temp = map.aoe(pos, PULSERANGE + radius);
             for (Bullet e : temp) {
                 map.getBullets().remove(e);
             }

@@ -71,6 +71,7 @@ public class TestingPanel extends javax.swing.JPanel {
     Point mouse = new Point(0, 0);
     Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
     GameFrame gameframe;
+    Controllable selected = null;
 
     //---------------------------GUI-UTILITIES----------------------------------
     //Graphics timer
@@ -110,6 +111,8 @@ public class TestingPanel extends javax.swing.JPanel {
              * 0-5 for Changing speeds, with 0 being the slowest.
              * R to toggle the developer resources.
              * G to change game skin.
+             * O to manually take control of the unit your pointer is over.
+             * W to move forward, A and D to turn the unit you control.
              */
             for (Integer k : pressed) {
                 switch (k) {
@@ -128,6 +131,12 @@ public class TestingPanel extends javax.swing.JPanel {
                     case KeyEvent.VK_5:
                         gameframe.selectComboBox1(4);
                         break;
+                    case KeyEvent.VK_SPACE:
+                        gameframe.clickToggleButton1();
+                        break;
+                    case KeyEvent.VK_O:
+                        manualOverride();
+                        break;
                     case KeyEvent.VK_R:
                         if (showRes) {
                             showRes = false;
@@ -137,32 +146,56 @@ public class TestingPanel extends javax.swing.JPanel {
                         break;
                     case KeyEvent.VK_G:
                         graphicsMode++;
-                        if (graphicsMode > 1) {
+                        if (graphicsMode > 2) {
                             graphicsMode = 0;
+                        }
+                        break;
+                    case KeyEvent.VK_W:
+                        if (selected != null) {
+                            selected.setThrustF(100);
+                        }
+                        break;
+                    case KeyEvent.VK_A:
+                        if (selected != null) {
+                            selected.setThrustRotR(100);
+                        }
+                        break;
+                    case KeyEvent.VK_D:
+                        if (selected != null) {
+                            selected.setThrustRotL(100);
+                        }
+                        break;
+                    case KeyEvent.VK_N:
+                        if (selected instanceof Ship) {
+                            ((Ship) selected).fireBullet();
+                        }
+                        break;
+                    case KeyEvent.VK_M:
+                        if (selected instanceof Ship) {
+                            ((Ship) selected).pulse();
                         }
                         break;
                 }
             }
         }
-//            public void keyHeld(KeyEvent key) {
-//                switch (key.getKeyCode()) {
-//                    case KeyEvent.VK_LEFT:
-//                        xOff += 1;
-//                        break;
-//                    case KeyEvent.VK_RIGHT:
-//                        xOff -= 1;
-//                        break;
-//                    case KeyEvent.VK_UP:
-//                        yOff += 1;
-//                        break;
-//                    case KeyEvent.VK_DOWN:
-//                        yOff -= 1;
-//                        break;
-//                }
-//            }
 
         public void keyReleased(KeyEvent key) {
+            //
             pressed.remove(key.getKeyCode());
+            //
+            if (selected != null) {
+                switch (key.getKeyCode()) {
+                    case KeyEvent.VK_W:
+                        selected.setThrustF(0);
+                        break;
+                    case KeyEvent.VK_A:
+                        selected.setThrustRotR(0);
+                        break;
+                    case KeyEvent.VK_D:
+                        selected.setThrustRotL(0);
+                        break;
+                }
+            }
         }
     };
 
@@ -172,7 +205,9 @@ public class TestingPanel extends javax.swing.JPanel {
     MouseListener mListener = new MouseListener() {
         public void mouseClicked(MouseEvent ms) {
             if (SwingUtilities.isRightMouseButton(ms)) {
-                gameframe.clickToggleButton1();
+                if (selected != null) {
+                    restore();
+                }
             }
         }
 
@@ -260,6 +295,26 @@ public class TestingPanel extends javax.swing.JPanel {
 
     public void timerReset() {
         t2.setDelay(gameSpeed);
+    }
+
+    /**
+     * By Jia Jia:
+     */
+    private void manualOverride() {
+        for (Controllable c : GameBoard.getControllables()) {
+            double dist = Math.sqrt(Math.pow(((mouse.x - (offsetX * zoom)) / zoom) - (c.getPos().x), 2) + (Math.pow(((mouse.y - (offsetY * zoom)) / zoom) - (c.getPos().y), 2)));
+            if (dist <= c.getRadius()) {
+                selected = c;
+                return;
+            }
+        }
+    }
+
+    /**
+     * By Jia Jia:
+     */
+    private void restore() {
+        selected = null;
     }
 
     /**
@@ -373,7 +428,6 @@ public class TestingPanel extends javax.swing.JPanel {
     @Override
     public void paintComponent(Graphics g) {
         //a.setThrustF(5);
-//        g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 
         //Background stuff by Jia Jia
         //Draw background
@@ -382,44 +436,50 @@ public class TestingPanel extends javax.swing.JPanel {
                 g.setColor(Color.WHITE);
                 g.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g.setColor(Color.CYAN);
+                //Draw gameboard background
+                g.fillRect((int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom));
                 break;
             case 1:
                 g.setColor(Color.DARK_GRAY);
                 g.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g.setColor(Color.BLACK);
+                g.fillRect((int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom));
+                break;
+            case 2:
+                g.setColor(Color.BLACK);
+                g.fillRect(0, 0, this.getWidth(), this.getHeight());
+                g.drawImage(img, (int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom), this);
+
+                /*
+                Way to do AI: As Demonstrated by John
+                entity.draw(g, zoom, offsetX, offsetY);
+                //algorithm code
+                entity.move();
+                 */
+                d.draw(g, zoom, offsetX, offsetY);
+                d.setThrustF(100);
+                d.move();
+
+                e.draw(g, zoom, offsetX, offsetY);
+                e.setThrustF(100);
+                e.move();
+
+                s.draw(g, zoom, offsetX, offsetY);
+                s.setThrustF(100);
+                s.setThrustRotR(25); //ccw
+                s.move();
+
+                chaser.draw(g, zoom, offsetX, offsetY);
+                Command.chase(chaser, s, 50);
+                chaser.move();
                 break;
         }
-        //Draw gameboard background
-        g.fillRect((int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom));
 
         updateGraphics(g);
 
         //testing
         GameBoard.getControllables()[0].setThrustF(100);
 //        ((Ship) (GameBoard.getControllables()[0])).fireBullet();
-
-        /*
-         Way to do AI: As Demonstrated by John
-         entity.draw(g, zoom, offsetX, offsetY);
-         //algorithm code
-         entity.move();
-         */
-        d.draw(g, zoom, offsetX, offsetY);
-        d.setThrustF(100);
-        d.move();
-
-        e.draw(g, zoom, offsetX, offsetY);
-        e.setThrustF(100);
-        e.move();
-
-        s.draw(g, zoom, offsetX, offsetY);
-        s.setThrustF(100);
-        s.setThrustRotR(25); //ccw
-        s.move();
-
-        chaser.draw(g, zoom, offsetX, offsetY);
-        Command.chase(chaser, s, 50);
-        chaser.move();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

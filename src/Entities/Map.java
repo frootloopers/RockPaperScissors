@@ -35,7 +35,7 @@ public class Map {
     private int time;
     private Random rand = new Random();
 
-    private static final int asteroidTick = 200;
+    private static final int asteroidTick = 1000;
     private static final int xPlanet = 40;
     private static final int yPlanet = 40;
     private static final int offset = 40;
@@ -160,7 +160,7 @@ public class Map {
     }
 
     /**
-     * Main game loop.
+     * Main game loop
      */
     public void moveAll() {
         //keep time
@@ -176,8 +176,9 @@ public class Map {
             e.move();
         }
 
+        //spawn a new meteor if the time is right (time is divisible by asteroidTick without a remainder)
         if (time % asteroidTick == 0) {
-            Bullets.add(new Bullet(2, rand.nextInt(xMax - (xPlanet + offset * 2) * 2) + (xPlanet + offset * 2), 0.5, rand.nextInt(20) + 80, 0, this));
+            Bullets.add(new Bullet(2, rand.nextInt(xMax - (xPlanet + offset * 3) * 2) + (xPlanet + offset * 3), 0.5, rand.nextInt(20) + 80, 0, this));
         }
 
         //use Carl's collision detection
@@ -185,7 +186,7 @@ public class Map {
     }
 
     /**
-     * Returns a list of all entities within striking range
+     * Returns a list of all bullets within striking range
      *
      * @param pos The position from which to scan (Center point of the entity).
      * @param range The range of the scan.
@@ -195,7 +196,7 @@ public class Map {
         ArrayList<Bullet> temp = new ArrayList<>();
         //find targets within the range
         for (Bullet e : Bullets) {
-            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) <= range) {
+            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) + e.radius <= range) {
                 temp.add(e);
             }
         }
