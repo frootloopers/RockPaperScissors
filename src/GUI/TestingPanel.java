@@ -11,6 +11,7 @@ import Entities.*;
 import Entities.Map;
 import Entities.Team;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -311,7 +312,8 @@ public class TestingPanel extends javax.swing.JPanel {
         }
     }
 
-    static private final int xDev = 200;
+    static private final int xDev = 180;
+    Font norm = new Font("TimesRoman", Font.PLAIN, 12);
 
     /**
      * By Jia Jia: Draw the developer information on the board.
@@ -324,19 +326,28 @@ public class TestingPanel extends javax.swing.JPanel {
         for (Controllable c : GameBoard.getControllables()) {
             c.showRes(g, zoom, offsetX, offsetY);
         }
+        /* 
+         * Panel Size: size of this panel in pixels
+         * Cursor Panel: the position of the cursor relative to the origin of the panel
+         * Cursor Map: the position the cursor points to on the map, taking zoom level and offset into account
+         * Map Offset: where the map's origin is offset to
+         * Zoom: the multiplier for rendered game objects
+         */
         String[] temp = {
             "Panel Size: " + this.getWidth() + ", " + this.getHeight(),
             "Cursor Panel: " + mouse.x + ", " + mouse.y,
             "Cursor Map: " + Math.round((mouse.x - (offsetX * zoom)) / zoom) + ", " + Math.round((mouse.y - (offsetY * zoom)) / zoom),
-            "Map Offset: " + (int) (offsetX * zoom) + ", " + (int) (offsetY * zoom)
+            "Map Offset: " + (int) (offsetX * zoom) + ", " + (int) (offsetY * zoom),
+            "Zoom: " + zoom
         };
         //auto-scale the y to the number of lines in temp
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, xDev, temp.length * 15 + 10);
+        g.fillRect(0, 0, xDev, temp.length * 16 + 12);
         g.setColor(Color.PINK);
-        g.drawRect(0, 0, xDev, temp.length * 15 + 10);
+        g.drawRect(0, 0, xDev, temp.length * 16 + 12);
+        g.setFont(norm);
         for (int x = 0; x < temp.length; x++) {
-            g.drawString(temp[x], 5, x * 15 + 15);
+            g.drawString(temp[x], 5, x * 16 + 18);
         }
     }
 

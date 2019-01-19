@@ -35,6 +35,7 @@ public class Map {
     private int time;
     private Random rand = new Random();
 
+    private static final int asteroidTick = 200;
     private static final int xPlanet = 40;
     private static final int yPlanet = 40;
     private static final int offset = 40;
@@ -171,6 +172,10 @@ public class Map {
         }
         for (Movable e : Bullets) {
             e.move();
+        }
+
+        if (time % asteroidTick == 0) {
+            Bullets.add(new Bullet(2, rand.nextInt(xMax - (xPlanet + offset * 2) * 2) + (xPlanet + offset * 2), 0.5, rand.nextInt(20) + 80, 0, this));
         }
 
         //use Carl's collision detection
