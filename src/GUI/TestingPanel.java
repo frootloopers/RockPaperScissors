@@ -237,9 +237,7 @@ public class TestingPanel extends javax.swing.JPanel {
     MouseListener mListener = new MouseListener() {
         public void mouseClicked(MouseEvent ms) {
             if (SwingUtilities.isRightMouseButton(ms)) {
-                if (selected != null) {
-                    //something
-                }
+                GameBoard.moveAll();
             }
         }
 
@@ -322,7 +320,7 @@ public class TestingPanel extends javax.swing.JPanel {
         this.gameframe = gameframe;
     }
 
-    public void timerReset() {
+    public void timerUpdate() {
         t2.setDelay(gameSpeed);
     }
 

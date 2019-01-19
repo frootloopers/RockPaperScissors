@@ -200,7 +200,7 @@ public class GameFrame extends javax.swing.JFrame {
             default:
                 break;
         }
-        testingPanel1.timerReset();
+        testingPanel1.timerUpdate();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
