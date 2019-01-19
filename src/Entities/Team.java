@@ -17,18 +17,22 @@ public class Team implements Comparable {
 
     private int score;
     private String aiName;
-    private Entity[] Entities;
-    private AI ai;
+    private Entity[] entities;
+//    private AI ai;
 
     /**
      * For sorting game pieces into teams and keeping score
      *
      * @param Entities
      */
-    public Team(Entity[] Entities, String aiName, AI ai) {
+    public Team(Planet planet, Ship ship, Drone drone1, Drone drone2, String aiName) {
         score = 0;
-        this.ai=ai;
-        this.Entities = Entities;
+//        this.ai = ai;
+        entities = new Entity[4];
+        entities[0] = planet;
+        entities[1] = ship;
+        entities[2] = drone1;
+        entities[3] = drone2;
         this.aiName = aiName;
     }
 
@@ -60,7 +64,7 @@ public class Team implements Comparable {
     }
 
     public Entity[] getEntities() {
-        return Entities;
+        return entities;
     }
 
     public String toString() {
