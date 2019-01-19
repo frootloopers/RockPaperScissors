@@ -46,7 +46,7 @@ public class Team implements Comparable {
      * @param score
      * @param aiName
      */
-    public Team(int score, String aiName) {
+    protected Team(int score, String aiName) {
         this.score = score;
         this.aiName = aiName;
     }
