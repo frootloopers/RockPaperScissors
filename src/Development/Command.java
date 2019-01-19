@@ -190,7 +190,8 @@ public class Command {
      * @param c the controllable entity
      * @param m the movable entity
      * @param frames the amount of frames in which the position of the movable.
-     * The value must be greater than or equal to 0 entity is predicted
+     * The value must be greater than or equal to 0
+     * @throws IllegalArgumentException for a value of tolerance out of bounds
      */
     public static void chase(Controllable c, Movable m, int frames) throws IllegalArgumentException {
         Pos pos = willBe(m, frames);
@@ -201,6 +202,27 @@ public class Command {
             c.setThrustF(100);
         }
         turnTo(c, pos, 0.5);
+    }
+
+    /**
+     * Controls the controllable entity to circle around
+     *
+     * @param c the controllable entity
+     * @param turnThrust the thrust of the rotation. The value must be between 0
+     * and 100, inclusive
+     * @param clockwise the direction of the rotation. A true value indicates a
+     * clockwise rotation while a false indicates a counterclockwise rotation
+     * @throws IllegalArgumentException for a value of turnThrust out of bounds
+     */
+    public static void circle(Controllable c, int turnThrust, boolean clockwise) throws IllegalArgumentException {
+        c.setThrustF(100);
+        if (clockwise) {
+            c.setThrustRotL(turnThrust);
+            c.setThrustRotR(0);
+        } else {
+            c.setThrustRotL(0);
+            c.setThrustRotR(turnThrust);
+        }
     }
 
 }
