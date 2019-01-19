@@ -6,6 +6,7 @@
 package Entities;
 
 import Entities.Entity;
+import java.awt.Color;
 
 /**
  *
@@ -61,6 +62,29 @@ public class Team implements Comparable {
 
     public String toString() {
         return aiName + "," + Integer.toString(score);
+    }
+
+    /**
+     * Get the associated color of a team.
+     * 
+     * @param teamID The ID of the team.
+     * @return The official team Color.
+     */
+    public static Color getColor(int teamID) {
+        switch (teamID) {
+            case (0):
+                return Color.LIGHT_GRAY;
+            case (1):
+                return Color.RED;
+            case (2):
+                return Color.BLUE;
+            case (3):
+                return Color.GREEN;
+            case (4):
+                return Color.YELLOW;
+            default:
+                return Color.GRAY;
+        }
     }
 
     @Override

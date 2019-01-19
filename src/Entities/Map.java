@@ -41,7 +41,7 @@ public class Map {
 
     public Map(int teams, int xMax, int yMax) {
         time = 0;
-        this.Teams = new Team[teams];
+        this.Teams = new Team[teams + 1];
         Controllables = new Controllable[teams * 3];
         Planets = new Planet[teams];
         Harvestables = new Harvestable[harvestables];
@@ -58,7 +58,7 @@ public class Map {
             Harvestables[x] = new Harvestable(100 + rand.nextInt(xMax - 200), 100 + rand.nextInt(yMax - 200), this);
         }
 
-        switch (Teams.length) {
+        switch (Teams.length - 1) {
             case 2:
                 Planets[0] = new Planet(xPlanet, yPlanet, 1, this);
                 Controllables[0] = new Ship(xPlanet + offset, yPlanet + offset, 135, 1, this);
@@ -95,10 +95,11 @@ public class Map {
                 Controllables[10] = new Drone(xMax - (xPlanet + offset), yMax - yPlanet, 315, 4, this);
                 Controllables[11] = new Drone(xMax - xPlanet, yMax - (yPlanet + offset), 315, 4, this);
 
-                Teams[0] = new Team(0, "Player 1");
-                Teams[1] = new Team(0, "Player 2");
-                Teams[2] = new Team(0, "Player 3");
-                Teams[3] = new Team(0, "Player 4");
+                Teams[0] = new Team(0, "Neutral");
+                Teams[1] = new Team(0, "Player 1");
+                Teams[2] = new Team(0, "Player 2");
+                Teams[3] = new Team(0, "Player 3");
+                Teams[4] = new Team(0, "Player 4");
                 break;
 
             default:
@@ -108,6 +109,15 @@ public class Map {
 
     public Point getMax() {
         return new Point(xMax, yMax);
+    }
+
+    /**
+     * Returns the time
+     *
+     * @return The number of game ticks that have passed since reset.
+     */
+    public String[] getScore() {
+        return null;
     }
 
     /**
@@ -192,10 +202,10 @@ public class Map {
      * @param range The range of the scan.
      * @return
      */
-    public ArrayList<Entity> aoe(Pos pos, double range) {
-        ArrayList<Entity> temp = new ArrayList<>();
+    public ArrayList<Bullet> aoe(Pos pos, double range) {
+        ArrayList<Bullet> temp = new ArrayList<>();
         //find targets within the range
-        for (Entity e : Controllables) {
+        for (Bullet e : Bullets) {
             if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) <= range) {
                 temp.add(e);
             }

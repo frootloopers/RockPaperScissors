@@ -234,11 +234,6 @@ public class TestingPanel extends javax.swing.JPanel {
     };
     //--------------------------------------------------------------------------
 
-    /**
-     * Creates new form GamePanel
-     *
-     * @param gameframe The JFrame this JPanel is in.
-     */
     public TestingPanel() {
         initComponents();
         GameBoard = new Map(teams, mapX, mapY);
@@ -291,27 +286,28 @@ public class TestingPanel extends javax.swing.JPanel {
     /**
      * By Jia Jia: Draw each item on the map.
      */
-    private void updateGraphics(Graphics g, Map m) {
-        for (Controllable c : m.getControllables()) {
+    private void updateGraphics(Graphics g) {
+        for (Controllable c : GameBoard.getControllables()) {
             c.draw(g, zoom, offsetX, offsetY);
         }
-        for (Bullet b : m.getBullets()) {
+        for (Bullet b : GameBoard.getBullets()) {
             b.draw(g, zoom, offsetX, offsetY);
         }
-        for (Harvestable h : m.getHarvest()) {
+        for (Harvestable h : GameBoard.getHarvest()) {
             if (h != null) {
                 h.draw(g, zoom, offsetX, offsetY);
             }
         }
-        for (Planet p : m.getPlanets()) {
+        for (Planet p : GameBoard.getPlanets()) {
             p.draw(g, zoom, offsetX, offsetY);
         }
 //        for (Effect e : m.getEffects()) {
 //            e.draw(g, zoom, offsetX, offsetY);
 //        }
+        gameframe.updateScore();
         //activate developer GUI
         if (showRes) {
-            updateDev(g, m);
+            updateDev(g, GameBoard);
         }
     }
 
@@ -386,11 +382,11 @@ public class TestingPanel extends javax.swing.JPanel {
         //Draw gameboard background
         g.fillRect((int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom));
 
-        updateGraphics(g, GameBoard);
+        updateGraphics(g);
 
         //testing
         GameBoard.getControllables()[0].setThrustF(100);
-        ((Ship) (GameBoard.getControllables()[0])).fireBullet();
+//        ((Ship) (GameBoard.getControllables()[0])).fireBullet();
 
         /*
          Way to do AI: As Demonstrated by John
@@ -398,23 +394,22 @@ public class TestingPanel extends javax.swing.JPanel {
          //algorithm code
          entity.move();
          */
-        d.draw(g, zoom, offsetX, offsetY);
-        d.setThrustF(100);
-        d.move();
-        
-        e.draw(g, zoom, offsetX, offsetY);
-        e.setThrustF(100);
-        e.move();
-
-        s.draw(g, zoom, offsetX, offsetY);
-        s.setThrustF(100);
-        s.setThrustRotR(25); //ccw
-        s.move();
-
-        chaser.draw(g, zoom, offsetX, offsetY);
-        Command.chase(chaser, s, 50);
-        chaser.move();
-
+//        d.draw(g, zoom, offsetX, offsetY);
+//        d.setThrustF(100);
+//        d.move();
+//
+//        e.draw(g, zoom, offsetX, offsetY);
+//        e.setThrustF(100);
+//        e.move();
+//
+//        s.draw(g, zoom, offsetX, offsetY);
+//        s.setThrustF(100);
+//        s.setThrustRotR(25); //ccw
+//        s.move();
+//
+//        chaser.draw(g, zoom, offsetX, offsetY);
+//        Command.chase(chaser, s, 50);
+//        chaser.move();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
