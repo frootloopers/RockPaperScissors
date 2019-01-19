@@ -307,9 +307,11 @@ public class TestingPanel extends javax.swing.JPanel {
         gameframe.updateScore();
         //activate developer GUI
         if (showRes) {
-            updateDev(g, GameBoard);
+            updateDev(g);
         }
     }
+
+    static private final int xDev = 200;
 
     /**
      * By Jia Jia: Draw the developer information on the board.
@@ -317,26 +319,25 @@ public class TestingPanel extends javax.swing.JPanel {
      * @param g
      * @param m
      */
-    private void updateDev(Graphics g, Map m) {
+    private void updateDev(Graphics g) {
         //if developer resources is on
-        for (Controllable c : m.getControllables()) {
+        for (Controllable c : GameBoard.getControllables()) {
             c.showRes(g, zoom, offsetX, offsetY);
         }
+        String[] temp = {
+            "Panel Size: " + this.getWidth() + ", " + this.getHeight(),
+            "Cursor Panel: " + mouse.x + ", " + mouse.y,
+            "Cursor Map: " + Math.round((mouse.x - (offsetX * zoom)) / zoom) + ", " + Math.round((mouse.y - (offsetY * zoom)) / zoom),
+            "Map Offset: " + (int) (offsetX * zoom) + ", " + (int) (offsetY * zoom)
+        };
+        //auto-scale the y to the number of lines in temp
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 200, 130);
+        g.fillRect(0, 0, xDev, temp.length * 15 + 10);
         g.setColor(Color.PINK);
-        g.drawRect(0, 0, 200, 130);
-        g.drawString("Panel Size: " + this.getWidth() + ", " + this.getHeight(), 5, 15);
-        g.drawString("Cursor Panel: " + mouse.x + ", " + mouse.y, 5, 30);
-        g.drawString("Cursor Map: " + Math.round((mouse.x - (offsetX * zoom)) / zoom) + ", " + Math.round((mouse.y - (offsetY * zoom)) / zoom), 5, 45);
-        g.drawString("Map Offset: " + (int) (offsetX * zoom) + ", " + (int) (offsetY * zoom), 5, 60);
-        g.drawString("Zoom: " + zoom, 5, 75);
-        String temp = "";
-        for (Team t : GameBoard.getTeams()) {
-            temp = temp.concat(Integer.toString(t.getScore()) + " | ");
+        g.drawRect(0, 0, xDev, temp.length * 15 + 10);
+        for (int x = 0; x < temp.length; x++) {
+            g.drawString(temp[x], 5, x * 15 + 15);
         }
-        g.drawString("Score: | " + temp, 5, 100);
-        g.drawString("Time (100%=1/100s): " + Integer.toString(GameBoard.getTime()), 5, 115);
     }
 
     /**
@@ -394,22 +395,22 @@ public class TestingPanel extends javax.swing.JPanel {
          //algorithm code
          entity.move();
          */
-//        d.draw(g, zoom, offsetX, offsetY);
-//        d.setThrustF(100);
-//        d.move();
-//
-//        e.draw(g, zoom, offsetX, offsetY);
-//        e.setThrustF(100);
-//        e.move();
-//
-//        s.draw(g, zoom, offsetX, offsetY);
-//        s.setThrustF(100);
-//        s.setThrustRotR(25); //ccw
-//        s.move();
-//
-//        chaser.draw(g, zoom, offsetX, offsetY);
-//        Command.chase(chaser, s, 50);
-//        chaser.move();
+        d.draw(g, zoom, offsetX, offsetY);
+        d.setThrustF(100);
+        d.move();
+
+        e.draw(g, zoom, offsetX, offsetY);
+        e.setThrustF(100);
+        e.move();
+
+        s.draw(g, zoom, offsetX, offsetY);
+        s.setThrustF(100);
+        s.setThrustRotR(25); //ccw
+        s.move();
+
+        chaser.draw(g, zoom, offsetX, offsetY);
+        Command.chase(chaser, s, 50);
+        chaser.move();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,6 +5,7 @@
  */
 package Entities;
 
+import Development.AI;
 import Entities.Entity;
 import java.awt.Color;
 
@@ -17,14 +18,16 @@ public class Team implements Comparable {
     private int score;
     private String aiName;
     private Entity[] Entities;
+    private AI ai;
 
     /**
      * For sorting game pieces into teams and keeping score
      *
      * @param Entities
      */
-    public Team(Entity[] Entities, String aiName) {
+    public Team(Entity[] Entities, String aiName, AI ai) {
         score = 0;
+        this.ai=ai;
         this.Entities = Entities;
         this.aiName = aiName;
     }
@@ -40,11 +43,11 @@ public class Team implements Comparable {
         this.aiName = aiName;
     }
 
-    public void subScore(int score) {
+    protected void subScore(int score) {
         this.score -= score;
     }
 
-    public void addScore(int score) {
+    protected void addScore(int score) {
         this.score += score;
     }
 
@@ -66,7 +69,7 @@ public class Team implements Comparable {
 
     /**
      * Get the associated color of a team.
-     * 
+     *
      * @param teamID The ID of the team.
      * @return The official team Color.
      */
