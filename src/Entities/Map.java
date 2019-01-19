@@ -39,6 +39,8 @@ public class Map {
     private static final int xPlanet = 40;
     private static final int yPlanet = 40;
     private static final int offset = 40;
+    //max time is equivalent to maxTime*2ms
+    public static final int maxTime = 30000;
 
     public Map(int teams, int xMax, int yMax) {
         time = 0;

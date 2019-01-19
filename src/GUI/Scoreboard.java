@@ -10,6 +10,7 @@ import Entities.Team;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -17,6 +18,7 @@ import java.awt.Graphics;
  */
 public class Scoreboard extends javax.swing.JPanel {
 
+    DecimalFormat decimal = new DecimalFormat("###,###,###,##0.##");
     Map map;
     Team[] teams;
 
@@ -33,17 +35,17 @@ public class Scoreboard extends javax.swing.JPanel {
     }
 
     public void paintComponent(Graphics g) {
-        g.setFont(new Font("TimesRoman", Font.BOLD, 13));
+        g.setFont(new Font("TimesRoman", Font.BOLD, 12));
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         g.setColor(Color.BLACK);
-        g.drawString("Time: " + Integer.toString(map.getTime()) + " / 30,000 ms", 10, 25);
+        g.drawString("Time:  " + decimal.format(map.getTime() * 10) + " / " + decimal.format(Map.maxTime * 10) + " ms", 10, 25);
         g.drawLine(10, 40, this.getWidth() - 10, 40);
         teams = map.getTeams();
         for (int x = 1; x < teams.length; x++) {
             g.setColor(Color.BLACK);
             g.drawRect(10, x * 25 + 30, 10, 10);
-            g.drawString(teams[x].getName() + ": " + teams[x].getScore(), 35, x * 25 + 40);
+            g.drawString(teams[x].getName() + ":  " + decimal.format(teams[x].getScore()), 35, x * 25 + 40);
             g.setColor(Team.getColor(x));
             g.fillRect(10, x * 25 + 30, 10, 10);
         }

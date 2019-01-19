@@ -65,8 +65,6 @@ public class TestingPanel extends javax.swing.JPanel {
     int teams = 4;
     int refreshRate = 10;
     int gameSpeed = 10;
-    //Game time default (30000) is 5 minutes on 100% (game timer at 10)
-    int maxTime = 30000;
     boolean playing = false;
     boolean showRes = false;
     int graphicsMode = 0;
@@ -86,7 +84,7 @@ public class TestingPanel extends javax.swing.JPanel {
     Timer t2 = new Timer(gameSpeed, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            if (GameBoard.getTime() >= maxTime) {
+            if (GameBoard.getTime() >= Map.maxTime) {
                 gameframe.clickToggleButton1();
                 endGame();
             } else {
@@ -265,7 +263,7 @@ public class TestingPanel extends javax.swing.JPanel {
     }
 
     /**
-     * By Jia Jia: Wraps up the game.
+     * By
      */
     private void endGame() {
 
