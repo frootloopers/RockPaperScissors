@@ -302,7 +302,6 @@ public class TestingPanel extends javax.swing.JPanel {
         initComponents();
         GameBoard = new Map(teams, mapX, mapY);
         GameBoard.reset();
-        GameBoard.getControllables()[0].setThrustF(10);
 
         //John's testing entities
         d = new Drone(100.0, 100.0, 135.0, -1, GameBoard);
@@ -524,30 +523,7 @@ public class TestingPanel extends javax.swing.JPanel {
         GameBoard.getControllables()[7].setThrustF(100);
         GameBoard.getControllables()[8].setThrustF(100);
         GameBoard.getControllables()[9].setThrustF(100);
-        */
-        /*
-         Way to do AI: As Demonstrated by John
-         entity.draw(g, zoom, offsetX, offsetY);
-         //algorithm code
-         entity.move();
          */
-        d.draw(g, zoom, offsetX, offsetY);
-        d.setThrustF(100);
-        d.move();
-        
-        e.draw(g, zoom, offsetX, offsetY);
-        e.setThrustF(100);
-        e.move();
-
-        s.draw(g, zoom, offsetX, offsetY);
-        s.setThrustF(100);
-        s.setThrustRotR(25); //ccw
-        s.move();
-
-        chaser.draw(g, zoom, offsetX, offsetY);
-        Command.chase(chaser, s, 50);
-        chaser.move();
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
