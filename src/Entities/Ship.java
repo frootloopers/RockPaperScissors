@@ -52,7 +52,7 @@ public class Ship extends Controllable {
      * by PULSEDMG.
      */
     public void pulse() {
-        if (hasAct == false) {
+        if (hasAct == false && storage >= PULSECOST) {
             hasAct = true;
             //get the enemies within range
             ArrayList<Bullet> temp = map.aoe(pos, PULSERANGE + radius);
