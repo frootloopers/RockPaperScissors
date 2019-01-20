@@ -28,7 +28,7 @@ public class Drone extends Controllable {
     }
 
     private Random rand = new Random();
-    private final static int HarvestableValue = 2; //carl
+    private final static int HarvestableValue = 10; //carl NO
     
     @Override
     public void move() {

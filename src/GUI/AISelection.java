@@ -52,11 +52,6 @@ public class AISelection extends javax.swing.JFrame {
                 BeginMouseClicked(evt);
             }
         });
-        Begin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BeginActionPerformed(evt);
-            }
-        });
 
         jTextField1.setEditable(false);
         jTextField1.setText(" Team 1 ");
@@ -174,7 +169,7 @@ public class AISelection extends javax.swing.JFrame {
             players++;
         if(jComboBox4.getSelectedIndex() > 0)
             players++;
-        AI 1 = new AI();
+//        AI 1 = new AI();
         new GameFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BeginMouseClicked
