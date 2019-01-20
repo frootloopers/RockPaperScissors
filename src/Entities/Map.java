@@ -244,22 +244,24 @@ public class Map {
                 if (Controllables[i].checkCollision(Harvestables[j])) {
                     if (Controllables[i] instanceof Drone) {
                         ((Drone) Controllables[i]).collideHarvestable(Harvestables[j]);
-                         //add new harvestable by Jia {kinda (carl)}
+                        //add new harvestable Carl!!!!
                         Harvestables[j] = new Harvestable(100 + rand.nextInt(this.getMax().x - 200), 100 + rand.nextInt(this.getMax().y - 200), this);
                     }
                 }
             }
             //  Entities - Bullets
             for (int j = 0; j < Bullets.size(); j++) {
+//                if (Controllables[i].checkCollision(Bullets.get(j)) && Controllables[i].teamID != Bullets.get(i).teamID) {
                 if (Controllables[i].checkCollision(Bullets.get(j))) {
                     Controllables[i].collideBullet(Bullets.get(j));
-                    Bullets.remove(j);
+//                    Bullets.remove(j);
+//                    j--;
                 }
                 if ((Bullets.get(j).getPos().getX() - Bullets.get(j).getRadius()
                         <= 0 || Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)
                         || (Bullets.get(j).getPos().getX() + Bullets.get(j).getRadius()
                         >= xMax || Bullets.get(j).getPos().getY() + Bullets.get(j).getRadius() >= yMax)) {
-                    Bullets.remove(j);
+//                    Bullets.remove(j);
                 }
             }
 
