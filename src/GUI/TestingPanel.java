@@ -60,8 +60,8 @@ public class TestingPanel extends javax.swing.JPanel {
     double zoom = 1;
     int offsetX = 0;
     int offsetY = 0;
-    int mapX = 1200;
-    int mapY = 1200;
+    int mapX = 600;
+    int mapY = 600;
     int teams = 4;
     int refreshRate = 1;
     int gameSpeed = 10;
