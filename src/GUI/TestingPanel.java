@@ -415,7 +415,7 @@ public class TestingPanel extends javax.swing.JPanel {
         g.drawRect(-1, 268, getWidth() + 1, 72);
         g.setFont(tiny);
         g.drawString("This software is brought to you by Foresight Software: Carl Wu, John Popovici, and Jia Jia Chen.", 5, 280);
-        g.drawString("Special Thanks to Luke Classen, Sean Zhang, and the legendary Mr. RD.", 5, 295);
+        g.drawString("Special thanks to Luke Classen, Sean Zhang, and the legendary Mr. RD.", 5, 295);
         g.drawString("Press R to show developer stats, G to change background palette, SPACE to start/stop the simulation,", 5, 320);
         g.drawString("MOUSE2 to do one game loop, O to take manual control of a controllable, W, A, and D to move, and N and M to use abilities.", 5, 335);
     }
