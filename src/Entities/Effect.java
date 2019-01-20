@@ -13,25 +13,21 @@ import java.awt.Graphics;
  *
  * @author Jia Jia Chen
  */
-public abstract class Effect {
+public class Effect extends Movable {
 
     int type;
-    int xSize;
-    int ySize;
-    Pos pos;
+    int tick;
 
-    public Effect(Pos pos, int xSize, int ySize, int type) {
-        this.pos = pos;
-        this.xSize = xSize;
-        this.ySize = ySize;
+    public Effect(double x, double y, int radius, double speed, double faceAngle, int teamID, Map map, int type, int tick) {
+        super(x, y, radius, speed, faceAngle, teamID, map);
         this.type = type;
+        this.tick = tick;
     }
 
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
-
-        int drawX = (int) ((pos.getX() - xSize / 2 + offsetX) * scale);
-        int drawY = (int) ((pos.getY() - ySize / 2 + offsetY) * scale);
-        int drawSize = (int) (xSize / 2 * 2 * scale);
+        int drawX = (int) ((pos.getX() - radius / 2 + offsetX) * scale);
+        int drawY = (int) ((pos.getY() - radius / 2 + offsetY) * scale);
+        int drawSize = (int) (radius / 2 * 2 * scale);
         g.setColor(Color.MAGENTA);
         g.fillOval(drawX, drawY, drawSize, drawSize);
         g.setColor(Color.WHITE);

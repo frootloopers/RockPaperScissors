@@ -27,7 +27,7 @@ public class Map {
     //all damaging projectiles
     private ArrayList<Bullet> Bullets;
     //default # of resource nodes that spawn on the map
-    private final static int harvestables = 16;
+    private final static int harvestables = 20;
     //list of teams
     private Team[] Teams;
     private int xMax;
@@ -48,7 +48,6 @@ public class Map {
         Controllables = new Controllable[teams * 3];
         Planets = new Planet[teams];
         Harvestables = new Harvestable[harvestables];
-        Bullets = new ArrayList<>();
         this.xMax = xMax;
         this.yMax = yMax;
         reset();
@@ -56,6 +55,9 @@ public class Map {
 
     public void reset() {
         time = 0;
+
+        //initialize bullets here to erase bullets from map after a reset mid-game
+        Bullets = new ArrayList<>();
 
         for (int x = 0; x < harvestables; x++) {
             Harvestables[x] = new Harvestable(100 + rand.nextInt(xMax - 200), 100 + rand.nextInt(yMax - 200), this);
