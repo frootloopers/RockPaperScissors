@@ -16,7 +16,7 @@ import javax.swing.Timer;
  * @author carlw
  */
 public class GameFrame extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form GameFrame
      */
@@ -26,7 +26,7 @@ public class GameFrame extends javax.swing.JFrame {
         testingPanel1.setFrame(this);
         scoreboard1.linkMap(testingPanel1.GameBoard);
     }
-    
+
     public GameFrame(AI p1, AI p2) {
         initComponents();
         //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
@@ -172,6 +172,7 @@ public class GameFrame extends javax.swing.JFrame {
         if (resetConfirm) {
             //reset the map
             testingPanel1.GameBoard.reset();
+            testingPanel1.selected = null;
             //stop the game if its still playing
             if (testingPanel1.playing) {
                 jToggleButton1.doClick();
