@@ -28,7 +28,7 @@ public class Ship extends Controllable {
     }
 
     //bullet velocity
-    private final double FIREPOWER = 2;
+    private final double BARRELVELOCITY = 2;
     //firing resource cost
     private final double FIRECOST = 1;
     //aoe attack range
@@ -42,7 +42,7 @@ public class Ship extends Controllable {
     public void fireBullet() {
         if (hasAct == false && storage >= FIRECOST) {
             hasAct = true;
-            map.getBullets().add(new Bullet(pos.x, pos.y, FIREPOWER, faceAngle, teamID, map));
+            map.getBullets().add(new Bullet(pos.x, pos.y, BARRELVELOCITY, faceAngle, teamID, map));
             storage -= FIRECOST;
         }
     }
