@@ -252,13 +252,16 @@ public class Map {
             //  Entities - Bullets
             for (int j = 0; j < Bullets.size(); j++) {
                 if (Controllables[i].checkCollision(Bullets.get(j))) {
-                    Controllables[i].collideBullet(Bullets.get(j));
-                    Bullets.remove(j);
+                    System.out.println("1");
+                    if(Controllables[i].collideBullet(Bullets.get(j)))
+                        System.out.println("2");
+                        Bullets.remove(j);
                 }
-                if ((Bullets.get(j).getPos().getX() - Bullets.get(j).getRadius()
+                else if ((Bullets.get(j).getPos().getX() - Bullets.get(j).getRadius()
                         <= 0 || Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)
                         || (Bullets.get(j).getPos().getX() + Bullets.get(j).getRadius()
                         >= xMax || Bullets.get(j).getPos().getY() + Bullets.get(j).getRadius() >= yMax)) {
+                    System.out.println("3");
                     Bullets.remove(j);
                 }
             }
