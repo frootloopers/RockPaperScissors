@@ -63,7 +63,7 @@ public class TestingPanel extends javax.swing.JPanel {
     int mapX = 600;
     int mapY = 600;
     int teams = 4;
-    int refreshRate = 10;
+    int refreshRate = 1;
     int gameSpeed = 10;
     boolean playing = false;
     boolean showRes = false;
@@ -376,11 +376,7 @@ public class TestingPanel extends javax.swing.JPanel {
         }
         //highlight the player's character
         if (selected != null) {
-            int rad = selected.getRadius() + 3;
-            int x1 = (int) ((selected.getPos().x - rad + offsetX) * zoom);
-            int y1 = (int) ((selected.getPos().y - rad + offsetY) * zoom);
-            g.setColor(Color.ORANGE);
-            g.fillOval(x1, y1, (int) (rad * 2 * zoom), (int) (rad * 2 * zoom));
+            highlight(g);
         }
         for (Controllable c : GameBoard.getControllables()) {
             c.draw(g, zoom, offsetX, offsetY);
@@ -396,6 +392,32 @@ public class TestingPanel extends javax.swing.JPanel {
         if (showRes) {
             updateDev(g);
         }
+        //show the button list GUI before the game starts
+        if (GameBoard.getTime() == 0) {
+            showKeys(g);
+        }
+    }
+
+    /**
+     * Jia Jia: Shows pressing what keys does what.
+     *
+     * @param g
+     */
+    private void showKeys(Graphics g) {
+
+    }
+
+    /**
+     * Jia Jia: Highlights the selected entity
+     *
+     * @param g
+     */
+    private void highlight(Graphics g) {
+        int rad = selected.getRadius() + 3;
+        int x1 = (int) ((selected.getPos().x - rad + offsetX) * zoom);
+        int y1 = (int) ((selected.getPos().y - rad + offsetY) * zoom);
+        g.setColor(Color.ORANGE);
+        g.fillOval(x1, y1, (int) (rad * 2 * zoom), (int) (rad * 2 * zoom));
     }
 
     static private final int xDev = 180;

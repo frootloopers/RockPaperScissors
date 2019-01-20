@@ -27,7 +27,7 @@ public class Map {
     //all damaging projectiles
     private ArrayList<Bullet> Bullets;
     //default # of resource nodes that spawn on the map
-    private final static int harvestables = 16;
+    private final static int harvestables = 20;
     //list of teams
     private Team[] Teams;
     private int xMax;
@@ -35,7 +35,7 @@ public class Map {
     private int time;
     private Random rand = new Random();
 
-    private static final int asteroidTick = 1000;
+    private static final int asteroidTick = 600;
     private static final int xPlanet = 40;
     private static final int yPlanet = 40;
     private static final int offset = 40;
@@ -48,7 +48,6 @@ public class Map {
         Controllables = new Controllable[teams * 3];
         Planets = new Planet[teams];
         Harvestables = new Harvestable[harvestables];
-        Bullets = new ArrayList<>();
         this.xMax = xMax;
         this.yMax = yMax;
         reset();
@@ -56,6 +55,9 @@ public class Map {
 
     public void reset() {
         time = 0;
+
+        //initialize bullets here to erase bullets from map after a reset mid-game
+        Bullets = new ArrayList<>();
 
         for (int x = 0; x < harvestables; x++) {
             Harvestables[x] = new Harvestable(100 + rand.nextInt(xMax - 200), 100 + rand.nextInt(yMax - 200), this);
@@ -178,7 +180,17 @@ public class Map {
 
         //spawn a new meteor if the time is right (time is divisible by asteroidTick without a remainder)
         if (time % asteroidTick == 0) {
-            Bullets.add(new Bullet(2, rand.nextInt(xMax - (xPlanet + offset * 3) * 2) + (xPlanet + offset * 3), 0.5, rand.nextInt(20) + 80, 0, this));
+            int x;
+            int ang;
+            if (rand.nextFloat() >= 0.5) {
+                x = 3;
+                //nextInt is exclusive for some reason
+                ang = rand.nextInt(11) + 85;
+            } else {
+                x = xMax - 3;
+                ang = rand.nextInt(11) + 85 + 180;
+            }
+            Bullets.add(new Bullet(x, rand.nextInt(yMax - (yPlanet + offset * 3) * 2 + 1) + (yPlanet + offset * 3), 0.5, ang, 0, this));
         }
 
         //use Carl's collision detection
@@ -196,7 +208,7 @@ public class Map {
         ArrayList<Bullet> temp = new ArrayList<>();
         //find targets within the range
         for (Bullet e : Bullets) {
-            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) + e.radius <= range) {
+            if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) - e.radius <= range) {
                 temp.add(e);
             }
         }
@@ -206,7 +218,7 @@ public class Map {
     public void collide() {
         for (int i = 0; i < Controllables.length; i++) {
             //  Entities - Entities
-            for (int j = i+1; j < Controllables.length; j++) {
+            for (int j = i + 1; j < Controllables.length; j++) {
                 if (Controllables[i].checkCollision(Controllables[j])) {
                     Controllables[i].collision(Controllables[j]);
                     Controllables[j].collision(Controllables[i]);
@@ -244,13 +256,13 @@ public class Map {
                     Bullets.remove(j);
                 }
                 if ((Bullets.get(j).getPos().getX() - Bullets.get(j).getRadius()
-                    <= 0 || Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)
-                    || (Bullets.get(j).getPos().getX() + Bullets.get(j).getRadius()
-                    >= xMax || Bullets.get(j).getPos().getY() + Bullets.get(j).getRadius() >= yMax)) {
+                        <= 0 || Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)
+                        || (Bullets.get(j).getPos().getX() + Bullets.get(j).getRadius()
+                        >= xMax || Bullets.get(j).getPos().getY() + Bullets.get(j).getRadius() >= yMax)) {
                     Bullets.remove(j);
                 }
             }
- 
+
             if ((Controllables[i].getPos().getX() - Controllables[i].getRadius()
                     <= 0 || Controllables[i].getPos().getY() - Controllables[i].getRadius() <= 0)
                     || (Controllables[i].getPos().getX() + Controllables[i].getRadius()

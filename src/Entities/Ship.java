@@ -30,13 +30,11 @@ public class Ship extends Controllable {
     //bullet velocity
     private final double FIREPOWER = 2;
     //firing resource cost
-    private final double FIRECOST = 0;
+    private final double FIRECOST = 1;
     //aoe attack range
     private final double PULSERANGE = 10;
-    //aoe damage
-    private final double PULSEDMG = 100;
     //aoe attack resource cost
-    private final double PULSECOST = 0;
+    private final double PULSECOST = 2;
 
     /**
      * By Jia Jia: This spawns a bullet in the map.
