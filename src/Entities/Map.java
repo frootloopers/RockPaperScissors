@@ -232,7 +232,8 @@ public class Map {
                 if (Controllables[i].checkCollision(Harvestables[j])) {
                     if (Controllables[i] instanceof Drone) {
                         ((Drone) Controllables[i]).collideHarvestable(Harvestables[j]);
-                        Harvestables[j] = null; //this is temp
+                         //add new harvestable by Jia {kinda (carl)}
+                        Harvestables[j] = new Harvestable(100 + rand.nextInt(this.getMax().x - 200), 100 + rand.nextInt(this.getMax().y - 200), this);
                     }
                 }
             }
@@ -240,6 +241,7 @@ public class Map {
             for (int j = 0; j < Bullets.size(); j++) {
                 if (Controllables[i].checkCollision(Bullets.get(j))) {
                     Controllables[i].collideBullet(Bullets.get(j));
+                    Bullets.remove(j);
                 }
                 if ((Bullets.get(j).getPos().getX() - Bullets.get(j).getRadius()
                     <= 0 || Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)

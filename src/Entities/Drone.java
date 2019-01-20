@@ -28,7 +28,8 @@ public class Drone extends Controllable {
     }
 
     private Random rand = new Random();
-
+    private final static int HarvestableValue = 2; //carl
+    
     @Override
     public void move() {
         //add acceleration
@@ -42,9 +43,7 @@ public class Drone extends Controllable {
 
     public void collideHarvestable(Harvestable other) {
         if (this.checkCollision(other)) {
-            storage++;
-            //add new harvestable by Jia
-            other = new Harvestable(100 + rand.nextInt(map.getMax().x - 200), 100 + rand.nextInt(map.getMax().y - 200), map);
+            storage+=HarvestableValue;            
         }
     }
 

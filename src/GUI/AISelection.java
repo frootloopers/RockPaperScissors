@@ -52,6 +52,11 @@ public class AISelection extends javax.swing.JFrame {
                 BeginMouseClicked(evt);
             }
         });
+        Begin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BeginActionPerformed(evt);
+            }
+        });
 
         jTextField1.setEditable(false);
         jTextField1.setText(" Team 1 ");
@@ -60,10 +65,10 @@ public class AISelection extends javax.swing.JFrame {
         jTextField2.setText(" Team 2 ");
 
         jTextField3.setEditable(false);
-        jTextField3.setText(" Team 3 ");
+        jTextField3.setText(" Team 4 ");
 
         jTextField4.setEditable(false);
-        jTextField4.setText(" Team 4 ");
+        jTextField4.setText(" Team 3 ");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No Team", "Red", "Orange", "Yellow", "Green", "Blue", "Purple" }));
         jComboBox1.setToolTipText("");
@@ -169,7 +174,7 @@ public class AISelection extends javax.swing.JFrame {
             players++;
         if(jComboBox4.getSelectedIndex() > 0)
             players++;
-        //AI 1 = new AI();
+        AI 1 = new AI();
         new GameFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BeginMouseClicked
