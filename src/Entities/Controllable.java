@@ -88,11 +88,13 @@ public abstract class Controllable extends Movable {
      *
      * @author Carl Wu
      */
-    public void collideBullet(Bullet other) {
+    public boolean collideBullet(Bullet other) {
         if (this.checkCollision(other) && !(teamID == other.teamID)) {
             storage = 0;
             map.getTeams()[other.teamID].addScore(1);
+            return true;
         }
+        return false;
     }
 
     /**
