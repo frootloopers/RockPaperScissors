@@ -7,6 +7,8 @@ package GUI;
 
 import Development.AI;
 import Entities.Map;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
@@ -22,6 +24,8 @@ public class GameFrame extends javax.swing.JFrame {
      */
     public GameFrame() {
         initComponents();
+        setTitle("Space;Raze");
+        setIconImage(Toolkit.getDefaultToolkit().getImage("src/spaceraze.png"));
         //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
         testingPanel1.setFrame(this);
         scoreboard1.linkMap(testingPanel1.GameBoard);
@@ -227,10 +231,6 @@ public class GameFrame extends javax.swing.JFrame {
     private void testingPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_testingPanel1MouseClicked
         testingPanel1.requestFocus();
     }//GEN-LAST:event_testingPanel1MouseClicked
-
-    public void linkScore(Map map) {
-        scoreboard1.repaint();
-    }
 
     public void updateScore() {
         scoreboard1.repaint();

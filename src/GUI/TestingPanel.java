@@ -60,8 +60,8 @@ public class TestingPanel extends javax.swing.JPanel {
     double zoom = 1;
     int offsetX = 0;
     int offsetY = 0;
-    int mapX = 600;
-    int mapY = 600;
+    int mapX = 1200;
+    int mapY = 1200;
     int teams = 4;
     int refreshRate = 1;
     int gameSpeed = 10;
@@ -290,6 +290,9 @@ public class TestingPanel extends javax.swing.JPanel {
         public void mouseWheelMoved(MouseWheelEvent ms) {
             double zoomChange = (double) (ms.getWheelRotation()) / 50;
             zoom -= zoomChange;
+            if (zoom < 0.02) {
+                zoom = 0.02;
+            }
 //            int centerX = offsetX + (int) (mapX / 2 * zoom);
 //            int centerY = offsetY + (int) (mapY / 2 * zoom);
 //            offsetX = offsetX + mouse.x - (int) (mapX / 2);
@@ -398,13 +401,23 @@ public class TestingPanel extends javax.swing.JPanel {
         }
     }
 
+    Font tiny = new Font("TimesRoman", Font.PLAIN, 10);
+
     /**
      * Jia Jia: Shows pressing what keys does what.
      *
      * @param g
      */
     private void showKeys(Graphics g) {
-
+        g.setColor(Color.WHITE);
+        g.fillRect(-1, 268, getWidth() + 1, 72);
+        g.setColor(Color.BLACK);
+        g.drawRect(-1, 268, getWidth() + 1, 72);
+        g.setFont(tiny);
+        g.drawString("This software is brought to you by Foresight Software: Carl Wu, John Popovici, and Jia Jia Chen.", 5, 280);
+        g.drawString("Special Thanks to Luke Classen, Sean Zhang, and the legendary Mr. RD.", 5, 295);
+        g.drawString("Press R to show developer stats, G to change background palette, SPACE to start/stop the simulation,", 5, 320);
+        g.drawString("MOUSE2 to do one game loop, O to take manual control of a controllable, W, A, and D to move, and N and M to use abilities.", 5, 335);
     }
 
     /**
