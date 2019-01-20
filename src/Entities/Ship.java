@@ -58,6 +58,7 @@ public class Ship extends Controllable {
             ArrayList<Bullet> temp = map.aoe(pos, PULSERANGE + radius);
             for (Bullet e : temp) {
                 map.getBullets().remove(e);
+//                map.getTeams()[e.teamID].addScore(1);
             }
             storage -= PULSECOST;
         }
