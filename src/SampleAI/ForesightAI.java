@@ -16,12 +16,14 @@ import Entities.*;
 public class ForesightAI implements AI {
 
     //name entities
-    /*
-    private Drone r = getDrone();
-    private Drone l = getDrone();
-    private Ship s = getShip();
-    private Planet p = getPlanet();
-    */
+
+//    private Drone r = getTeams().getEntities(3);
+//    
+//    
+//    private Drone l = getDrone();
+//    private Ship s = getShip();
+//    private Planet p = getPlanet();
+
     //dictates if drones are going to ship
     private boolean toShipR = false;
     private boolean toShipL = false;
