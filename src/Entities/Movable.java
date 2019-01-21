@@ -34,7 +34,7 @@ public abstract class Movable extends Entity {
     }
 
     /**
-     * the velocity object of this entity
+     * the vel object of this entity
      */
     protected Vel vel;
     /**
@@ -49,9 +49,9 @@ public abstract class Movable extends Entity {
     protected boolean hasMove = true;
 
     /**
-     * Gets the velocity object of the entity
+     * Gets the vel object of the entity
      *
-     * @return the velocity object of the entity
+     * @return the vel object of the entity
      */
     public Vel getVel() {
         return new Vel(this.vel.getX(), this.vel.getY());
@@ -92,7 +92,7 @@ public abstract class Movable extends Entity {
      * @author John Popovici
      */
     public void move() {
-        //changes the position according to the velocity
+        //changes the position according to the vel
         pos.x += vel.x;
         pos.y += vel.y;
         //tells the entity has moved this frame
@@ -100,21 +100,104 @@ public abstract class Movable extends Entity {
     }
 
     protected void collision() {
-        
-            if (faceAngle > 180) {
-                faceAngle -= 180;
-            } else {
-                faceAngle += 180;
-            }
-            vel.x = -vel.x;
-            vel.y = -vel.y;
-        
-    }
-    
-    public void collision(Entity other) {
-        if (this.checkCollision(other)) {
-            collision();
+        if (faceAngle > 180) {
+            faceAngle -= 180;
+        } else {
+            faceAngle += 180;
         }
+        vel.x = -vel.x;
+        vel.y = -vel.y;
     }
 
+    /**
+     * protected int[] rotate(int velX, int velY, double angle) { int[]
+     * rotatedVelocities = {(int) (velX * Math.cos(angle) - velY *
+     * Math.sin(angle)), (int) (velX * Math.sin(angle) + velY *
+     * Math.cos(angle))}; return rotatedVelocities; }
+     *
+     * //ffs protected void resolveCollision(Movable other) {
+     * System.out.println("hi"); // Grab angle between the two colliding thiss
+     * int angle = (int) -Math.atan2(other.pos.y - this.pos.y, other.pos.x -
+     * this.pos.x);
+     *
+     * // Store mass in var for better readability in collision equation int m1
+     * = this.radius; int m2 = other.radius;
+     *
+     * // Velocity before equation int[] u1 = rotate((int) this.vel.x, (int)
+     * this.vel.y, angle); int[] u2 = rotate((int) other.vel.x, (int)
+     * other.vel.x, angle);
+     *
+     * // Velocity after 1d collision equation int[] v1 = {u1[0] * (m1 - m2) /
+     * (m1 + m2) + u2[0] * 2 * m2 / (m1 + m2), u1[1]}; int[] v2 = {u2[0] * (m1 -
+     * m2) / (m1 + m2) + u1[0] * 2 * m2 / (m1 + m2), u2[1]};
+     *
+     * // Final vel after rotating axis back to original location int[] vFinal1
+     * = rotate(v1[0], v1[1], -angle); int[] vFinal2 = rotate(v2[0], v2[1],
+     * -angle);
+     *
+     * // Swap this velocities for realistic bounce effect this.vel.x =
+     * vFinal1[0]; this.vel.y = vFinal1[1];
+     *
+     * other.vel.x = vFinal2[0]; other.vel.y = vFinal2[1]; }
+     */
+    // a VERY bugy collision handeler for more realist collision (carl (i tried)) 
+    protected void collision(Movable other) {
+        if (vel.y > 0 || vel.x > 0) {
+            double difx = pos.x - other.getPos().x;
+            double dify = pos.y - other.getPos().y;
+            double targetAngle;
+            if (difx >= 0.0 && dify <= 0.0) { //top right, x positive, y negative
+                targetAngle = (Math.toDegrees(Math.atan(Math.abs(difx) / Math.abs(dify))));
+            } else if (difx >= 0.0 && dify >= 0.0) { //bottom right, x positive, y positive
+                targetAngle = (180 - Math.toDegrees(Math.atan(Math.abs(difx) / Math.abs(dify))));
+            } else if (difx <= 0.0 && dify >= 0.0) { //bottom left, x negative, y positive
+                targetAngle = (180 + Math.toDegrees(Math.atan(Math.abs(difx) / Math.abs(dify))));
+            } else { //if (x <= 0.0 && y <= 0.0) { //top left, x negative, y negative
+                targetAngle = (360 - Math.toDegrees(Math.atan(Math.abs(difx) / Math.abs(dify))));
+            }
+            targetAngle = (targetAngle + 90) % 180;
+            collision(targetAngle);
+        }
+    }
+    // a VERY bugy collision handeler for more realist collision (carl (i tried)) 
+
+    protected void collision(double targetAngle) {
+        double oldAngle = Math.toDegrees(Math.atan(Math.abs(vel.x) / Math.abs(vel.y)));
+        System.out.println(targetAngle + " " + faceAngle + " " + oldAngle);
+        double oldVel = vel.y * vel.y + vel.x * vel.x;
+        double difAngle = Math.abs(targetAngle - oldAngle);
+        if (targetAngle > oldAngle && 180 - targetAngle < oldAngle) {
+            faceAngle = targetAngle + difAngle;
+        } else if (180 - targetAngle > oldAngle && 180 + targetAngle < oldAngle) {
+            faceAngle = targetAngle - difAngle;
+        } else if (180 + targetAngle > oldAngle && 360 - targetAngle > oldAngle) {
+            faceAngle = targetAngle - difAngle + 360;
+        } else if (360 - targetAngle > oldAngle) {
+            faceAngle = 180 - targetAngle - (180 + oldAngle - targetAngle) % 360;
+        }
+        System.out.println(faceAngle);
+        vel.y = Math.sqrt(oldVel) * Math.sin(Math.toRadians(faceAngle));
+        vel.x = Math.sqrt(oldVel) * Math.cos(Math.toRadians(faceAngle));
+        faceAngle = (450 - faceAngle) % 360;
+    }
+
+    public void collisionX() {
+        faceAngle = (faceAngle + 360) % 360;
+        faceAngle = (360 - faceAngle) % 360;
+        vel.x = -vel.x;
+    }
+
+    public void collisionY() {
+        faceAngle = (faceAngle + 360) % 360;
+        faceAngle = (180 - faceAngle + 360) % 360;
+        vel.y = -vel.y;
+    }
+
+    public void collision(Entity other) {
+        /**
+         * if (this.checkCollision(other)) { if(other instanceof Movable){
+         * collision((Movable)other);} else
+         */
+        collision();
+    }
 }
