@@ -23,8 +23,8 @@ public class Ship extends Controllable {
      * @param teamID the ID of the team this entity belongs to
      * @param map the map the entity is in
      */
-    public Ship(double x, double y, double faceAngle, int teamID, Map map) {
-        super(x, y, RADIUS_SHIP, faceAngle, teamID, map);
+    protected Ship(double x, double y, double faceAngle, int teamID, Map map) {
+        super(x, y, RADIUS_SHIP, faceAngle, 1.0, teamID, map);
     }
 
     //bullet velocity
@@ -48,16 +48,20 @@ public class Ship extends Controllable {
     }
 
     /**
-     * By Jia Jia: Fire a pulse lowering the score of enemies within PULSERANGE
-     * by PULSEDMG.
+     * By Jia Jia: Fire a pulse that erases nearby bullets.
      */
     public void pulse() {
         if (hasAct == false && storage >= PULSECOST) {
             hasAct = true;
-            //get the enemies within range
+            //get the enemies within range and put them in an arraylist
             ArrayList<Bullet> temp = map.aoe(pos, PULSERANGE + radius);
+            //erase all enemy bullets
             for (Bullet e : temp) {
-                map.getBullets().remove(e);
+                if (e.getTeamID() != teamID) {
+                    map.getBullets().remove(e);
+                    //uncomment line below if you want to give points for bullet erasure
+//                    map.getTeams()[e.teamID].addScore(1);
+                }
             }
             storage -= PULSECOST;
         }

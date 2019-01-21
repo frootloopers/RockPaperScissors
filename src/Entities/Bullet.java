@@ -22,7 +22,7 @@ public class Bullet extends Movable {
      * @param teamID the ID of the team this entity belongs to
      * @param map the map the entity is in
      */
-    public Bullet(double x, double y, double speed, double faceAngle, int teamID, Map map) {
+    protected Bullet(double x, double y, double speed, double faceAngle, int teamID, Map map) {
         super(x, y, RADIUS_PROJECTILE, speed, faceAngle, teamID, map);
     }
 }

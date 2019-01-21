@@ -27,8 +27,9 @@ public abstract class Controllable extends Movable {
      * @param teamID the ID of the team this entity belongs to
      * @param map the map the entity is in
      */
-    public Controllable(double x, double y, int radius, double faceAngle, int teamID, Map map) {
+    public Controllable(double x, double y, int radius, double faceAngle, double maxSpeed, int teamID, Map map) {
         super(x, y, radius, 0.0, faceAngle, teamID, map);
+        this.maxSpeed = maxSpeed;
         storage = 0;
         thrustF = 0;
         thrustRotR = 0;
@@ -91,6 +92,7 @@ public abstract class Controllable extends Movable {
     public boolean collideBullet(Bullet other) {
         if (this.checkCollision(other) && !(teamID == other.teamID)) {
             storage = 0;
+            map.getTeams()[other.teamID].addScore(1);
             return true;
         }
         return false;
@@ -105,6 +107,10 @@ public abstract class Controllable extends Movable {
      * 0 and 100, inclusive
      */
     protected int thrustF;
+    /**
+     * the maximum velocity of the controllable
+     */
+    protected double maxSpeed;
     /**
      * the percent of the right rotation thruster being used. The value must be
      * between 0 and 100, inclusive. Thruster rotates counterclockwise

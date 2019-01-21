@@ -23,26 +23,25 @@ public class GameFrame extends javax.swing.JFrame {
      * Creates new form GameFrame
      */
     public GameFrame() {
+        setup();
+    }
+
+    public GameFrame(AI p1, AI p2) {
+        setup();
+    }
+
+    public GameFrame(AI p1, AI p2, AI p3, AI p4) {
+        setup();
+    }
+
+    public void setup() {
         initComponents();
         setTitle("Space;Raze");
         setIconImage(Toolkit.getDefaultToolkit().getImage("src/spaceraze.png"));
         //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
         testingPanel1.setFrame(this);
         scoreboard1.linkMap(testingPanel1.GameBoard);
-    }
 
-    public GameFrame(AI p1, AI p2) {
-        initComponents();
-        //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
-        testingPanel1.setFrame(this);
-        scoreboard1.linkMap(testingPanel1.GameBoard);
-    }
-
-    public GameFrame(AI p1, AI p2, AI p3, AI p4) {
-        initComponents();
-        //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
-        testingPanel1.setFrame(this);
-        scoreboard1.linkMap(testingPanel1.GameBoard);
     }
 
     boolean resetConfirm = false;

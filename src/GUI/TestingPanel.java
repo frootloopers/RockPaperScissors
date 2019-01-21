@@ -75,8 +75,8 @@ public class TestingPanel extends javax.swing.JPanel {
     Controllable selected = null;
 
     //---------------------------GUI-UTILITIES----------------------------------
-    //Graphics timer (Carl)
-    Timer t = new Timer(refreshRate, new ActionListener() {
+    //Graphics timer
+    Timer t1 = new Timer(refreshRate, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             repaint();
@@ -262,8 +262,8 @@ public class TestingPanel extends javax.swing.JPanel {
     MouseMotionListener mMListener = new MouseMotionListener() {
         public void mouseDragged(MouseEvent ms) {
             //add the change in mouse position when dragging to the camera position
-            offsetX -= mouse.x - ms.getPoint().x;
-            offsetY -= mouse.y - ms.getPoint().y;
+            offsetX -= (mouse.x - ms.getPoint().x) / zoom;
+            offsetY -= (mouse.y - ms.getPoint().y) / zoom;
             //prevent the camera from moving too far
             if (offsetX < -mapX) {
                 offsetX = -mapX;
@@ -309,18 +309,17 @@ public class TestingPanel extends javax.swing.JPanel {
         GameBoard.reset();
 
         //John's testing entities
-        d = new Drone(100.0, 100.0, 135.0, -1, GameBoard);
-        e = new Drone(700.0, 100.0, -135.0, -1, GameBoard);
-        s = new Ship(200.0, 400.0, 135.0, -1, GameBoard);
-        chaser = new Ship(50.0, 50.0, -90, -1, GameBoard);
-
+//        d = new Drone(100.0, 100.0, 135.0, -1, GameBoard);
+//        e = new Drone(700.0, 100.0, -135.0, -1, GameBoard);
+//        s = new Ship(200.0, 400.0, 135.0, -1, GameBoard);
+//        chaser = new Ship(50.0, 50.0, -90, -1, GameBoard);
         //attach the listeners when constructing the panel
         addMouseListener(mListener);
         addMouseMotionListener(mMListener);
         addMouseWheelListener(mWListener);
         addKeyListener(kListener);
         setFocusable(true);
-        t.start();
+        t1.start();
     }
 
     public void setFrame(GameFrame gameframe) {
@@ -390,7 +389,7 @@ public class TestingPanel extends javax.swing.JPanel {
         for (Planet p : GameBoard.getPlanets()) {
             p.draw(g, zoom, offsetX, offsetY);
         }
-//        for (Effect e : m.getEffects()) {
+//        for (Effect e : GameBoard.getEffects()) {
 //            e.draw(g, zoom, offsetX, offsetY);
 //        }
         gameframe.updateScore();
@@ -527,22 +526,22 @@ public class TestingPanel extends javax.swing.JPanel {
                 //algorithm code
                 entity.move();
                  */
-                d.draw(g, zoom, offsetX, offsetY);
-                d.setThrustF(100);
-                d.move();
-
-                e.draw(g, zoom, offsetX, offsetY);
-                e.setThrustF(100);
-                e.move();
-
-                s.draw(g, zoom, offsetX, offsetY);
-                s.setThrustF(100);
-                s.setThrustRotR(25); //ccw
-                s.move();
-
-                chaser.draw(g, zoom, offsetX, offsetY);
-                Command.chase(chaser, s, 50);
-                chaser.move();
+//                d.draw(g, zoom, offsetX, offsetY);
+//                d.setThrustF(100);
+//                d.move();
+//
+//                e.draw(g, zoom, offsetX, offsetY);
+//                e.setThrustF(100);
+//                e.move();
+//
+//                s.draw(g, zoom, offsetX, offsetY);
+//                s.setThrustF(100);
+//                s.setThrustRotR(25); //ccw
+//                s.move();
+//
+//                chaser.draw(g, zoom, offsetX, offsetY);
+//                Command.chase(chaser, s, 50);
+//                chaser.move();
                 break;
         }
 
