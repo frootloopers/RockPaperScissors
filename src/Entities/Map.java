@@ -160,8 +160,29 @@ public class Map {
      *
      * @return
      */
-    public Team[] getTeams() {
+    protected Team[] getTeams() {
         return Teams;
+    }
+
+    /**
+     * Gets the scores of each team
+     *
+     * @return
+     */
+    public int[] getScores() {
+        int[] scores = new int[Teams.length - 1];
+        for (int x = 1; x < Teams.length; x++) {
+            scores[x - 1] = Teams[x].getScore();
+        }
+        return scores;
+    }
+
+    public String[] getNames() {
+        String[] scores = new String[Teams.length - 1];
+        for (int x = 1; x < Teams.length; x++) {
+            scores[x - 1] = Teams[x].getName();
+        }
+        return scores;
     }
 
     /**

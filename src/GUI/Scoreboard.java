@@ -20,7 +20,8 @@ public class Scoreboard extends javax.swing.JPanel {
 
     DecimalFormat decimal = new DecimalFormat("###,###,###,##0.##");
     Map map;
-    Team[] teams;
+    int[] scores;
+    String[] names;
 
     /**
      * Creates new form Scoreboard
@@ -30,12 +31,13 @@ public class Scoreboard extends javax.swing.JPanel {
     }
 
     /**
-     * 
-     * @param map 
+     *
+     * @param map
      */
     public void linkMap(Map map) {
         this.map = map;
-        teams = map.getTeams();
+        scores = map.getScores();
+        names = map.getNames();
     }
 
     public void paintComponent(Graphics g) {
@@ -45,13 +47,13 @@ public class Scoreboard extends javax.swing.JPanel {
         g.setColor(Color.BLACK);
         g.drawString("Time:  " + decimal.format(map.getTime() * 10) + " / " + decimal.format(Map.maxTime * 10) + " ms", 10, 25);
         g.drawLine(10, 40, this.getWidth() - 10, 40);
-        teams = map.getTeams();
-        for (int x = 1; x < teams.length; x++) {
+        scores = map.getScores();
+        for (int x = 0; x < scores.length; x++) {
             g.setColor(Color.BLACK);
-            g.drawRect(10, x * 25 + 30, 10, 10);
-            g.drawString(teams[x].getName() + ":  " + decimal.format(teams[x].getScore())+" pts", 35, x * 25 + 40);
-            g.setColor(Team.getColor(x));
-            g.fillRect(10, x * 25 + 30, 10, 10);
+            g.drawRect(10, (x + 1) * 25 + 30, 10, 10);
+            g.drawString(names[x] + ":  " + decimal.format(scores[x]) + " pts", 35, (x + 1) * 25 + 40);
+            g.setColor(Team.getColor(x + 1));
+            g.fillRect(10, (x + 1) * 25 + 30, 10, 10);
         }
     }
 
