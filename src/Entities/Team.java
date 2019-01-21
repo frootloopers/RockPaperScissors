@@ -18,6 +18,7 @@ public class Team implements Comparable {
     private int score;
     private String aiName;
     private Entity[] entities;
+    private Map map;
 //    private AI ai;
 
     /**
@@ -29,7 +30,7 @@ public class Team implements Comparable {
      * @param drone2
      * @param aiName
      */
-    public Team(Planet planet, Ship ship, Drone drone1, Drone drone2, String aiName) {
+    public Team(Planet planet, Ship ship, Drone drone1, Drone drone2, String aiName, Map map) {
         score = 0;
 //        this.ai = ai;
         entities = new Entity[4];
@@ -38,6 +39,7 @@ public class Team implements Comparable {
         entities[2] = drone1;
         entities[3] = drone2;
         this.aiName = aiName;
+        this.map = map;
     }
 
     /**
@@ -69,6 +71,10 @@ public class Team implements Comparable {
 
     public Entity[] getEntities() {
         return entities;
+    }
+
+    public Map getMap() {
+        return map;
     }
 
     public String toString() {

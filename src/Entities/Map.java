@@ -64,6 +64,7 @@ public class Map {
         }
 
         switch (Teams.length - 1) {
+            //create entities for teams 3 and 4
             case 4:
                 Planets[2] = new Planet(xPlanet, yMax - yPlanet, 3, this);
                 Controllables[6] = new Ship((xPlanet + offset), yMax - (yPlanet + offset), 45, 3, this);
@@ -74,6 +75,7 @@ public class Map {
                 Controllables[9] = new Ship(xMax - (xPlanet + offset), yMax - (yPlanet + offset), 315, 4, this);
                 Controllables[10] = new Drone(xMax - (xPlanet + offset), yMax - yPlanet, 315, 4, this);
                 Controllables[11] = new Drone(xMax - xPlanet, yMax - (yPlanet + offset), 315, 4, this);
+            //create entities for teams 1 and 2, purposely no break here
             case 2:
                 Planets[0] = new Planet(xPlanet, yPlanet, 1, this);
                 Controllables[0] = new Ship(xPlanet + offset, yPlanet + offset, 135, 1, this);
@@ -88,9 +90,10 @@ public class Map {
             default:
                 throw new java.lang.Error("ERROR, UNSUPPORTED TEAM NUMBER");
         }
+        Teams[0] = new Team(0, "Neutral");
         for (int x = 0; x < Teams.length - 1; x++) {
-            Teams[0] = new Team(0, "Neutral");
-            Teams[x + 1] = new Team(Planets[x], (Ship) Controllables[x * 3], (Drone) Controllables[x * 3 + 1], (Drone) Controllables[x * 3 + 2], "Player " + Integer.toString(x + 1));
+            //create the teams for the entities
+            Teams[x + 1] = new Team(Planets[x], (Ship) Controllables[x * 3], (Drone) Controllables[x * 3 + 1], (Drone) Controllables[x * 3 + 2], "Player " + Integer.toString(x + 1), this);
         }
     }
 
@@ -254,11 +257,11 @@ public class Map {
 //                if (Controllables[i].checkCollision(Bullets.get(j)) && Controllables[i].teamID != Bullets.get(i).teamID) {
                 if (Controllables[i].checkCollision(Bullets.get(j))) {
                     System.out.println("1");
-                    if(Controllables[i].collideBullet(Bullets.get(j)))
-                        //System.out.println("2");
+                    if (Controllables[i].collideBullet(Bullets.get(j))) //System.out.println("2");
+                    {
                         Bullets.remove(j);
-                }
-                else if ((Bullets.get(j).getPos().getX() - Bullets.get(j).getRadius()
+                    }
+                } else if ((Bullets.get(j).getPos().getX() - Bullets.get(j).getRadius()
                         <= 0 || Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)
                         || (Bullets.get(j).getPos().getX() + Bullets.get(j).getRadius()
                         >= xMax || Bullets.get(j).getPos().getY() + Bullets.get(j).getRadius() >= yMax)) {

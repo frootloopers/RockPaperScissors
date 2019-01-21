@@ -29,6 +29,10 @@ public class Scoreboard extends javax.swing.JPanel {
         initComponents();
     }
 
+    /**
+     * 
+     * @param map 
+     */
     public void linkMap(Map map) {
         this.map = map;
         teams = map.getTeams();
