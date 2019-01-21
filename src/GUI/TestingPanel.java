@@ -260,8 +260,8 @@ public class TestingPanel extends javax.swing.JPanel {
     MouseMotionListener mMListener = new MouseMotionListener() {
         public void mouseDragged(MouseEvent ms) {
             //add the change in mouse position when dragging to the camera position
-            offsetX -= mouse.x - ms.getPoint().x;
-            offsetY -= mouse.y - ms.getPoint().y;
+            offsetX -= (mouse.x - ms.getPoint().x) / zoom;
+            offsetY -= (mouse.y - ms.getPoint().y) / zoom;
             //prevent the camera from moving too far
             if (offsetX < -mapX) {
                 offsetX = -mapX;
@@ -311,7 +311,6 @@ public class TestingPanel extends javax.swing.JPanel {
 //        e = new Drone(700.0, 100.0, -135.0, -1, GameBoard);
 //        s = new Ship(200.0, 400.0, 135.0, -1, GameBoard);
 //        chaser = new Ship(50.0, 50.0, -90, -1, GameBoard);
-
         //attach the listeners when constructing the panel
         addMouseListener(mListener);
         addMouseMotionListener(mMListener);
