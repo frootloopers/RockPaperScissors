@@ -23,7 +23,7 @@ public class Ship extends Controllable {
      * @param teamID the ID of the team this entity belongs to
      * @param map the map the entity is in
      */
-    public Ship(double x, double y, double faceAngle, int teamID, Map map) {
+    protected Ship(double x, double y, double faceAngle, int teamID, Map map) {
         super(x, y, RADIUS_SHIP, faceAngle, 1.0, teamID, map);
     }
 

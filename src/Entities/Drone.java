@@ -23,7 +23,7 @@ public class Drone extends Controllable {
      * @param teamID the ID of the team this entity belongs to
      * @param map the map the entity is in
      */
-    public Drone(double x, double y, double faceAngle, int teamID, Map map) {
+    protected Drone(double x, double y, double faceAngle, int teamID, Map map) {
         super(x, y, RADIUS_DRONE, faceAngle, 0.5, teamID,map);
     }
 
