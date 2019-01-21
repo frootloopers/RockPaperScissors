@@ -387,18 +387,18 @@ public class TestingPanel extends javax.swing.JPanel {
         for (Planet p : GameBoard.getPlanets()) {
             p.draw(g, zoom, offsetX, offsetY);
         }
-//        for (Effect e : m.getEffects()) {
+//        for (Effect e : GameBoard.getEffects()) {
 //            e.draw(g, zoom, offsetX, offsetY);
 //        }
-//        gameframe.updateScore();
-//        //activate developer GUI
-//        if (showRes) {
-//            updateDev(g);
-//        }
-//        //show the button list GUI before the game starts
-//        if (GameBoard.getTime() == 0) {
-//            showKeys(g);
-//        }
+        gameframe.updateScore();
+        //activate developer GUI
+        if (showRes) {
+            updateDev(g);
+        }
+        //show the button list GUI before the game starts
+        if (GameBoard.getTime() == 0) {
+            showKeys(g);
+        }
     }
 
     Font tiny = new Font("TimesRoman", Font.PLAIN, 10);
@@ -536,10 +536,10 @@ public class TestingPanel extends javax.swing.JPanel {
 //                s.setThrustF(100);
 //                s.setThrustRotR(25); //ccw
 //                s.move();
-
-                chaser.draw(g, zoom, offsetX, offsetY);
-                Command.chase(chaser, s, 50);
-                chaser.move();
+//
+//                chaser.draw(g, zoom, offsetX, offsetY);
+//                Command.chase(chaser, s, 50);
+//                chaser.move();
                 break;
         }
 
