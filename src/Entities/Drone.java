@@ -41,12 +41,22 @@ public class Drone extends Controllable {
         super.move();
     }
 
+    /**
+     * checks and collects the Harvestable
+     * (Carl)
+     * @param other the Harvestable the drone is colliding with
+     */
     public void collideHarvestable(Harvestable other) {
         if (this.checkCollision(other)) {
             storage+=HarvestableValue;            
         }
     }
 
+    /**
+     * checks and transfers the resource
+     * (Carl)
+     * @param other the Ship the drone is colliding with
+     */
     public void collideShip(Ship other) {
         if (this.checkCollision(other) && teamID == other.teamID) {
             other.collideDrone(this, storage);

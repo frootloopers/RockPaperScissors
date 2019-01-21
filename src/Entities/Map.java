@@ -215,6 +215,10 @@ public class Map {
         return temp;
     }
 
+    /**
+     * checks and handles all collision in the map
+     * (Carl)
+     */
     public void collide() {
         for (int i = 0; i < Controllables.length; i++) {
             //  Entities - Entities

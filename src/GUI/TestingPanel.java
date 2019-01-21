@@ -47,7 +47,7 @@ import javax.swing.Timer;
 
 /**
  *
- * @author carlw look at dis -> https://github.com/sean01zhang/ICS4UE_CodeRulers
+ * @author Jia Jia
  */
 public class TestingPanel extends javax.swing.JPanel {
 
@@ -69,12 +69,13 @@ public class TestingPanel extends javax.swing.JPanel {
     boolean showRes = false;
     int graphicsMode = 0;
     Point mouse = new Point(0, 0);
+    //background img (Carl)
     Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
     GameFrame gameframe;
     Controllable selected = null;
 
     //---------------------------GUI-UTILITIES----------------------------------
-    //Graphics timer
+    //Graphics timer (Carl)
     Timer t = new Timer(refreshRate, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -251,6 +252,7 @@ public class TestingPanel extends javax.swing.JPanel {
         }
 
         public void mouseReleased(MouseEvent ms) {
+            endGame(); //for testing proposes
         }
     };
 
@@ -346,10 +348,12 @@ public class TestingPanel extends javax.swing.JPanel {
     }
 
     /**
-     * By
+     * Method call once the game ends
+     * (Carl)
      */
     private void endGame() {
-
+       new WinFrame(GameBoard).setVisible(true);
+       togglePlay();
     }
 
     /**

@@ -15,7 +15,7 @@ import javax.swing.Timer;
 
 /**
  *
- * @author carlw
+ * @author Jia Jia
  */
 public class GameFrame extends javax.swing.JFrame {
 
