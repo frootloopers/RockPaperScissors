@@ -24,11 +24,11 @@ public class Drone extends Controllable {
      * @param map the map the entity is in
      */
     public Drone(double x, double y, double faceAngle, int teamID, Map map) {
-        super(x, y, RADIUS_DRONE, faceAngle, teamID, map);
+        super(x, y, RADIUS_DRONE, faceAngle, 0.5, teamID,map);
     }
 
     private Random rand = new Random();
-    private final static int HarvestableValue = 10; //carl NO
+    private final static int HarvestableValue = 5;
     
     @Override
     public void move() {

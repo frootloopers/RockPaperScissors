@@ -75,7 +75,7 @@ public class TestingPanel extends javax.swing.JPanel {
 
     //---------------------------GUI-UTILITIES----------------------------------
     //Graphics timer
-    Timer t = new Timer(refreshRate, new ActionListener() {
+    Timer t1 = new Timer(refreshRate, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             repaint();
@@ -318,7 +318,7 @@ public class TestingPanel extends javax.swing.JPanel {
         addMouseWheelListener(mWListener);
         addKeyListener(kListener);
         setFocusable(true);
-        t.start();
+        t1.start();
     }
 
     public void setFrame(GameFrame gameframe) {
@@ -390,15 +390,15 @@ public class TestingPanel extends javax.swing.JPanel {
 //        for (Effect e : m.getEffects()) {
 //            e.draw(g, zoom, offsetX, offsetY);
 //        }
-        gameframe.updateScore();
-        //activate developer GUI
-        if (showRes) {
-            updateDev(g);
-        }
-        //show the button list GUI before the game starts
-        if (GameBoard.getTime() == 0) {
-            showKeys(g);
-        }
+//        gameframe.updateScore();
+//        //activate developer GUI
+//        if (showRes) {
+//            updateDev(g);
+//        }
+//        //show the button list GUI before the game starts
+//        if (GameBoard.getTime() == 0) {
+//            showKeys(g);
+//        }
     }
 
     Font tiny = new Font("TimesRoman", Font.PLAIN, 10);
