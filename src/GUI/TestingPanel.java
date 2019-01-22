@@ -87,7 +87,6 @@ public class TestingPanel extends javax.swing.JPanel {
         @Override
         public void actionPerformed(ActionEvent ae) {
             if (GameBoard.getTime() >= Map.maxTime) {
-                gameframe.clickToggleButton1();
                 endGame();
             } else {
                 GameBoard.moveAll();
@@ -252,7 +251,7 @@ public class TestingPanel extends javax.swing.JPanel {
         }
 
         public void mouseReleased(MouseEvent ms) {
-endGame(); 
+            endGame();
         }
     };
 
@@ -350,8 +349,8 @@ endGame();
      * Method call once the game ends (Carl)
      */
     private void endGame() {
-        new WinFrame(GameBoard.getScores(),GameBoard.getNames()).setVisible(true);
-        togglePlay();
+        gameframe.clickToggleButton1();
+//        new WinFrame(GameBoard.getScores(),GameBoard.getNames()).setVisible(true);
     }
 
     /**
