@@ -268,8 +268,8 @@ public class Map {
             //  Entities - Entities
             for (int j = i + 1; j < Controllables.length; j++) {
                 if (Controllables[i].checkCollision(Controllables[j])) {
-                    Controllables[i].collision(Controllables[j]);
-                    Controllables[j].collision(Controllables[i]);
+                    Controllables[i].collision((Entity)Controllables[j]);
+                    Controllables[j].collision((Entity)Controllables[i]);
                     if (Controllables[j] instanceof Drone && Controllables[i] instanceof Ship) {
                         ((Drone) Controllables[j]).collideShip((Ship) Controllables[i]);
                     }
