@@ -44,9 +44,9 @@ public class HighScore extends javax.swing.JPanel {
         for (int x = 0; x < scores.length; x++) {
             g.setColor(Color.WHITE);
             g.drawRect(10, (x+1) * 24 + 72, 12, 12);
-            g.setColor(Team.getColor(x));
+            g.setColor(Team.getColor(x+1));
             g.drawString( names[x] + ":  " + decimal.format(scores[x]) + " pts", 35, (x+1) * 24 + 82);
-            g.fillRect(10, x * 24 + 72, 12, 12);
+            g.fillRect(10, (x+1) * 24 + 72, 12, 12);
         }
     }
 
