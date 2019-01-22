@@ -74,6 +74,7 @@ public abstract class Controllable extends Movable {
     public void showRes(Graphics g, double scale, int offsetX, int offsetY) {
         g.setFont(mini);
         g.setColor(Color.MAGENTA);
+        //center of the controllable where everything is drawn from
         Point temp = new Point((int) ((getPos().getX() + offsetX) * scale), (int) ((getPos().getY() + offsetY) * scale));
         g.fillRect(temp.x, temp.y, 60, 24);
         g.setColor(Color.BLACK);

@@ -37,11 +37,13 @@ public class Ship extends Controllable {
     private final double PULSECOST = 2;
 
     /**
-     * By Jia Jia: This spawns a bullet in the map.
+     * By Jia Jia: This spawns a bullet in the map in the direction of the ship.
      */
     public void fireBullet() {
+        //prevent a ship from firing infinite times in a single loop, requires resources and the ship to have not fired before
         if (hasAct == false && storage >= FIRECOST) {
             hasAct = true;
+            //add bullet to the arraylist
             map.getBullets().add(new Bullet(pos.x, pos.y, BARRELVELOCITY, faceAngle, teamID, map));
             storage -= FIRECOST;
         }
@@ -55,7 +57,7 @@ public class Ship extends Controllable {
             hasAct = true;
             //get the enemies within range and put them in an arraylist
             ArrayList<Bullet> temp = map.aoe(pos, PULSERANGE + radius);
-            //erase all enemy bullets
+            //erase the enemy bullets found in the arrayList
             for (Bullet e : temp) {
                 if (e.getTeamID() != teamID) {
                     map.getBullets().remove(e);

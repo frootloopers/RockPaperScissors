@@ -46,9 +46,7 @@ public class GameFrame extends javax.swing.JFrame {
 
     boolean resetConfirm = false;
 
-    /**
-     * Jia Jia: timer activates to reset the reset button state if ignored.
-     */
+    // Jia Jia: timer activates to reset the reset button state if ignored.
     Timer t = new Timer(2000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -160,6 +158,7 @@ public class GameFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        //play and stop button
         testingPanel1.requestFocus();
         testingPanel1.togglePlay();
     }//GEN-LAST:event_jToggleButton1ActionPerformed
@@ -219,11 +218,12 @@ public class GameFrame extends javax.swing.JFrame {
             default:
                 break;
         }
+        //update the timer so it uses the new speed
         testingPanel1.timerUpdate();
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
-     * Jia Jia
+     * Jia Jia: Focus on the panel when clicked
      *
      * @param evt
      */
@@ -231,12 +231,15 @@ public class GameFrame extends javax.swing.JFrame {
         testingPanel1.requestFocus();
     }//GEN-LAST:event_testingPanel1MouseClicked
 
+    /**
+     * Jia Jia: Repaint the scoreboard
+     */
     public void updateScore() {
         scoreboard1.repaint();
     }
 
     /**
-     * By Jia Jia: Allows third-parties to click the button.
+     * By Jia Jia: Allows third-parties to click the play button.
      */
     public void clickToggleButton1() {
         jToggleButton1.doClick();
@@ -247,10 +250,6 @@ public class GameFrame extends javax.swing.JFrame {
      */
     public void selectComboBox1(int index) {
         jComboBox1.setSelectedIndex(index);
-    }
-
-    public Map getMapData() {
-        return testingPanel1.GameBoard;
     }
 
     /**

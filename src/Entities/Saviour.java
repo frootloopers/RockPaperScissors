@@ -16,12 +16,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
+ * For loading from and saving to files
  *
  * @author Jia Jia Chen
  */
 public abstract class Saviour {
 
-    protected static ArrayList<Team> loadScore() throws FileNotFoundException {
+    /**
+     * Loads scores from a text file
+     *
+     * @return Arraylist of Team
+     * @throws FileNotFoundException
+     */
+    public static ArrayList<Team> loadScore() throws FileNotFoundException {
         ArrayList<Team> scores = new ArrayList<>();
         Scanner input = new Scanner(new FileReader("src/High_Scores.txt"));
         while (input.hasNextLine()) {
@@ -33,16 +40,23 @@ public abstract class Saviour {
     }
 
     /**
+     * Saves scores in the format: NAME,SCORE\n
      *
      * @param teams
      * @throws IOException
      */
-    protected static void saveScore(Team[] teams) throws IOException {
-        for (Team t : teams) {
-            saveTo(t.getName() + "," + Integer.toString(t.getScore()) + "\n");
+    public static void saveScore(Team[] teams) throws IOException {
+        for (int x = 1; x < teams.length; x++) {
+            saveTo(teams[x].getName() + "," + Integer.toString(teams[x].getScore()) + "\n");
         }
     }
 
+    /**
+     * Writes scores to the end of a text file
+     *
+     * @param toSave
+     * @throws IOException
+     */
     private static void saveTo(String toSave) throws IOException {
         PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter("src/High_Scores.txt", true)));
         output.append(toSave);
