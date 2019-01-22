@@ -22,13 +22,13 @@ public class Team implements Comparable {
 //    private AI ai;
 
     /**
-     * For sorting game pieces into teams and keeping score
+     * For sorting game pieces into teams, keeping score
      *
-     * @param planet
-     * @param ship
-     * @param drone1
+     * @param planet Team planet
+     * @param ship Team mothership
+     * @param drone1 Team drones
      * @param drone2
-     * @param aiName
+     * @param aiName Name of the team
      */
     public Team(Planet planet, Ship ship, Drone drone1, Drone drone2, String aiName, Map map) {
         score = 0;
@@ -53,27 +53,57 @@ public class Team implements Comparable {
         this.aiName = aiName;
     }
 
+    /**
+     * Subtracts score from a team.
+     *
+     * @param score
+     */
     protected void subScore(int score) {
         this.score -= score;
     }
 
+    /**
+     * Adds score to a team.
+     *
+     * @param score
+     */
     protected void addScore(int score) {
         this.score += score;
     }
 
+    /**
+     * Gets the score of a team.
+     *
+     * @return
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * Gets the name of a team.
+     *
+     * @return
+     */
     public String getName() {
         return aiName;
     }
 
-    public Entity[] getEntities() {
+    /**
+     * Gets the list of entities belonging to a team.
+     *
+     * @return
+     */
+    protected Entity[] getEntities() {
         return entities;
     }
 
-    public Map getMap() {
+    /**
+     * Gets the map this team belongs to.
+     *
+     * @return
+     */
+    protected Map getMap() {
         return map;
     }
 

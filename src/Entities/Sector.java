@@ -6,7 +6,7 @@
 package Entities;
 
 /**
- * To improve efficiency, check only for collision in sectors near a movable.
+ * To improve efficiency, check only for collision in sectors near a movable. Not used.
  * 
  * @author Jia Jia Chen
  */

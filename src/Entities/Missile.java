@@ -8,7 +8,8 @@ package Entities;
 import java.awt.Graphics;
 
 /**
- *
+ * Not used.
+ * 
  * @author Jia Jia Chen
  */
 public class Missile extends Controllable {

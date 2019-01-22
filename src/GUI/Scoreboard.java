@@ -31,6 +31,7 @@ public class Scoreboard extends javax.swing.JPanel {
     }
 
     /**
+     * Sets the map for the scoreboard to paint
      *
      * @param map
      */
@@ -40,6 +41,7 @@ public class Scoreboard extends javax.swing.JPanel {
         names = map.getNames();
     }
 
+    //Scoreboard to be refreshed by the game panel (TestingPanel)
     public void paintComponent(Graphics g) {
         g.setFont(new Font("TimesRoman", Font.BOLD, 12));
         g.setColor(Color.WHITE);
@@ -48,6 +50,7 @@ public class Scoreboard extends javax.swing.JPanel {
         g.drawString("Time:  " + decimal.format(map.getTime() * 10) + " / " + decimal.format(Map.maxTime * 10) + " ms", 10, 25);
         g.drawLine(10, 40, this.getWidth() - 10, 40);
         scores = map.getScores();
+        //Supports as many teams as you want
         for (int x = 0; x < scores.length; x++) {
             g.setColor(Color.BLACK);
             g.drawRect(10, (x + 1) * 25 + 30, 10, 10);

@@ -52,19 +52,25 @@ import javax.swing.Timer;
 public class TestingPanel extends javax.swing.JPanel {
 
     Map GameBoard;
-    Drone d;
-    Drone e;
-    Ship s;
-    Ship chaser;
+
+    //John testing
+//    Drone d;
+//    Drone e;
+//    Ship s;
+//    Ship chaser;
+    //size of map
+    int mapX = 600;
+    int mapY = 600;
+    //# of teams
+    int teams = 4;
+    // X/1000 fps
+    int refreshRate = 10;
+    // X/1000 game loops per second
+    int gameSpeed = 10;
 
     double zoom = 1;
     int offsetX = 0;
     int offsetY = 0;
-    int mapX = 600;
-    int mapY = 600;
-    int teams = 4;
-    int refreshRate = 1;
-    int gameSpeed = 10;
     boolean playing = false;
     boolean showRes = false;
     int graphicsMode = 0;
@@ -87,7 +93,6 @@ public class TestingPanel extends javax.swing.JPanel {
         @Override
         public void actionPerformed(ActionEvent ae) {
             if (GameBoard.getTime() >= Map.maxTime) {
-                gameframe.clickToggleButton1();
                 endGame();
             } else {
                 GameBoard.moveAll();
@@ -118,6 +123,7 @@ public class TestingPanel extends javax.swing.JPanel {
             for (Integer k : pressed) {
                 switch (k) {
                     case KeyEvent.VK_1:
+                        //interacts with the frame to ensure the GUI reflects the current setting
                         gameframe.selectComboBox1(0);
                         break;
                     case KeyEvent.VK_2:
@@ -212,9 +218,9 @@ public class TestingPanel extends javax.swing.JPanel {
 //            }
 //        }
         public void keyReleased(KeyEvent key) {
-            //
+            //remove key when from list
             pressed.remove(key.getKeyCode());
-            //
+            //set thrust to 0 after key is lifted
             if (selected != null) {
                 switch (key.getKeyCode()) {
                     case KeyEvent.VK_W:
@@ -252,7 +258,7 @@ public class TestingPanel extends javax.swing.JPanel {
         }
 
         public void mouseReleased(MouseEvent ms) {
-endGame(); 
+            endGame();
         }
     };
 
@@ -295,10 +301,6 @@ endGame();
             if (zoom < 0.02) {
                 zoom = 0.02;
             }
-//            int centerX = offsetX + (int) (mapX / 2 * zoom);
-//            int centerY = offsetY + (int) (mapY / 2 * zoom);
-//            offsetX = offsetX + mouse.x - (int) (mapX / 2);
-//            offsetY = offsetY + mouse.y - (int) (mapY / 2);
         }
     };
     //--------------------------------------------------------------------------
@@ -337,6 +339,7 @@ endGame();
         for (Controllable c : GameBoard.getControllables()) {
             //detect if the cursor is over a controllable
             double dist = Math.sqrt(Math.pow(((mouse.x - (offsetX * zoom)) / zoom) - (c.getPos().x), 2) + (Math.pow(((mouse.y - (offsetY * zoom)) / zoom) - (c.getPos().y), 2)));
+            //select if the cursor is within the radius of a controllable, otherwise deselect
             if (dist <= c.getRadius()) {
                 selected = c;
                 return;
@@ -350,8 +353,14 @@ endGame();
      * Method call once the game ends (Carl)
      */
     private void endGame() {
-        new WinFrame(GameBoard.getScores(),GameBoard.getNames()).setVisible(true);
-        togglePlay();
+        gameframe.clickToggleButton1();
+        //try to save scores
+        try {
+            GameBoard.saveTeams();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        new HighScore(GameBoard.getScores(), GameBoard.getNames()).setVisible(true);
     }
 
     /**
@@ -371,11 +380,13 @@ endGame();
      * By Jia Jia: Draw each item on the map.
      */
     private void updateGraphics(Graphics g) {
+        //draws harvestables
         for (Harvestable h : GameBoard.getHarvest()) {
             if (h != null) {
                 h.draw(g, zoom, offsetX, offsetY);
             }
         }
+        //draw bullets
         for (Bullet b : GameBoard.getBullets()) {
             b.draw(g, zoom, offsetX, offsetY);
         }
@@ -383,30 +394,24 @@ endGame();
         if (selected != null) {
             highlight(g);
         }
+        //draw controllables
         for (Controllable c : GameBoard.getControllables()) {
             c.draw(g, zoom, offsetX, offsetY);
         }
+        //draw planets
         for (Planet p : GameBoard.getPlanets()) {
             p.draw(g, zoom, offsetX, offsetY);
         }
+        //draw visual effects
 //        for (Effect e : GameBoard.getEffects()) {
 //            e.draw(g, zoom, offsetX, offsetY);
 //        }
-        gameframe.updateScore();
-        //activate developer GUI
-        if (showRes) {
-            updateDev(g);
-        }
-        //show the button list GUI before the game starts
-        if (GameBoard.getTime() == 0) {
-            showKeys(g);
-        }
     }
 
     Font tiny = new Font("TimesRoman", Font.PLAIN, 10);
 
     /**
-     * Jia Jia: Shows pressing what keys does what.
+     * Jia Jia: Shows pressing what keys does what and the credits.
      *
      * @param g
      */
@@ -417,7 +422,7 @@ endGame();
         g.drawRect(-1, 268, getWidth() + 1, 72);
         g.setFont(tiny);
         g.drawString("This software is brought to you by Foresight Software: Carl Wu, John Popovici, and Jia Jia Chen.", 5, 280);
-        g.drawString("Special thanks to Luke Classen, Sean Zhang, and the legendary Mr. RD.", 5, 295);
+        g.drawString("Special thanks to Luke Classen, Sean Zhang, and the one and only Mr. RD.", 5, 295);
         g.drawString("Press R to show developer stats, G to change background palette, SPACE to start/stop the simulation,", 5, 320);
         g.drawString("MOUSE2 to do one game loop, O to take manual control of a controllable, W, A, and D to move, and N and M to use abilities.", 5, 335);
     }
@@ -428,7 +433,9 @@ endGame();
      * @param g
      */
     private void highlight(Graphics g) {
+        //Makes the controllable have a 3 pixel glow
         int rad = selected.getRadius() + 3;
+        //draws from top left corner
         int x1 = (int) ((selected.getPos().x - rad + offsetX) * zoom);
         int y1 = (int) ((selected.getPos().y - rad + offsetY) * zoom);
         g.setColor(Color.ORANGE);
@@ -459,12 +466,13 @@ endGame();
         String[] temp = {
             "Panel Size: " + this.getWidth() + ", " + this.getHeight(),
             "Cursor Panel: " + mouse.x + ", " + mouse.y,
+            //The formula to find the position for where on the map the cursor points is: mouse.? - (offset? * zoom)) / zoom
             "Cursor Map: " + Math.round((mouse.x - (offsetX * zoom)) / zoom) + ", " + Math.round((mouse.y - (offsetY * zoom)) / zoom),
             "Map Offset: " + (int) (offsetX * zoom) + ", " + (int) (offsetY * zoom),
             "Zoom: " + zoom
         };
-        //auto-scale the y to the number of lines in temp
         g.setColor(Color.BLACK);
+        //auto-scale the y to the number of lines in temp
         g.fillRect(0, 0, xDev, temp.length * 16 + 12);
         g.setColor(Color.PINK);
         g.drawRect(0, 0, xDev, temp.length * 16 + 12);
@@ -500,10 +508,10 @@ endGame();
         //a.setThrustF(5);
 
         //Background stuff by Jia Jia
-        //Draw background
         switch (graphicsMode) {
             case 0:
                 g.setColor(Color.WHITE);
+                //Draw background
                 g.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g.setColor(Color.CYAN);
                 //Draw gameboard background
@@ -545,7 +553,21 @@ endGame();
                 break;
         }
 
+        //update the other graphics
         updateGraphics(g);
+
+        //update the scoreboard
+        gameframe.updateScore();
+
+        //activate developer GUI
+        if (showRes) {
+            updateDev(g);
+        }
+
+        //show the button list and credits GUI before the game starts
+        if (GameBoard.getTime() == 0) {
+            showKeys(g);
+        }
 
         //testing
         /*
