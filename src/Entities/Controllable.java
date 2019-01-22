@@ -39,7 +39,7 @@ public abstract class Controllable extends Movable {
     /**
      * The work of Carl Wu:
      *
-     * @param g
+     * @param g the graphics that draws the Controllable
      * @param scale
      * @param offsetX
      * @param offsetY

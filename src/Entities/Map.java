@@ -240,6 +240,9 @@ public class Map {
         return temp;
     }
 
+    /**
+     * checks and handles all collision in the map (Carl)
+     */
     public void collide() {
         for (int i = 0; i < Controllables.length; i++) {
             //  Entities - Entities
@@ -277,7 +280,6 @@ public class Map {
             for (int j = 0; j < Bullets.size(); j++) {
 //                if (Controllables[i].checkCollision(Bullets.get(j)) && Controllables[i].teamID != Bullets.get(i).teamID) {
                 if (Controllables[i].checkCollision(Bullets.get(j))) {
-//                    System.out.println("1");
                     if (Controllables[i].collideBullet(Bullets.get(j))) //System.out.println("2");
                     {
                         Bullets.remove(j);
@@ -291,11 +293,13 @@ public class Map {
                 }
             }
 
-            if ((Controllables[i].getPos().getX() - Controllables[i].getRadius()
-                    <= 0 || Controllables[i].getPos().getY() - Controllables[i].getRadius() <= 0)
-                    || (Controllables[i].getPos().getX() + Controllables[i].getRadius()
-                    >= xMax || Controllables[i].getPos().getY() + Controllables[i].getRadius() >= yMax)) {
-                Controllables[i].collision();
+            if (Controllables[i].getPos().getX() - Controllables[i].getRadius()
+                    <= 0 || (Controllables[i].getPos().getX() + Controllables[i].getRadius() >= xMax)) {
+                Controllables[i].collisionX();
+            }
+            if (Controllables[i].getPos().getY() - Controllables[i].getRadius()
+                    <= 0 || Controllables[i].getPos().getY() + Controllables[i].getRadius() >= yMax) {
+                Controllables[i].collisionY();
             }
         }
     }

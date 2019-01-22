@@ -80,10 +80,10 @@ public class Ship extends Controllable {
     }
 
     /**
-     *
-     *
-     * @param other
-     * @param input
+     *  transfers the storage of the drone to the ship
+     * (Carl)
+     * @param other the drone that's transferring
+     * @param input the number of resources being transfered 
      */
     protected void collideDrone(Drone other, int input) {
         if (this.checkCollision(other) && teamID == other.teamID) {
@@ -93,8 +93,8 @@ public class Ship extends Controllable {
 
     /**
      * transfers the storage of the ship to the planet
-     *
-     * @param other
+     *(Carl)
+     * @param other the planet the ship is transferring to
      */
     public void collidePlanet(Planet other) {
         if (this.checkCollision(other) && teamID == other.teamID) {

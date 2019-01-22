@@ -23,7 +23,13 @@ public class Planet extends Entity {
     public Planet(double x, double y, int teamID, Map map) {
         super(x, y, RADIUS_PLANET, teamID, map);
     }
-
+    
+    /**
+     * Adds points to the team when the ship transfers the resources
+     * (Carl)
+     * @param other the Ship that's transfers the resources
+     * @param input the number of resources transfered
+     */
     protected void collideShip(Ship other, int input) {
         if (this.checkCollision(other) && teamID == other.teamID) {
             map.getTeams()[teamID].addScore(input); // add a way to increase security?
