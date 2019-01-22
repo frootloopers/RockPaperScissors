@@ -9,6 +9,7 @@ import Entities.Team;
 import Blocks.Pos;
 import Entities.*;
 import java.awt.Point;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,20 +31,30 @@ public class Map {
     private final static int harvestables = 20;
     //list of teams
     private Team[] Teams;
+    //practice good modularism
     private int xMax;
     private int yMax;
+    //time in ms
     private int time;
     private Random rand = new Random();
 
+    //time for an asteriod to respawn
     private static final int asteroidTick = 600;
+    //how far from a corner a planet is offset
     private static final int xPlanet = 40;
     private static final int yPlanet = 40;
+    //how far from eachother the other entities are offset
     private static final int offset = 40;
     //max time is equivalent to maxTime*2ms
     public static final int maxTime = 30000;
 
+    /**
+     *
+     * @param teams # of teams excluding the neutral
+     * @param xMax X size of map
+     * @param yMax Y size of map
+     */
     public Map(int teams, int xMax, int yMax) {
-        time = 0;
         this.Teams = new Team[teams + 1];
         Controllables = new Controllable[teams * 3];
         Planets = new Planet[teams];
@@ -52,17 +63,18 @@ public class Map {
         this.yMax = yMax;
         reset();
     }
-
+    
     public void reset() {
         time = 0;
 
         //initialize bullets here to erase bullets from map after a reset mid-game
         Bullets = new ArrayList<>();
 
+        //spawn harvestables in the map randomly (near the center of the map)
         for (int x = 0; x < harvestables; x++) {
             Harvestables[x] = new Harvestable(100 + rand.nextInt(xMax - 200), 100 + rand.nextInt(yMax - 200), this);
         }
-
+        
         switch (Teams.length - 1) {
             //create entities for teams 3 and 4
             case 4:
@@ -70,7 +82,7 @@ public class Map {
                 Controllables[6] = new Ship((xPlanet + offset), yMax - (yPlanet + offset), 45, 3, this);
                 Controllables[7] = new Drone((xPlanet + offset), yMax - yPlanet, 45, 3, this);
                 Controllables[8] = new Drone(xPlanet, yMax - (yPlanet + offset), 45, 3, this);
-
+                
                 Planets[3] = new Planet(xMax - xPlanet, yMax - yPlanet, 4, this);
                 Controllables[9] = new Ship(xMax - (xPlanet + offset), yMax - (yPlanet + offset), 315, 4, this);
                 Controllables[10] = new Drone(xMax - (xPlanet + offset), yMax - yPlanet, 315, 4, this);
@@ -81,7 +93,7 @@ public class Map {
                 Controllables[0] = new Ship(xPlanet + offset, yPlanet + offset, 135, 1, this);
                 Controllables[1] = new Drone(xPlanet + offset, yPlanet, 135, 1, this);
                 Controllables[2] = new Drone(xPlanet, yPlanet + offset, 135, 1, this);
-
+                
                 Planets[1] = new Planet(xMax - xPlanet, yPlanet, 2, this);
                 Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 2, this);
                 Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 2, this);
@@ -90,24 +102,22 @@ public class Map {
             default:
                 throw new java.lang.Error("ERROR, UNSUPPORTED TEAM NUMBER");
         }
+        //Create neutral team for non-aligned entities
         Teams[0] = new Team(0, "Neutral");
         for (int x = 0; x < Teams.length - 1; x++) {
-            //create the teams for the entities
+            //create the teams for the teamed entities
             Teams[x + 1] = new Team(Planets[x], (Ship) Controllables[x * 3], (Drone) Controllables[x * 3 + 1], (Drone) Controllables[x * 3 + 2], "Player " + Integer.toString(x + 1), this);
         }
     }
 
+    /**
+     * Returns the maximum point of the map (The corner furthest from the
+     * origin).
+     *
+     * @return
+     */
     public Point getMax() {
         return new Point(xMax, yMax);
-    }
-
-    /**
-     * Returns the time
-     *
-     * @return The number of game ticks that have passed since reset.
-     */
-    public String[] getScore() {
-        return null;
     }
 
     /**
@@ -156,12 +166,16 @@ public class Map {
     }
 
     /**
-     * Returns a list of all bullets
+     * Returns a list of all teams
      *
      * @return
      */
     protected Team[] getTeams() {
         return Teams;
+    }
+    
+    public void saveTeams() throws IOException {
+        Saviour.saveScore(Teams);
     }
 
     /**
@@ -177,6 +191,11 @@ public class Map {
         return scores;
     }
 
+    /**
+     * Gets the names of each team
+     *
+     * @return
+     */
     public String[] getNames() {
         String[] scores = new String[Teams.length - 1];
         for (int x = 1; x < Teams.length; x++) {
@@ -206,6 +225,7 @@ public class Map {
         if (time % asteroidTick == 0) {
             int x;
             int ang;
+            //spawn meteor from right or left side?
             if (rand.nextFloat() >= 0.5) {
                 x = 3;
                 //nextInt is exclusive for some reason
@@ -232,6 +252,7 @@ public class Map {
         ArrayList<Bullet> temp = new ArrayList<>();
         //find targets within the range
         for (Bullet e : Bullets) {
+            //if (distance - radius of bullet) <= range of pulse
             if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) - e.radius <= range) {
                 temp.add(e);
             }
@@ -239,6 +260,9 @@ public class Map {
         return temp;
     }
 
+    /**
+     * checks and handles all collision in the map (Carl)
+     */
     public void collide() {
         for (int i = 0; i < Controllables.length; i++) {
             //  Entities - Entities
@@ -251,7 +275,7 @@ public class Map {
                     }
                 }
             }
-
+            
             for (int j = 0; j < Planets.length; j++) {
                 if (Controllables[i].checkCollision(Planets[j])) {
                     Controllables[i].collision(Planets[j]);
@@ -268,7 +292,6 @@ public class Map {
                 if (Controllables[i].checkCollision(Harvestables[j])) {
                     if (Controllables[i] instanceof Drone) {
                         ((Drone) Controllables[i]).collideHarvestable(Harvestables[j]);
-                        //add new harvestable Carl!!!!
                         Harvestables[j] = new Harvestable(100 + rand.nextInt(this.getMax().x - 200), 100 + rand.nextInt(this.getMax().y - 200), this);
                     }
                 }
@@ -277,7 +300,6 @@ public class Map {
             for (int j = 0; j < Bullets.size(); j++) {
 //                if (Controllables[i].checkCollision(Bullets.get(j)) && Controllables[i].teamID != Bullets.get(i).teamID) {
                 if (Controllables[i].checkCollision(Bullets.get(j))) {
-                    System.out.println("1");
                     if (Controllables[i].collideBullet(Bullets.get(j))) //System.out.println("2");
                     {
                         Bullets.remove(j);
@@ -290,14 +312,16 @@ public class Map {
                     Bullets.remove(j);
                 }
             }
-
-            if ((Controllables[i].getPos().getX() - Controllables[i].getRadius()
-                    <= 0 || Controllables[i].getPos().getY() - Controllables[i].getRadius() <= 0)
-                    || (Controllables[i].getPos().getX() + Controllables[i].getRadius()
-                    >= xMax || Controllables[i].getPos().getY() + Controllables[i].getRadius() >= yMax)) {
-                Controllables[i].collision();
+            
+            if (Controllables[i].getPos().getX() - Controllables[i].getRadius()
+                    <= 0 || (Controllables[i].getPos().getX() + Controllables[i].getRadius() >= xMax)) {
+                Controllables[i].collisionX();
+            }
+            if (Controllables[i].getPos().getY() - Controllables[i].getRadius()
+                    <= 0 || Controllables[i].getPos().getY() + Controllables[i].getRadius() >= yMax) {
+                Controllables[i].collisionY();
             }
         }
     }
-
+    
 }

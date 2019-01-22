@@ -14,13 +14,13 @@ import java.awt.Graphics;
  * @author John Popovici
  */
 public abstract class Entity {
-    
+
     protected static final int RADIUS_PLANET = 20;
     protected static final int RADIUS_HARVESTABLE = 5;
     protected static final int RADIUS_PROJECTILE = 2;
     protected static final int RADIUS_SHIP = 15;
     protected static final int RADIUS_DRONE = 5;
-    
+
     protected static final double VEL_DECAY = 0.01;
     protected static final double DRONE_ROT_STRENGTH = 2.0;
     protected static final double SHIP_ROT_STRENGTH = 1.0;
@@ -99,7 +99,7 @@ public abstract class Entity {
      */
     public boolean checkCollision(Entity other) {
         if (((pos.x - other.pos.x) * (pos.x - other.pos.x)) + ((pos.y - other.pos.y) * (pos.y - other.pos.y))
-                <= (radius + other.radius) * (radius + other.radius)) {            
+                <= (radius + other.radius) * (radius + other.radius)) {
             return true;
         }
         return false;
@@ -137,5 +137,5 @@ public abstract class Entity {
         g.drawOval(drawX, drawY, drawSize, drawSize);
         //color = map.getTeams()[teamID].getColor
     }
-    
+
 }

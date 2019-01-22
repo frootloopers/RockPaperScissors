@@ -5,7 +5,6 @@
  */
 package GUI;
 
-import Entities.Map;
 import Entities.Team;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,49 +13,40 @@ import java.text.DecimalFormat;
 
 /**
  *
- * @author Jia Jia Chen
+ * @author carlw
  */
-public class Scoreboard extends javax.swing.JPanel {
+public class HighScore extends javax.swing.JPanel {
 
-    DecimalFormat decimal = new DecimalFormat("###,###,###,##0.##");
-    Map map;
-    int[] scores;
+    /**
+     * Creates new form HighScore
+     */
+    int[] scores; 
     String[] names;
+    DecimalFormat decimal = new DecimalFormat("###,###,###,##0.##");
 
-    /**
-     * Creates new form Scoreboard
-     */
-    public Scoreboard() {
+    public HighScore(int[] score, String[] name) {
+        scores = score;
+        names = name;
         initComponents();
+        repaint();
     }
 
-    /**
-     * Sets the map for the scoreboard to paint
-     *
-     * @param map
-     */
-    public void linkMap(Map map) {
-        this.map = map;
-        scores = map.getScores();
-        names = map.getNames();
-    }
-
-    //Scoreboard to be refreshed by the game panel (TestingPanel)
+    @Override
     public void paintComponent(Graphics g) {
-        g.setFont(new Font("TimesRoman", Font.BOLD, 12));
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
         g.setColor(Color.BLACK);
-        g.drawString("Time:  " + decimal.format(map.getTime() * 10) + " / " + decimal.format(Map.maxTime * 10) + " ms", 10, 25);
-        g.drawLine(10, 40, this.getWidth() - 10, 40);
-        scores = map.getScores();
-        //Supports as many teams as you want
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("OCR A Extended", Font.PLAIN, 48));
+        g.drawString("Game Over", 0, 48);
+        g.setFont(new Font("OCR A Extended", Font.PLAIN, 24));
+        g.drawString("End Scores", 10, 84);
+        g.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
         for (int x = 0; x < scores.length; x++) {
-            g.setColor(Color.BLACK);
-            g.drawRect(10, (x + 1) * 25 + 30, 10, 10);
-            g.drawString(names[x] + ":  " + decimal.format(scores[x]) + " pts", 35, (x + 1) * 25 + 40);
-            g.setColor(Team.getColor(x + 1));
-            g.fillRect(10, (x + 1) * 25 + 30, 10, 10);
+            g.setColor(Color.WHITE);
+            g.drawRect(10, (x+1) * 24 + 72, 12, 12);
+            g.setColor(Team.getColor(x));
+            g.drawString( names[x] + ":  " + decimal.format(scores[x]) + " pts", 35, (x+1) * 24 + 82);
+            g.fillRect(10, x * 24 + 72, 12, 12);
         }
     }
 
@@ -73,7 +63,7 @@ public class Scoreboard extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 151, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

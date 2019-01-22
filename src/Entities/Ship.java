@@ -32,16 +32,18 @@ public class Ship extends Controllable {
     //firing resource cost
     private final double FIRECOST = 1;
     //aoe attack range
-    private final double PULSERANGE = 10;
+    private final double PULSERANGE = 15;
     //aoe attack resource cost
     private final double PULSECOST = 2;
 
     /**
-     * By Jia Jia: This spawns a bullet in the map.
+     * By Jia Jia: This spawns a bullet in the map in the direction of the ship.
      */
     public void fireBullet() {
+        //prevent a ship from firing infinite times in a single loop, requires resources and the ship to have not fired before
         if (hasAct == false && storage >= FIRECOST) {
             hasAct = true;
+            //add bullet to the arraylist
             map.getBullets().add(new Bullet(pos.x, pos.y, BARRELVELOCITY, faceAngle, teamID, map));
             storage -= FIRECOST;
         }
@@ -55,7 +57,7 @@ public class Ship extends Controllable {
             hasAct = true;
             //get the enemies within range and put them in an arraylist
             ArrayList<Bullet> temp = map.aoe(pos, PULSERANGE + radius);
-            //erase all enemy bullets
+            //erase the enemy bullets found in the arrayList
             for (Bullet e : temp) {
                 if (e.getTeamID() != teamID) {
                     map.getBullets().remove(e);
@@ -80,10 +82,10 @@ public class Ship extends Controllable {
     }
 
     /**
-     *
-     *
-     * @param other
-     * @param input
+     *  transfers the storage of the drone to the ship
+     * (Carl)
+     * @param other the drone that's transferring
+     * @param input the number of resources being transfered 
      */
     protected void collideDrone(Drone other, int input) {
         if (this.checkCollision(other) && teamID == other.teamID) {
@@ -93,8 +95,8 @@ public class Ship extends Controllable {
 
     /**
      * transfers the storage of the ship to the planet
-     *
-     * @param other
+     *(Carl)
+     * @param other the planet the ship is transferring to
      */
     public void collidePlanet(Planet other) {
         if (this.checkCollision(other) && teamID == other.teamID) {
