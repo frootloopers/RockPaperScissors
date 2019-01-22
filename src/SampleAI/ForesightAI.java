@@ -13,7 +13,7 @@ import Entities.*;
  *
  * @author John Popovici
  */
-public class ForesightAI implements AI {
+public class ForesightAI implements AI{
 
     //name entities
 
