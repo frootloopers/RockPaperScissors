@@ -53,23 +53,24 @@ public class HighScore extends javax.swing.JPanel {
             g.drawString( names[x] + ":  " + decimal.format(scores[x]) + " pts", 35, (x+1) * 24 + 82);
             g.fillRect(10, (x+1) * 24 + 72, 12, 12);
         }
+        g.setColor(Color.WHITE);
         g.setFont(new Font("OCR A Extended", Font.PLAIN, 24));
-        g.drawString("High Scores", 150, 84);
+        g.drawString("High Scores", 200, 84);
         g.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
         try {
             ArrayList<Team> high = Saviour.loadScore();
             int score = 0;
             for (int x = 0; x < 3; x++) {
             for(int i = 1; i< high.size(); i++){
-                if(high.get(score).compareTo(high.get(i)) < 1)
+                if(high.get(score).compareTo(high.get(i)) < 0)
                     score = i;}
-            g.drawString( high.get(score).getName() + ":  " + decimal.format(high.get(score).getScore()) + " pts", 150, (x+1) * 24 + 82);
+            g.drawString( high.get(score).getName() + ":  " + decimal.format(high.get(score).getScore()) + " pts", 200, (x+1) * 24 + 82);
             high.remove(score);
             score = 0;
             }
         } catch (FileNotFoundException ex) {
             System.out.println("No High Score File!!");
-            g.drawString("No High Score File!!", 150, 94);
+            g.drawString("No High Score File!!", 200, 94);
         }
         
     
