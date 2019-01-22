@@ -5,11 +5,16 @@
  */
 package GUI;
 
+import Entities.Saviour;
 import Entities.Team;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -44,12 +49,33 @@ public class HighScore extends javax.swing.JPanel {
         for (int x = 0; x < scores.length; x++) {
             g.setColor(Color.WHITE);
             g.drawRect(10, (x+1) * 24 + 72, 12, 12);
-            g.setColor(Team.getColor(x));
+            g.setColor(Team.getColor(x+1));
             g.drawString( names[x] + ":  " + decimal.format(scores[x]) + " pts", 35, (x+1) * 24 + 82);
-            g.fillRect(10, x * 24 + 72, 12, 12);
+            g.fillRect(10, (x+1) * 24 + 72, 12, 12);
         }
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("OCR A Extended", Font.PLAIN, 24));
+        g.drawString("High Scores", 200, 84);
+        g.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
+        try {
+            ArrayList<Team> high = Saviour.loadScore();
+            int score = 0;
+            for (int x = 0; x < 3; x++) {
+            for(int i = 1; i< high.size(); i++){
+                if(high.get(score).compareTo(high.get(i)) < 0)
+                    score = i;}
+            g.drawString( high.get(score).getName() + ":  " + decimal.format(high.get(score).getScore()) + " pts", 200, (x+1) * 24 + 82);
+            high.remove(score);
+            score = 0;
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("No High Score File!!");
+            g.drawString("No High Score File!!", 200, 94);
+        }
+        
+    
     }
-
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

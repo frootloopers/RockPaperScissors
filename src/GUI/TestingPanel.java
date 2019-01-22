@@ -360,7 +360,7 @@ public class TestingPanel extends javax.swing.JPanel {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        new HighScore(GameBoard.getScores(), GameBoard.getNames()).setVisible(true);
+        new WinFrame(GameBoard.getScores(), GameBoard.getNames()).setVisible(true);
     }
 
     /**
