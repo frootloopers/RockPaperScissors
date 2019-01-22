@@ -232,6 +232,7 @@ public class Map {
         ArrayList<Bullet> temp = new ArrayList<>();
         //find targets within the range
         for (Bullet e : Bullets) {
+            //if (distance - radius of bullet) <= range of pulse
             if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) - e.radius <= range) {
                 temp.add(e);
             }
@@ -268,7 +269,6 @@ public class Map {
                 if (Controllables[i].checkCollision(Harvestables[j])) {
                     if (Controllables[i] instanceof Drone) {
                         ((Drone) Controllables[i]).collideHarvestable(Harvestables[j]);
-                        //add new harvestable Carl!!!!
                         Harvestables[j] = new Harvestable(100 + rand.nextInt(this.getMax().x - 200), 100 + rand.nextInt(this.getMax().y - 200), this);
                     }
                 }
@@ -277,7 +277,7 @@ public class Map {
             for (int j = 0; j < Bullets.size(); j++) {
 //                if (Controllables[i].checkCollision(Bullets.get(j)) && Controllables[i].teamID != Bullets.get(i).teamID) {
                 if (Controllables[i].checkCollision(Bullets.get(j))) {
-                    System.out.println("1");
+//                    System.out.println("1");
                     if (Controllables[i].collideBullet(Bullets.get(j))) //System.out.println("2");
                     {
                         Bullets.remove(j);

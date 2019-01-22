@@ -32,7 +32,7 @@ public class Ship extends Controllable {
     //firing resource cost
     private final double FIRECOST = 1;
     //aoe attack range
-    private final double PULSERANGE = 10;
+    private final double PULSERANGE = 15;
     //aoe attack resource cost
     private final double PULSECOST = 2;
 
