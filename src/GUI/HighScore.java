@@ -20,11 +20,13 @@ public class HighScore extends javax.swing.JPanel {
     /**
      * Creates new form HighScore
      */
-    Team[] teams;
+    int[] scores; 
+    String[] names;
     DecimalFormat decimal = new DecimalFormat("###,###,###,##0.##");
 
-    public HighScore(Team[] a) {
-        teams = a;
+    public HighScore(int[] score, String[] name) {
+        scores = score;
+        names = name;
         initComponents();
         repaint();
     }
@@ -39,11 +41,11 @@ public class HighScore extends javax.swing.JPanel {
         g.setFont(new Font("OCR A Extended", Font.PLAIN, 24));
         g.drawString("End Scores", 10, 84);
         g.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
-        for (int x = 1; x < teams.length; x++) {
+        for (int x = 0; x < scores.length; x++) {
             g.setColor(Color.WHITE);
-            g.drawRect(10, x * 24 + 72, 12, 12);
+            g.drawRect(10, (x+1) * 24 + 72, 12, 12);
             g.setColor(Team.getColor(x));
-            g.drawString(teams[x].getName() + ":  " + decimal.format(teams[x].getScore()) + " pts", 35, x * 24 + 82);
+            g.drawString( names[x] + ":  " + decimal.format(scores[x]) + " pts", 35, (x+1) * 24 + 82);
             g.fillRect(10, x * 24 + 72, 12, 12);
         }
     }

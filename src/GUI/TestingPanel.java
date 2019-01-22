@@ -252,7 +252,7 @@ public class TestingPanel extends javax.swing.JPanel {
         }
 
         public void mouseReleased(MouseEvent ms) {
-
+endGame(); 
         }
     };
 
@@ -350,7 +350,7 @@ public class TestingPanel extends javax.swing.JPanel {
      * Method call once the game ends (Carl)
      */
     private void endGame() {
-        new WinFrame(GameBoard.getTeams()).setVisible(true);
+        new WinFrame(GameBoard.getScores(),GameBoard.getNames()).setVisible(true);
         togglePlay();
     }
 
