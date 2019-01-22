@@ -107,6 +107,7 @@ public class Team implements Comparable {
         return map;
     }
 
+    @Override
     public String toString() {
         return aiName + "," + Integer.toString(score);
     }
@@ -136,6 +137,6 @@ public class Team implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        return (((Team)o).getScore()-score);
+        return (((Team) o).getScore() - score);
     }
 }
