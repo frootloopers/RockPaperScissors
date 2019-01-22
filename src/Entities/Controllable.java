@@ -79,8 +79,11 @@ public abstract class Controllable extends Movable {
         g.fillRect(temp.x, temp.y, 60, 36);
         g.setColor(Color.BLACK);
         g.drawRect(temp.x, temp.y, 60, 36);
+        //Position
         g.drawString(Math.round(getPos().x) + ", " + Math.round(getPos().y), temp.x + 3, temp.y + 11);
+        //Face Angle
         g.drawString(Double.toString(faceAngle) + " deg", temp.x + 3, temp.y + 22);
+        //Resources Stored
         g.drawString(Integer.toString(storage) + " res", temp.x + 3, temp.y + 33);
     }
 
