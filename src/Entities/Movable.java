@@ -61,8 +61,7 @@ public abstract class Movable extends Entity {
      * Gets the angle at which the entity is facing
      *
      * @return the angle at which the entity is facing. A value of 0 represents
-     * a value horizontally and to the right and the angle is measured in
-     * radians
+     * a value vertically upwards and the angle is measured in degrees
      */
     public double getFaceAngle() {
         double angle = faceAngle;
