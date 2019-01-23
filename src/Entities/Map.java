@@ -132,7 +132,7 @@ public class Map {
         return time;
     }
 
-    //getters like this should be protected, and public getters should be made that return ONLY the information of an entity, not the actual pointer.
+    //Just realized getters like this should be protected, and public getters should be made that return ONLY the information of an entity, not the actual pointer.
     /**
      * Returns a list of harvestables
      *
