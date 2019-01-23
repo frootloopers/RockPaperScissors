@@ -20,16 +20,15 @@ public class ForesightAI extends AIShell {
 
     public ForesightAI() {
         name = "ForesightAI";
-        m = planet.getMap();
     }
 
     //name entities
-    private final Drone r = drone1;
-    private final Drone l = drone2;
-    private final Ship s = ship;
-    private final Controllable[] cs = {s, r, l};
-    private final Planet p = planet;
-    private final Map m;
+    private Drone r;
+    private Drone l;
+    private Ship s;
+    private Controllable[] cs;
+    private Planet p;
+    private Map m;
     //dictates if drones are going to ship
     private boolean[] toShip = {true, false, false}; //burn, r, l
     //dictates if ship is going to planet
@@ -140,6 +139,16 @@ public class ForesightAI extends AIShell {
         chase(l, s, 50);
     }
 
+    @Override
+        public void setUnits(Planet planet, Ship ship, Drone drone1, Drone drone2) {
+        this.p = planet;
+        this.s = ship;
+        this.r = drone1;
+        this.l = drone2;
+        m = planet.getMap();
+        cs = new Controllable[] {ship, drone1, drone2};
+    }
+    
     @Override
     public String getDesc() {
         return "A Simple Straightforward Sample AI Algorithm";
