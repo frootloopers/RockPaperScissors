@@ -10,13 +10,16 @@ import static Development.Command.getTo;
 import Entities.*;
 
 /**
- *
+ * A very dumb AI that targets the first rock created in the game with its drones and makes its motherships go infinitely forward.
+ * 
  * @author Jia Jia Chen
  */
 public class DummyAI extends AIShell {
 
     public DummyAI() {
         name = "Dummy";
+        author = "Jia Jia Chen";
+        desc = "Testing AI";
     }
 
     @Override
