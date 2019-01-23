@@ -53,6 +53,7 @@ import javax.swing.Timer;
  */
 public class TestingPanel extends javax.swing.JPanel {
 
+    //no modifier offers more protection than protected
     Map GameBoard;
 
     //John testing
@@ -61,25 +62,23 @@ public class TestingPanel extends javax.swing.JPanel {
 //    Ship s;
 //    Ship chaser;
     //size of map
-    int mapX = 600;
-    int mapY = 600;
-    //# of teams
-    int teams = 4;
+    private int mapX = 600;
+    private int mapY = 600;
     // X/1000 fps
     int refreshRate = 10;
     // X/1000 game loops per second
     int gameSpeed = 10;
 
-    double zoom = 1;
-    int offsetX = 0;
-    int offsetY = 0;
+    private double zoom = 1;
+    private int offsetX = 0;
+    private int offsetY = 0;
     boolean playing = false;
     boolean showRes = false;
-    int graphicsMode = 0;
-    Point mouse = new Point(0, 0);
+    private int graphicsMode = 0;
+    private Point mouse = new Point(0, 0);
     //background img (Carl)
-    Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
-    GameFrame gameframe;
+    private final Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
+    private GameFrame gameframe;
     Controllable selected = null;
 
     //---------------------------GUI-UTILITIES----------------------------------

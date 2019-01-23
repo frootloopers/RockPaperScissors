@@ -19,7 +19,7 @@ import java.text.DecimalFormat;
 public class Scoreboard extends javax.swing.JPanel {
 
     DecimalFormat decimal = new DecimalFormat("###,###,###,##0.##");
-    Map map;
+    private Map map;
     int[] scores;
     String[] names;
 
