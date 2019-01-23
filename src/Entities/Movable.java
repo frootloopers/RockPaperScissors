@@ -81,6 +81,7 @@ public abstract class Movable extends Entity {
         super.draw(g, scale, offsetX, offsetY);
         int drawX = (int) ((getPos().getX() + offsetX) * scale);
         int drawY = (int) ((getPos().getY() + offsetY) * scale);
+        //adds a linr to show where the Movable is facing
         g.drawLine(drawX, drawY,
                 (int) (drawX + radius * Math.sin(Math.toRadians(faceAngle)) * scale),
                 (int) (drawY - radius * Math.cos(Math.toRadians(faceAngle)) * scale));
@@ -109,38 +110,8 @@ public abstract class Movable extends Entity {
         vel.y = -vel.y;
     }
 
-    /**
-     * protected int[] rotate(int velX, int velY, double angle) { int[]
-     * rotatedVelocities = {(int) (velX * Math.cos(angle) - velY *
-     * Math.sin(angle)), (int) (velX * Math.sin(angle) + velY *
-     * Math.cos(angle))}; return rotatedVelocities; }
-     *
-     * //ffs protected void resolveCollision(Movable other) {
-     * System.out.println("hi"); // Grab angle between the two colliding thiss
-     * int angle = (int) -Math.atan2(other.pos.y - this.pos.y, other.pos.x -
-     * this.pos.x);
-     *
-     * // Store mass in var for better readability in collision equation int m1
-     * = this.radius; int m2 = other.radius;
-     *
-     * // Velocity before equation int[] u1 = rotate((int) this.vel.x, (int)
-     * this.vel.y, angle); int[] u2 = rotate((int) other.vel.x, (int)
-     * other.vel.x, angle);
-     *
-     * // Velocity after 1d collision equation int[] v1 = {u1[0] * (m1 - m2) /
-     * (m1 + m2) + u2[0] * 2 * m2 / (m1 + m2), u1[1]}; int[] v2 = {u2[0] * (m1 -
-     * m2) / (m1 + m2) + u1[0] * 2 * m2 / (m1 + m2), u2[1]};
-     *
-     * // Final vel after rotating axis back to original location int[] vFinal1
-     * = rotate(v1[0], v1[1], -angle); int[] vFinal2 = rotate(v2[0], v2[1],
-     * -angle);
-     *
-     * // Swap this velocities for realistic bounce effect this.vel.x =
-     * vFinal1[0]; this.vel.y = vFinal1[1];
-     *
-     * other.vel.x = vFinal2[0]; other.vel.y = vFinal2[1]; }
-     */
     // a VERY bugy collision handeler for more realist collision (carl (i tried)) 
+    //finds the acute complementary angle of the two movables
     protected void collision(Movable other) {
         if (vel.y > 0 || vel.x > 0) {
             double difx = pos.x - other.getPos().x;
@@ -159,8 +130,9 @@ public abstract class Movable extends Entity {
             collision(targetAngle);
         }
     }
-    // a VERY bugy collision handeler for more realist collision (carl (i tried)) 
 
+    // a VERY bugy collision handeler for more realist collision (carl (i tried)) 
+    //tries to simlate a ball to wall collision with acute complementary angle of the two movables
     protected void collision(double targetAngle) {
         double oldAngle = Math.toDegrees(Math.atan(Math.abs(vel.x) / Math.abs(vel.y)));
         System.out.println(targetAngle + " " + faceAngle + " " + oldAngle);
@@ -181,12 +153,18 @@ public abstract class Movable extends Entity {
         faceAngle = (450 - faceAngle) % 360;
     }
 
+    /* wall collisions on the x axis
+    *  (Carl) 
+     */
     public void collisionX() {
         faceAngle = (faceAngle + 360) % 360;
         faceAngle = (360 - faceAngle) % 360;
         vel.x = -vel.x;
     }
 
+    /* wall collisions on the y axis
+    *  (Carl) 
+     */
     public void collisionY() {
         faceAngle = (faceAngle + 360) % 360;
         faceAngle = (180 - faceAngle + 360) % 360;
@@ -195,7 +173,8 @@ public abstract class Movable extends Entity {
 
     public void collision(Entity other) {
         /**
-         * if (this.checkCollision(other)) { if(other instanceof Movable){
+         * uncomment this for the bugged collision version if
+         * (this.checkCollision(other)) { if(other instanceof Movable){
          * collision((Movable)other);} else
          */
         collision();

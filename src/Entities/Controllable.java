@@ -36,17 +36,10 @@ public abstract class Controllable extends Movable {
         thrustRotL = 0;
     }
 
-    /**
-     * The work of Carl Wu:
-     *
-     * @param g the graphics that draws the Controllable
-     * @param scale
-     * @param offsetX
-     * @param offsetY
-     */
     @Override
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         super.draw(g, scale, offsetX, offsetY);
+        //finds the three points of the triangle to be drawn
         int drawX = (int) ((getPos().getX() + offsetX) * scale);
         int drawX1 = (int) (drawX + radius * Math.sin(Math.toRadians(faceAngle)) * scale);
         int drawX2 = (int) (drawX + radius * Math.sin(Math.toRadians(faceAngle + 120)) * scale);
@@ -55,6 +48,7 @@ public abstract class Controllable extends Movable {
         int drawY1 = (int) (drawY - radius * Math.cos(Math.toRadians(faceAngle)) * scale);
         int drawY2 = (int) (drawY - radius * Math.cos(Math.toRadians(faceAngle + 120)) * scale);
         int drawY3 = (int) (drawY - radius * Math.cos(Math.toRadians(faceAngle - 120)) * scale);
+        //draws a triangle in the Controllable
         g.drawLine(drawX1, drawY1, drawX2, drawY2);
         g.drawLine(drawX1, drawY1, drawX3, drawY3);
         g.drawLine(drawX2, drawY2, drawX3, drawY3);

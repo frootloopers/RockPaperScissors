@@ -14,12 +14,18 @@ public class WinFrame extends javax.swing.JFrame {
     /**
      * Creates new form WinFrame
      */
-    int[] scores; 
+    int[] scores;
     String[] names;
 
+    /**
+     * Makes the frame for the high score screen
+     *
+     * @param score
+     * @param name
+     */
     public WinFrame(int[] score, String[] name) {
         scores = score;
-        names = name;        
+        names = name;
         initComponents();
     }
 

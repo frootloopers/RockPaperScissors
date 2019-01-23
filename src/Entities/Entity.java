@@ -129,10 +129,12 @@ public abstract class Entity {
     public void draw(Graphics g, double scale, int offsetX, int offsetY) {
         g.setColor(Team.getColor(teamID));
         //BufferedImage pos.X+offsetX, pos.Y+offsetY
+        //draws the correct image with the given offset and scale    
         int drawX = (int) ((getPos().getX() - radius + offsetX) * scale);
         int drawY = (int) ((getPos().getY() - radius + offsetY) * scale);
         int drawSize = (int) (radius * 2 * scale);
         g.fillOval(drawX, drawY, drawSize, drawSize);
+        //outlines the entity
         g.setColor(Color.black);
         g.drawOval(drawX, drawY, drawSize, drawSize);
         //color = map.getTeams()[teamID].getColor

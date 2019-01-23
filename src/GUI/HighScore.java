@@ -23,12 +23,18 @@ import java.util.logging.Logger;
 public class HighScore extends javax.swing.JPanel {
 
     /**
-     * Creates new form HighScore
+     * Creates new HighScore
      */
-    int[] scores; 
+    int[] scores;
     String[] names;
     DecimalFormat decimal = new DecimalFormat("###,###,###,##0.##");
 
+    /**
+     * makes a high score screen
+     *
+     * @param score the score of the players at the end of the game
+     * @param name the name of the players
+     */
     public HighScore(int[] score, String[] name) {
         scores = score;
         names = name;
@@ -38,44 +44,49 @@ public class HighScore extends javax.swing.JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
+        //paints the high scores
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         g.setColor(Color.WHITE);
         g.setFont(new Font("OCR A Extended", Font.PLAIN, 48));
         g.drawString("Game Over", 0, 48);
         g.setFont(new Font("OCR A Extended", Font.PLAIN, 24));
+        //the end scores
         g.drawString("End Scores", 10, 84);
         g.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
         for (int x = 0; x < scores.length; x++) {
             g.setColor(Color.WHITE);
-            g.drawRect(10, (x+1) * 24 + 72, 12, 12);
-            g.setColor(Team.getColor(x+1));
-            g.drawString( names[x] + ":  " + decimal.format(scores[x]) + " pts", 35, (x+1) * 24 + 82);
-            g.fillRect(10, (x+1) * 24 + 72, 12, 12);
+            g.drawRect(10, (x + 1) * 24 + 72, 12, 12);
+            g.setColor(Team.getColor(x + 1));
+            g.drawString(names[x] + ":  " + decimal.format(scores[x]) + " pts", 35, (x + 1) * 24 + 82);
+            g.fillRect(10, (x + 1) * 24 + 72, 12, 12);
         }
         g.setColor(Color.WHITE);
         g.setFont(new Font("OCR A Extended", Font.PLAIN, 24));
+        //the high scores
         g.drawString("High Scores", 200, 84);
         g.setFont(new Font("OCR A Extended", Font.PLAIN, 12));
         try {
             ArrayList<Team> high = Saviour.loadScore();
             int score = 0;
             for (int x = 0; x < 3; x++) {
-            for(int i = 1; i< high.size(); i++){
-                if(high.get(score).compareTo(high.get(i)) < 0)
-                    score = i;}
-            g.drawString( high.get(score).getName() + ":  " + decimal.format(high.get(score).getScore()) + " pts", 200, (x+1) * 24 + 82);
-            high.remove(score);
-            score = 0;
+                for (int i = 1; i < high.size(); i++) {
+                    if (high.get(score).compareTo(high.get(i)) > 0) {
+                        score = i;
+                    }
+                }
+                g.drawString(high.get(score).getName() + ":  " + decimal.format(high.get(score).getScore()) + " pts", 200, (x + 1) * 24 + 82);
+                high.remove(score);
+                score = 0;
             }
         } catch (FileNotFoundException ex) {
+            //if the high score don't exist
             System.out.println("No High Score File!!");
             g.drawString("No High Score File!!", 200, 94);
         }
-        
-    
+
     }
-        
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

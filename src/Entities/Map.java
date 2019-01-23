@@ -63,7 +63,7 @@ public class Map {
         this.yMax = yMax;
         reset();
     }
-    
+
     public void reset() {
         time = 0;
 
@@ -74,7 +74,7 @@ public class Map {
         for (int x = 0; x < harvestables; x++) {
             Harvestables[x] = new Harvestable(100 + rand.nextInt(xMax - 200), 100 + rand.nextInt(yMax - 200), this);
         }
-        
+
         switch (Teams.length - 1) {
             //create entities for teams 3 and 4
             case 4:
@@ -82,7 +82,7 @@ public class Map {
                 Controllables[6] = new Ship((xPlanet + offset), yMax - (yPlanet + offset), 45, 3, this);
                 Controllables[7] = new Drone((xPlanet + offset), yMax - yPlanet, 45, 3, this);
                 Controllables[8] = new Drone(xPlanet, yMax - (yPlanet + offset), 45, 3, this);
-                
+
                 Planets[3] = new Planet(xMax - xPlanet, yMax - yPlanet, 4, this);
                 Controllables[9] = new Ship(xMax - (xPlanet + offset), yMax - (yPlanet + offset), 315, 4, this);
                 Controllables[10] = new Drone(xMax - (xPlanet + offset), yMax - yPlanet, 315, 4, this);
@@ -93,7 +93,7 @@ public class Map {
                 Controllables[0] = new Ship(xPlanet + offset, yPlanet + offset, 135, 1, this);
                 Controllables[1] = new Drone(xPlanet + offset, yPlanet, 135, 1, this);
                 Controllables[2] = new Drone(xPlanet, yPlanet + offset, 135, 1, this);
-                
+
                 Planets[1] = new Planet(xMax - xPlanet, yPlanet, 2, this);
                 Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 2, this);
                 Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 2, this);
@@ -173,7 +173,7 @@ public class Map {
     protected Team[] getTeams() {
         return Teams;
     }
-    
+
     public void saveTeams() throws IOException {
         Saviour.saveScore(Teams);
     }
@@ -265,26 +265,28 @@ public class Map {
      */
     public void collide() {
         for (int i = 0; i < Controllables.length; i++) {
-            //  Entities - Entities
+            //  Entities - Entities collision
             for (int j = i + 1; j < Controllables.length; j++) {
                 if (Controllables[i].checkCollision(Controllables[j])) {
-                    Controllables[i].collision((Entity)Controllables[j]);
-                    Controllables[j].collision((Entity)Controllables[i]);
+                    Controllables[i].collision((Entity) Controllables[j]);
+                    Controllables[j].collision((Entity) Controllables[i]);
+                    //checks if a transfer of resources should occur 
                     if (Controllables[j] instanceof Drone && Controllables[i] instanceof Ship) {
                         ((Drone) Controllables[j]).collideShip((Ship) Controllables[i]);
                     }
                 }
             }
-            
+            // Entities - Planet collision
             for (int j = 0; j < Planets.length; j++) {
                 if (Controllables[i].checkCollision(Planets[j])) {
                     Controllables[i].collision(Planets[j]);
                     if (Controllables[i] instanceof Ship) {
+                        //checks if a transfer of resources should occur 
                         ((Ship) Controllables[i]).collidePlanet(Planets[j]);
                     }
                 }
             }
-            //  Entities - Harvestables
+            //  Entities - Harvestables collision
             for (int j = 0; j < Harvestables.length; j++) {
                 if (Harvestables[j] == null) {
                     continue;
@@ -292,27 +294,26 @@ public class Map {
                 if (Controllables[i].checkCollision(Harvestables[j])) {
                     if (Controllables[i] instanceof Drone) {
                         ((Drone) Controllables[i]).collideHarvestable(Harvestables[j]);
+                        //makes the new resource when one is collected
                         Harvestables[j] = new Harvestable(100 + rand.nextInt(this.getMax().x - 200), 100 + rand.nextInt(this.getMax().y - 200), this);
                     }
                 }
             }
-            //  Entities - Bullets
+            //  Entities - Bullets collision
             for (int j = 0; j < Bullets.size(); j++) {
-//                if (Controllables[i].checkCollision(Bullets.get(j)) && Controllables[i].teamID != Bullets.get(i).teamID) {
                 if (Controllables[i].checkCollision(Bullets.get(j))) {
-                    if (Controllables[i].collideBullet(Bullets.get(j))) //System.out.println("2");
-                    {
+                    //checks if a "bullet" hit a Controllables or the wall and removes it if so
+                    if (Controllables[i].collideBullet(Bullets.get(j))) {
                         Bullets.remove(j);
                     }
                 } else if ((Bullets.get(j).getPos().getX() - Bullets.get(j).getRadius()
                         <= 0 || Bullets.get(j).getPos().getY() - Bullets.get(j).getRadius() <= 0)
                         || (Bullets.get(j).getPos().getX() + Bullets.get(j).getRadius()
                         >= xMax || Bullets.get(j).getPos().getY() + Bullets.get(j).getRadius() >= yMax)) {
-                    //System.out.println("3");
                     Bullets.remove(j);
                 }
             }
-            
+            // Entities - Wall collision
             if (Controllables[i].getPos().getX() - Controllables[i].getRadius()
                     <= 0 || (Controllables[i].getPos().getX() + Controllables[i].getRadius() >= xMax)) {
                 Controllables[i].collisionX();
@@ -323,5 +324,5 @@ public class Map {
             }
         }
     }
-    
+
 }
