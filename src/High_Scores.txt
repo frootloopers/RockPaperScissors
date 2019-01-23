@@ -126,3 +126,7 @@ Player 1,0
 Player 2,0
 Player 3,0
 Player 4,0
+Dummy,0
+Dummy,0
+Dummy,0
+Dummy,0
