@@ -16,6 +16,10 @@ import Entities.*;
  */
 public class ForesightAI extends AIShell{
 
+    public ForesightAI() {
+        name = "ForesightAI";
+    }
+    
     //name entities
 
 //    private Drone r = getTeams().getEntities(3);
