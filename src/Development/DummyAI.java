@@ -11,31 +11,15 @@ import Entities.*;
  *
  * @author Jia Jia Chen
  */
-public class DummyAI implements AI {
-    
-    public final String name = "Dummy";
-    private Planet planet;
-    private Ship ship;
-    private Drone drone1;
-    private Drone drone2;
+public class DummyAI extends AIShell{
     
     public DummyAI() {
+        name="Dummy";
     }
     
-    public void setUnits(Planet planet, Ship ship, Drone drone1, Drone drone2){
-        this.planet = planet;
-        this.ship = ship;
-        this.drone1 = drone1;
-        this.drone2 = drone2;
-    }
-    
+    @Override
     public void act() {
         ship.setThrustF(100);
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
     
 }

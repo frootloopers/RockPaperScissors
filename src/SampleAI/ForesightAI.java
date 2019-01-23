@@ -6,6 +6,7 @@
 package SampleAI;
 
 import Development.AI;
+import Development.AIShell;
 import Entities.*;
 
 /**
@@ -13,12 +14,7 @@ import Entities.*;
  *
  * @author John Popovici
  */
-public class ForesightAI implements AI{
-    
-    private Planet planet;
-    private Ship ship;
-    private Drone drone1;
-    private Drone drone2;
+public class ForesightAI extends AIShell{
 
     //name entities
 
@@ -81,18 +77,5 @@ public class ForesightAI implements AI{
     @Override
     public void act() {
 
-    }
-
-    @Override
-    public void setUnits(Planet planet, Ship ship, Drone drone1, Drone drone2){
-        this.planet = planet;
-        this.ship = ship;
-        this.drone1 = drone1;
-        this.drone2 = drone2;
-    }
-
-    @Override
-    public String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

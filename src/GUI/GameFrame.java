@@ -23,16 +23,23 @@ public class GameFrame extends javax.swing.JFrame {
     AI[] ais;
 
     /**
-     * Creates new form GameFrame
+     * Creates new instance of the game using a default setup.
      */
     public GameFrame() {
-        ais=new AI[4];
-        for(int x=0;x<ais.length;x++){
-            ais[x]=new DummyAI();
+        //default AIs
+        ais = new AI[4];
+        for (int x = 0; x < ais.length; x++) {
+            ais[x] = new DummyAI();
         }
         setup();
     }
 
+    /**
+     * Creates new instance of the game with specified AIs. Use either an array
+     * of 2 or 4 AI.
+     *
+     * @param ais
+     */
     public GameFrame(AI[] ais) {
         this.ais = ais;
         setup();

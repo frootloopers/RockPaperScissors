@@ -10,7 +10,7 @@ import Entities.Planet;
 import Entities.Ship;
 
 /**
- * Implement this to make your ai.
+ * Implement this to make your ai... Not really useful since right now all teams have the same number and types of units.
  * 
  * @author Jia Jia Chen
  */
