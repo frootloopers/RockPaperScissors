@@ -8,6 +8,7 @@ package GUI;
 import Development.AI;
 import Development.DummyAI;
 import Entities.Map;
+import SampleAI.ForesightAI;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -29,7 +30,7 @@ public class GameFrame extends javax.swing.JFrame {
         //default AIs
         ais = new AI[4];
         for (int x = 0; x < ais.length; x++) {
-            ais[x] = new DummyAI();
+            ais[x] = new ForesightAI();
         }
         setup();
     }

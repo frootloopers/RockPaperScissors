@@ -28,7 +28,7 @@ public class ForesightAI extends AIShell {
     private final Ship s = ship;
     private final Controllable[] cs = {s, r, l};
     private final Planet p = planet;
-    private final Map m = drone1.getMap();
+    private final Map m = p.getMap();
     //dictates if drones are going to ship
     private boolean[] toShip = {true, false, false}; //burn, r, l
     //dictates if ship is going to planet
