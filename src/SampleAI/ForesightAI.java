@@ -20,6 +20,7 @@ public class ForesightAI extends AIShell {
 
     public ForesightAI() {
         name = "ForesightAI";
+        m = planet.getMap();
     }
 
     //name entities
@@ -28,7 +29,7 @@ public class ForesightAI extends AIShell {
     private final Ship s = ship;
     private final Controllable[] cs = {s, r, l};
     private final Planet p = planet;
-    private final Map m = p.getMap();
+    private final Map m;
     //dictates if drones are going to ship
     private boolean[] toShip = {true, false, false}; //burn, r, l
     //dictates if ship is going to planet
@@ -139,4 +140,19 @@ public class ForesightAI extends AIShell {
         chase(l, s, 50);
     }
 
+    @Override
+    public String getDesc() {
+        return "A Simple Straightforward Sample AI Algorithm";
+    }
+    
+    @Override
+    public String getName() {
+        return "ForesightAI";
+    }
+    
+    @Override
+    public String getAuthor() {
+        return "Foresight Software Developers";
+    }
+    
 }
