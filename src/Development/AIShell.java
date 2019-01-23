@@ -10,6 +10,7 @@ import Entities.Planet;
 import Entities.Ship;
 
 /**
+ * Extend this to make an AI.
  *
  * @author Jia Jia Chen
  */
@@ -45,7 +46,6 @@ public class AIShell implements AI {
      * The commands the AI will give its entities. This is called for each team
      * for each game loop.
      */
-    @Override
     public void act() {
     }
 
@@ -54,7 +54,6 @@ public class AIShell implements AI {
      *
      * @return
      */
-    @Override
     public String getName() {
         return name;
     }
