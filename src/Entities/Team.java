@@ -6,6 +6,7 @@
 package Entities;
 
 import Development.AI;
+import Development.DummyAI;
 import Entities.Entity;
 import java.awt.Color;
 
@@ -19,7 +20,7 @@ public class Team implements Comparable {
     private String aiName;
     private Entity[] entities;
     private Map map;
-//    private AI ai;
+    private AI ai;
 
     /**
      * For sorting game pieces into teams, keeping score
@@ -30,16 +31,21 @@ public class Team implements Comparable {
      * @param drone2
      * @param aiName Name of the team
      */
-    public Team(Planet planet, Ship ship, Drone drone1, Drone drone2, String aiName, Map map) {
+    public Team(Planet planet, Ship ship, Drone drone1, Drone drone2, String aiName, Map map, AI ai) {
         score = 0;
-//        this.ai = ai;
         entities = new Entity[4];
         entities[0] = planet;
         entities[1] = ship;
         entities[2] = drone1;
         entities[3] = drone2;
-        this.aiName = aiName;
+        this.ai = new DummyAI();
+        this.ai.setUnits((Planet) entities[0], (Ship) entities[1], (Drone) entities[2], (Drone) entities[3]);
+        this.aiName = ai.getName();
         this.map = map;
+    }
+
+    public void useAI() {
+        ai.act();
     }
 
     /**
@@ -105,6 +111,15 @@ public class Team implements Comparable {
      */
     protected Map getMap() {
         return map;
+    }
+
+    /**
+     * Gets the map this team belongs to.
+     *
+     * @return
+     */
+    protected AI getAI() {
+        return ai;
     }
 
     @Override

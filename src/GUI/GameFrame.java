@@ -6,6 +6,7 @@
 package GUI;
 
 import Development.AI;
+import Development.DummyAI;
 import Entities.Map;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -19,19 +20,27 @@ import javax.swing.Timer;
  */
 public class GameFrame extends javax.swing.JFrame {
 
+    AI[] ais;
+
     /**
      * Creates new form GameFrame
      */
     public GameFrame() {
+        ais=new AI[4];
+        for(int x=0;x<ais.length;x++){
+            ais[x]=new DummyAI();
+        }
         setup();
     }
 
-    public GameFrame(AI p1, AI p2) {
+    public GameFrame(AI[] ais) {
+        this.ais = ais;
         setup();
     }
 
-    public GameFrame(AI p1, AI p2, AI p3, AI p4) {
-        setup();
+    public AI[] getAIs() {
+        System.out.print("");
+        return ais;
     }
 
     public void setup() {
@@ -40,6 +49,7 @@ public class GameFrame extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage("src/spaceraze.png"));
         //This is needed to pass this instance of GameFrame to the panel since when I override the Panel constructor, it breaks the preview in the Frame. - Jia Jia
         testingPanel1.setFrame(this);
+        testingPanel1.setupMap();
         scoreboard1.linkMap(testingPanel1.GameBoard);
 
     }

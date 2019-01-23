@@ -5,14 +5,20 @@
  */
 package Development;
 
+import Entities.Drone;
+import Entities.Planet;
+import Entities.Ship;
+
 /**
  * Implement this to make your ai.
  * 
  * @author Jia Jia Chen
  */
 public interface AI {
+    
+    public void setUnits(Planet planet, Ship ship, Drone drone1, Drone drone2);
 
-    public void ShipAct();
-
-    public void DroneAct();
+    public void act();
+    
+    public String getName();
 }

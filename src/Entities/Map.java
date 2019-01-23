@@ -7,6 +7,7 @@ package Entities;
 
 import Entities.Team;
 import Blocks.Pos;
+import Development.AI;
 import Entities.*;
 import java.awt.Point;
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class Map {
     //time in ms
     private int time;
     private Random rand = new Random();
+    private AI[] ais;
 
     //time for an asteriod to respawn
     private static final int asteroidTick = 600;
@@ -54,16 +56,17 @@ public class Map {
      * @param xMax X size of map
      * @param yMax Y size of map
      */
-    public Map(int teams, int xMax, int yMax) {
-        this.Teams = new Team[teams + 1];
-        Controllables = new Controllable[teams * 3];
-        Planets = new Planet[teams];
+    public Map(AI[] ais, int xMax, int yMax) {
+        this.Teams = new Team[ais.length + 1];
+        Controllables = new Controllable[ais.length * 3];
+        Planets = new Planet[ais.length];
         Harvestables = new Harvestable[harvestables];
         this.xMax = xMax;
         this.yMax = yMax;
+        this.ais = ais;
         reset();
     }
-    
+
     public void reset() {
         time = 0;
 
@@ -74,7 +77,7 @@ public class Map {
         for (int x = 0; x < harvestables; x++) {
             Harvestables[x] = new Harvestable(100 + rand.nextInt(xMax - 200), 100 + rand.nextInt(yMax - 200), this);
         }
-        
+
         switch (Teams.length - 1) {
             //create entities for teams 3 and 4
             case 4:
@@ -82,7 +85,7 @@ public class Map {
                 Controllables[6] = new Ship((xPlanet + offset), yMax - (yPlanet + offset), 45, 3, this);
                 Controllables[7] = new Drone((xPlanet + offset), yMax - yPlanet, 45, 3, this);
                 Controllables[8] = new Drone(xPlanet, yMax - (yPlanet + offset), 45, 3, this);
-                
+
                 Planets[3] = new Planet(xMax - xPlanet, yMax - yPlanet, 4, this);
                 Controllables[9] = new Ship(xMax - (xPlanet + offset), yMax - (yPlanet + offset), 315, 4, this);
                 Controllables[10] = new Drone(xMax - (xPlanet + offset), yMax - yPlanet, 315, 4, this);
@@ -93,7 +96,7 @@ public class Map {
                 Controllables[0] = new Ship(xPlanet + offset, yPlanet + offset, 135, 1, this);
                 Controllables[1] = new Drone(xPlanet + offset, yPlanet, 135, 1, this);
                 Controllables[2] = new Drone(xPlanet, yPlanet + offset, 135, 1, this);
-                
+
                 Planets[1] = new Planet(xMax - xPlanet, yPlanet, 2, this);
                 Controllables[3] = new Ship(xMax - (xPlanet + offset), (yPlanet + offset), 225, 2, this);
                 Controllables[4] = new Drone(xMax - (xPlanet + offset), yPlanet, 225, 2, this);
@@ -106,7 +109,7 @@ public class Map {
         Teams[0] = new Team(0, "Neutral");
         for (int x = 0; x < Teams.length - 1; x++) {
             //create the teams for the teamed entities
-            Teams[x + 1] = new Team(Planets[x], (Ship) Controllables[x * 3], (Drone) Controllables[x * 3 + 1], (Drone) Controllables[x * 3 + 2], "Player " + Integer.toString(x + 1), this);
+            Teams[x + 1] = new Team(Planets[x], (Ship) Controllables[x * 3], (Drone) Controllables[x * 3 + 1], (Drone) Controllables[x * 3 + 2], "Player " + Integer.toString(x + 1), this, ais[x]);
         }
     }
 
@@ -173,7 +176,7 @@ public class Map {
     protected Team[] getTeams() {
         return Teams;
     }
-    
+
     public void saveTeams() throws IOException {
         Saviour.saveScore(Teams);
     }
@@ -202,6 +205,12 @@ public class Map {
             scores[x - 1] = Teams[x].getName();
         }
         return scores;
+    }
+
+    public void useAIAll() {
+        for (int x = 1; x < Teams.length; x++) {
+            Teams[x].useAI();
+        }
     }
 
     /**
@@ -268,14 +277,14 @@ public class Map {
             //  Entities - Entities
             for (int j = i + 1; j < Controllables.length; j++) {
                 if (Controllables[i].checkCollision(Controllables[j])) {
-                    Controllables[i].collision((Entity)Controllables[j]);
-                    Controllables[j].collision((Entity)Controllables[i]);
+                    Controllables[i].collision((Entity) Controllables[j]);
+                    Controllables[j].collision((Entity) Controllables[i]);
                     if (Controllables[j] instanceof Drone && Controllables[i] instanceof Ship) {
                         ((Drone) Controllables[j]).collideShip((Ship) Controllables[i]);
                     }
                 }
             }
-            
+
             for (int j = 0; j < Planets.length; j++) {
                 if (Controllables[i].checkCollision(Planets[j])) {
                     Controllables[i].collision(Planets[j]);
@@ -312,7 +321,7 @@ public class Map {
                     Bullets.remove(j);
                 }
             }
-            
+
             if (Controllables[i].getPos().getX() - Controllables[i].getRadius()
                     <= 0 || (Controllables[i].getPos().getX() + Controllables[i].getRadius() >= xMax)) {
                 Controllables[i].collisionX();
@@ -323,5 +332,5 @@ public class Map {
             }
         }
     }
-    
+
 }

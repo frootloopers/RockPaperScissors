@@ -7,6 +7,8 @@ package GUI;
 
 import Development.Command;
 import Blocks.Pos;
+import Development.AI;
+import Development.DummyAI;
 import Entities.*;
 import Entities.Map;
 import Entities.Team;
@@ -95,6 +97,7 @@ public class TestingPanel extends javax.swing.JPanel {
             if (GameBoard.getTime() >= Map.maxTime) {
                 endGame();
             } else {
+                GameBoard.useAIAll();
                 GameBoard.moveAll();
             }
         }
@@ -258,7 +261,6 @@ public class TestingPanel extends javax.swing.JPanel {
         }
 
         public void mouseReleased(MouseEvent ms) {
-            endGame();
         }
     };
 
@@ -307,8 +309,6 @@ public class TestingPanel extends javax.swing.JPanel {
 
     public TestingPanel() {
         initComponents();
-        GameBoard = new Map(teams, mapX, mapY);
-        GameBoard.reset();
 
         //John's testing entities
 //        d = new Drone(100.0, 100.0, 135.0, -1, GameBoard);
@@ -322,6 +322,11 @@ public class TestingPanel extends javax.swing.JPanel {
         addKeyListener(kListener);
         setFocusable(true);
         t1.start();
+    }
+
+    public void setupMap() {
+        GameBoard = new Map(gameframe.getAIs(), mapX, mapY);
+        GameBoard.reset();
     }
 
     public void setFrame(GameFrame gameframe) {
@@ -357,7 +362,7 @@ public class TestingPanel extends javax.swing.JPanel {
         //try to save scores
         try {
             GameBoard.saveTeams();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         new WinFrame(GameBoard.getScores(), GameBoard.getNames()).setVisible(true);
