@@ -23,6 +23,8 @@ public class Harvestable extends Entity {
         //harvestable is not a team entity
         super(x, y, RADIUS_HARVESTABLE, 0, map);
     }
-    
-    
+
+    public Harvestable copy() {
+        return new Harvestable(this.pos.x, this.pos.y, map);
+    }
 }

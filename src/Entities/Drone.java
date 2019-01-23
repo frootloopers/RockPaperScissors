@@ -64,4 +64,10 @@ public class Drone extends Controllable {
             storage = 0;
         }
     }
+
+    //copying to allow AI devs to get info without getting the pointer, to prevent unwanted access to editing entities.
+    //Jia Jia does all the copying methods
+    public Drone copy() {
+        return new Drone(pos.x, pos.y, faceAngle, teamID, map);
+    }
 }

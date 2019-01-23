@@ -38,7 +38,7 @@ public class Team implements Comparable {
         entities[1] = ship;
         entities[2] = drone1;
         entities[3] = drone2;
-        this.ai = new DummyAI();
+        this.ai = ai;
         this.ai.setUnits((Planet) entities[0], (Ship) entities[1], (Drone) entities[2], (Drone) entities[3]);
         this.aiName = ai.getName();
         this.map = map;

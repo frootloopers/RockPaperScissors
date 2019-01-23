@@ -82,10 +82,10 @@ public class Ship extends Controllable {
     }
 
     /**
-     *  transfers the storage of the drone to the ship
-     * (Carl)
+     * transfers the storage of the drone to the ship (Carl)
+     *
      * @param other the drone that's transferring
-     * @param input the number of resources being transfered 
+     * @param input the number of resources being transfered
      */
     protected void collideDrone(Drone other, int input) {
         if (this.checkCollision(other) && teamID == other.teamID) {
@@ -94,8 +94,8 @@ public class Ship extends Controllable {
     }
 
     /**
-     * transfers the storage of the ship to the planet
-     *(Carl)
+     * transfers the storage of the ship to the planet (Carl)
+     *
      * @param other the planet the ship is transferring to
      */
     public void collidePlanet(Planet other) {
@@ -103,5 +103,11 @@ public class Ship extends Controllable {
             other.collideShip(this, storage);
             storage = 0;
         }
+    }
+
+    //copying to allow AI devs to get info without getting the pointer, to prevent unwanted access to editing entities.
+    //Jia Jia does all the copying methods
+    public Ship copy() {
+        return new Ship(pos.x, pos.y, faceAngle, teamID, map);
     }
 }

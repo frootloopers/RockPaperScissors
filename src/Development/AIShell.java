@@ -16,7 +16,9 @@ import Entities.Ship;
  */
 public class AIShell implements AI {
 
-    protected String name = "N/A";
+    protected String name = "";
+    protected String author = "";
+    protected String desc = "";
     protected Planet planet;
     protected Ship ship;
     protected Drone drone1;
@@ -25,6 +27,8 @@ public class AIShell implements AI {
     public AIShell() {
         //give the AI a name here.
         name = "NO AI";
+        author = "NO AUTHOR";
+        desc = "NO DESC";
     }
 
     /**
@@ -55,6 +59,24 @@ public class AIShell implements AI {
      * @return
      */
     public String getName() {
+        return name;
+    }
+
+    /**
+     * Gets the author of this AI.
+     *
+     * @return
+     */
+    public String getAuthor() {
+        return name;
+    }
+
+    /**
+     * Gets the description of this AI.
+     *
+     * @return
+     */
+    public String getDesc() {
         return name;
     }
 }
