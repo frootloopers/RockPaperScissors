@@ -10,9 +10,9 @@ package GUI;
  * @author carlw
  */
 public class AISelection extends javax.swing.JFrame {
-    
+
     /**
-     * Creates new form AISelection
+     * Creates new frame AISelection
      */
     public AISelection() {
         initComponents();
@@ -158,18 +158,29 @@ public class AISelection extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * The button to start the game
+     *
+     * @param evt when the button is pressed
+     */
     private void BeginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BeginMouseClicked
         // TODO add your handling code here:   
+        //finds the number of players playing 
         int players = 0;
-        if(jComboBox1.getSelectedIndex() > 0)
+        if (jComboBox1.getSelectedIndex() > 0) {
             players++;
-        if(jComboBox2.getSelectedIndex() > 0)
+        }
+        if (jComboBox2.getSelectedIndex() > 0) {
             players++;
-        if(jComboBox3.getSelectedIndex() > 0)
+        }
+        if (jComboBox3.getSelectedIndex() > 0) {
             players++;
-        if(jComboBox4.getSelectedIndex() > 0)
+        }
+        if (jComboBox4.getSelectedIndex() > 0) {
             players++;
+        }
 //        AI 1 = new AI();
+        //makes a gameframe and deletes the AI selection frame 
         new GameFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BeginMouseClicked

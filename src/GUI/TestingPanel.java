@@ -361,10 +361,11 @@ public class TestingPanel extends javax.swing.JPanel {
         gameframe.clickToggleButton1();
         //try to save scores
         try {
-            GameBoard.saveTeams();
-        } catch (IOException e) {
+            GameBoard.saveTeams(); //(Jia Jia)
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        //makes the high score screen
         new WinFrame(GameBoard.getScores(), GameBoard.getNames()).setVisible(true);
     }
 
