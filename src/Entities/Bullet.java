@@ -25,4 +25,10 @@ public class Bullet extends Movable {
     protected Bullet(double x, double y, double speed, double faceAngle, int teamID, Map map) {
         super(x, y, RADIUS_PROJECTILE, speed, faceAngle, teamID, map);
     }
+
+    //copying to allow AI devs to get info without getting the pointer, to prevent unwanted access to editing entities.
+    //Jia Jia does all the copying methods
+    public Bullet copy() {
+        return new Bullet(pos.x, pos.y, this.getVel().getSpeed(), faceAngle, teamID, map);
+    }
 }

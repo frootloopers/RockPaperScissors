@@ -142,6 +142,15 @@ public class Map {
         return Harvestables;
     }
 
+    //I was going to make methods that got a deep-copy of a list of entities so that the normal getters could be protected, but it resulted in too many headaches...
+//    public Harvestable[] getHarvestData() {
+//        Harvestable[] temp = new Harvestable[Harvestables.length];
+//        for (int x = 0; x < temp.length; x++) {
+//            temp[x] = Harvestables[x].copy();
+//        }
+//        return temp;
+//    }
+
     /**
      * Returns a list of all AI objects
      *
@@ -150,6 +159,18 @@ public class Map {
     public Controllable[] getControllables() {
         return Controllables;
     }
+
+//    public Controllable[] getControllablesData() {
+//        Controllable[] temp = new Controllable[Controllables.length];
+//        for (int x = 0; x < temp.length; x++) {
+//            if (Controllables[x] instanceof Ship) {
+//                temp[x] = ((Ship) Controllables[x]).copy();
+//            } else {
+//                temp[x] = ((Drone) Controllables[x]).copy();
+//            }
+//        }
+//        return temp;
+//    }
 
     /**
      * Returns a list of all AI objects
@@ -180,8 +201,8 @@ public class Map {
 
     /**
      * Save the team scores
-     * 
-     * @throws IOException 
+     *
+     * @throws IOException
      */
     public void saveTeams() throws IOException {
         Saviour.saveScore(Teams);
