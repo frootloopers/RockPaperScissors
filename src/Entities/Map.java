@@ -178,6 +178,11 @@ public class Map {
         return Teams;
     }
 
+    /**
+     * Save the team scores
+     * 
+     * @throws IOException 
+     */
     public void saveTeams() throws IOException {
         Saviour.saveScore(Teams);
     }

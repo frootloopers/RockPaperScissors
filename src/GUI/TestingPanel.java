@@ -360,8 +360,8 @@ public class TestingPanel extends javax.swing.JPanel {
         gameframe.clickToggleButton1();
         //try to save scores
         try {
-            GameBoard.saveTeams(); //(Jia Jia)
-        } catch (Exception e) {
+            GameBoard.saveTeams();
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
         //makes the high score screen
