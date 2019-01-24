@@ -145,8 +145,7 @@ public class Map {
     /**
      * Returns the max time
      *
-     * @return The number of game ticks (1 game tick = 10 ms) that have passed
-     * since reset.
+     * @return The number of game ticks (1 game tick = 10 ms) before the game ends.
      */
     public int getMaxTime() {
         return maxTime;
@@ -290,7 +289,7 @@ public class Map {
         return scores;
     }
 
-    public void useAIAll() {
+    protected void useAIAll() {
         for (int x = 1; x < Teams.length; x++) {
             Teams[x].useAI();
         }
