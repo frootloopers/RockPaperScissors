@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author carlw
@@ -24,6 +26,8 @@ public class WinFrame extends javax.swing.JFrame {
      * @param name
      */
     public WinFrame(int[] score, String[] name) {
+        setTitle("Space;Raze");
+        setIconImage(Toolkit.getDefaultToolkit().getImage("src/spaceraze.png"));
         scores = score;
         names = name;
         initComponents();
