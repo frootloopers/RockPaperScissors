@@ -54,3 +54,15 @@ ForesightAI,1550
 ForesightAI,1420
 ForesightAI,1345
 ForesightAI,1425
+ForesightAI,1040
+ForesightAI,1215
+ForesightAI,1440
+ForesightAI,1130
+ForesightAI,660
+FSDummyAI,475
+ForesightAI,1125
+FSHarvesterAI,720
+ForesightAI,1275
+ForesightAI,1005
+ForesightAI,1465
+ForesightAI,880

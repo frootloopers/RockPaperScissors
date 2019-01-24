@@ -51,10 +51,9 @@ public class ForesightAI extends AIShell {
             cs[i].setThrustF(0);
             cs[i].setThrustRotL(0);
             cs[i].setThrustRotR(0);
-//            if (willBeHit(cs[i], i)) {
-//                avoidBeHit(cs[i]);
-//            } else
-            if (m.getTime() >= endTime) {
+            if (willBeHit(cs[i], i)) {
+                avoidBeHit(cs[i]);
+            } else if (m.getTime() >= endTime) {
                 endGame();
             } else if (i == 0) {
                 playGameShip();
@@ -133,7 +132,7 @@ public class ForesightAI extends AIShell {
     }
 
     private boolean willBeHit(Controllable c, int k) {
-        if (m.getBullets().size() > 0) {
+        try {
             for (int i = 0; i < m.getBullets().size(); i++) {
                 //checks if will collide in the future
                 if (willCollide(c, m.getBullets().get(i), COLLIDE_TOLERANCE)) {
@@ -142,8 +141,9 @@ public class ForesightAI extends AIShell {
             }
 
             return false;
+        } catch (Exception e) {
+            return false;
         }
-        return false;
     }
 
     private void endGame() {
