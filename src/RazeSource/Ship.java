@@ -53,10 +53,11 @@ public class Ship extends Controllable {
     public final int SHIELDCD = 100;
 
     /**
-     * Jia Jia
+     * Jia Jia: Attaches a cooldown monitor to only the ships
      */
     @Override
     public void showRes(Graphics g, double scale, int offsetX, int offsetY) {
+        //show the rest of the states first
         super.showRes(g, scale, offsetX, offsetY);
         g.setColor(Color.MAGENTA);
         //center of the controllable where everything is drawn from
