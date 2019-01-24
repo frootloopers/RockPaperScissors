@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entities;
+package RazeSource;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -76,7 +76,7 @@ public abstract class Controllable extends Movable {
         //Position
         g.drawString(Math.round(getPos().x) + ", " + Math.round(getPos().y), temp.x + 3, temp.y + 11);
         //Face Angle
-        g.drawString(Double.toString(Math.round(faceAngle)) + " deg", temp.x + 3, temp.y + 22);
+        g.drawString(Integer.toString((int)(faceAngle)) + " deg", temp.x + 3, temp.y + 22);
         //Resources Stored
         g.drawString(Integer.toString(storage) + " res", temp.x + 3, temp.y + 33);
     }

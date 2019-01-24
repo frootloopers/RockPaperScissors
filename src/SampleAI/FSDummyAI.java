@@ -5,14 +5,15 @@
  */
 package SampleAI;
 
+import RazeSource.Drone;
 import Blocks.Pos;
 import Development.AIShell;
 import static Development.Command.getTo;
-import Entities.*;
 
 /**
- * A very dumb AI that targets the first rock created in the game with its drones and makes its motherships go infinitely forward.
- * 
+ * A very dumb AI that targets the first rock created in the game with its
+ * drones and makes its motherships go infinitely forward.
+ *
  * @author Jia Jia Chen
  */
 public class FSDummyAI extends AIShell {
@@ -29,11 +30,11 @@ public class FSDummyAI extends AIShell {
     }
 
     private void gather(Drone drone) {
-        Pos pos = drone.getMap().getHarvest()[0].getPos();
+        Pos pos = drone.getMap().getHarvestData()[0].getPos();
         getTo(drone, pos, 1);
     }
-    
-        @Override
+
+    @Override
     public String getDesc() {
         return "A Dummy AI Algorithm";
     }

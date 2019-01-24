@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entities;
+package RazeSource;
 
+import Blocks.Vel;
 import java.util.ArrayList;
 
 /**
@@ -108,6 +109,8 @@ public class Ship extends Controllable {
     //copying to allow AI devs to get info without getting the pointer, to prevent unwanted access to editing entities.
     //Jia Jia does all the copying methods
     public Ship copy() {
-        return new Ship(pos.x, pos.y, faceAngle, teamID, map);
+        Ship temp = new Ship(pos.x, pos.y, faceAngle, teamID, map);
+        temp.vel = new Vel(vel.x, vel.y);
+        return temp;
     }
 }

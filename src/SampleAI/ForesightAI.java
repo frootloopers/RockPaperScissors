@@ -5,10 +5,14 @@
  */
 package SampleAI;
 
+import RazeSource.Planet;
+import RazeSource.Map;
+import RazeSource.Controllable;
+import RazeSource.Ship;
+import RazeSource.Drone;
 import Blocks.Pos;
 import Development.AIShell;
 import static Development.Command.*;
-import Entities.*;
 import java.util.Random;
 
 /**
@@ -51,7 +55,7 @@ public class ForesightAI extends AIShell {
             cs[i].setThrustF(0);
             cs[i].setThrustRotL(0);
             cs[i].setThrustRotR(0);
-            if (willBeHit(cs[i], i)) {
+            if (i != 0 && willBeHit(cs[i], i)) {
                 avoidBeHit(cs[i]);
             } else if (m.getTime() >= endTime) {
                 endGame();
@@ -65,8 +69,8 @@ public class ForesightAI extends AIShell {
 
     private void playGameShip() {
         //pulse if about to be hit
-        for (int i = 0; i < m.getBullets().size(); i++) {
-            if (distance(s.getPos(), m.getBullets().get(i).getPos()) <= 30 && s.getStorage() > 0) {
+        for (int i = 0; i < m.getBulletsData().size(); i++) {
+            if (distance(s.getPos(), m.getBulletsData().get(i).getPos()) <= 30 && s.getStorage() > 0) {
                 s.pulse();
             }
         }
@@ -81,8 +85,8 @@ public class ForesightAI extends AIShell {
 
     private void fireShip() {
         //for every entity if still, turn to and fire
-        for (int i = 0; i < m.getControllables().length; i++) {
-            if (m.getControllables()[i].getVel().getSpeed() == 0 && turnTo(s, m.getControllables()[i].getPos(), 0.5)
+        for (int i = 0; i < m.getControllablesData().length; i++) {
+            if (m.getControllablesData()[i].getVel().getSpeed() == 0 && turnTo(s, m.getControllablesData()[i].getPos(), 0.5)
                     && (m.getTime() - timeFire) >= FIRE_DELAY) {
                 s.fireBullet();
                 timeFire = m.getTime();
@@ -93,18 +97,18 @@ public class ForesightAI extends AIShell {
     private void playGameDrone(Controllable c, int k) {
         if (!harvestingRandom[k] && cs[k].getStorage() < DRONE_MAX) {
             double shortest = 10000;
-            for (int i = 0; i < m.getHarvest().length; i++) {
-                if (distance(cs[k].getPos(), m.getHarvest()[i].getPos()) < shortest) {
-                    shortest = distance(cs[k].getPos(), m.getHarvest()[i].getPos());
-                    toPos[k] = m.getHarvest()[i].getPos();
+            for (int i = 0; i < m.getHarvestData().length; i++) {
+                if (distance(cs[k].getPos(), m.getHarvestData()[i].getPos()) < shortest) {
+                    shortest = distance(cs[k].getPos(), m.getHarvestData()[i].getPos());
+                    toPos[k] = m.getHarvestData()[i].getPos();
                 }
             }
             timeChase[k] = m.getTime();
         }
         if (!harvestingRandom[k] && m.getTime() - timeChase[k] > DRONE_GIVEUP) {
             Random rand = new Random();
-            int randomNum = rand.nextInt((m.getHarvest().length));
-            toPos[k] = m.getHarvest()[randomNum].getPos();
+            int randomNum = rand.nextInt((m.getHarvestData().length));
+            toPos[k] = m.getHarvestData()[randomNum].getPos();
             harvestingRandom[k] = true;
         }
         if (getTo(cs[k], toPos[k], 3)) {
@@ -133,9 +137,9 @@ public class ForesightAI extends AIShell {
 
     private boolean willBeHit(Controllable c, int k) {
         try {
-            for (int i = 0; i < m.getBullets().size(); i++) {
+            for (int i = 0; i < m.getBulletsData().size(); i++) {
                 //checks if will collide in the future
-                if (willCollide(c, m.getBullets().get(i), COLLIDE_TOLERANCE)) {
+                if (willCollide(c, m.getBulletsData().get(i), COLLIDE_TOLERANCE)) {
                     return true;
                 }
             }

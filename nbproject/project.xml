@@ -13,8 +13,10 @@
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>Arraylist</word>
+            <word>controllables</word>
             <word>harvestables</word>
             <word>Jia</word>
+            <word>ms</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

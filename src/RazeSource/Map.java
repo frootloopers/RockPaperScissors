@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entities;
+package RazeSource;
 
-import Entities.Team;
+import RazeSource.Team;
 import Blocks.Pos;
 import Development.AI;
-import Entities.*;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,6 +66,16 @@ public class Map {
         reset();
     }
 
+    /**
+     * Generate a harvestable that will be in an appropriate location
+     *
+     * @return
+     */
+    public Harvestable resetHarvestable() {
+        int harvestDist = xPlanet + offset * 2;
+        return new Harvestable(harvestDist + rand.nextInt(this.getMax().x - harvestDist * 2), harvestDist + rand.nextInt(this.getMax().y - harvestDist * 2), this);
+    }
+
     public void reset() {
         time = 0;
 
@@ -75,7 +84,7 @@ public class Map {
 
         //spawn harvestables in the map randomly (near the center of the map)
         for (int x = 0; x < harvestables; x++) {
-            Harvestables[x] = new Harvestable(100 + rand.nextInt(xMax - 200), 100 + rand.nextInt(yMax - 200), this);
+            Harvestables[x] = resetHarvestable();
         }
 
         switch (Teams.length - 1) {
@@ -126,7 +135,8 @@ public class Map {
     /**
      * Returns the time
      *
-     * @return The number of game ticks (1 game tick = 10 ms) that have passed since reset.
+     * @return The number of game ticks (1 game tick = 10 ms) that have passed
+     * since reset.
      */
     public int getTime() {
         return time;
@@ -135,7 +145,7 @@ public class Map {
     /**
      * Returns the max time
      *
-     * @return The number of game ticks (1 game tick = 10 ms) that have passed since reset.
+     * @return The number of game ticks (1 game tick = 10 ms) before the game ends.
      */
     public int getMaxTime() {
         return maxTime;
@@ -147,47 +157,70 @@ public class Map {
      *
      * @return
      */
-    public Harvestable[] getHarvest() {
+    protected Harvestable[] getHarvest() {
         return Harvestables;
     }
 
-    //I was going to make methods that got a deep-copy of a list of entities so that the normal getters could be protected, but it resulted in too many headaches...
-//    public Harvestable[] getHarvestData() {
-//        Harvestable[] temp = new Harvestable[Harvestables.length];
-//        for (int x = 0; x < temp.length; x++) {
-//            temp[x] = Harvestables[x].copy();
-//        }
-//        return temp;
-//    }
+    //I was going to make methods that got a deep copy of a list of entities so that the normal getters could be protected, but it resulted in too many headaches...
+    /**
+     * Returns a deep-copied list of harvestables
+     *
+     * @return
+     */
+    public Harvestable[] getHarvestData() {
+        Harvestable[] temp = new Harvestable[Harvestables.length];
+        for (int x = 0; x < temp.length; x++) {
+            temp[x] = Harvestables[x].copy();
+        }
+        return temp;
+    }
 
     /**
      * Returns a list of all AI objects
      *
      * @return
      */
-    public Controllable[] getControllables() {
+    protected Controllable[] getControllables() {
         return Controllables;
     }
 
-//    public Controllable[] getControllablesData() {
-//        Controllable[] temp = new Controllable[Controllables.length];
-//        for (int x = 0; x < temp.length; x++) {
-//            if (Controllables[x] instanceof Ship) {
-//                temp[x] = ((Ship) Controllables[x]).copy();
-//            } else {
-//                temp[x] = ((Drone) Controllables[x]).copy();
-//            }
-//        }
-//        return temp;
-//    }
-
     /**
-     * Returns a list of all AI objects
+     * Returns a deep-copied list of controllables
      *
      * @return
      */
-    public Planet[] getPlanets() {
+    public Controllable[] getControllablesData() {
+        Controllable[] temp = new Controllable[Controllables.length];
+        for (int x = 0; x < temp.length; x++) {
+            if (Controllables[x] instanceof Ship) {
+                temp[x] = ((Ship) Controllables[x]).copy();
+            } else {
+                temp[x] = ((Drone) Controllables[x]).copy();
+            }
+        }
+        return temp;
+    }
+
+    /**
+     * Returns a list of all planets
+     *
+     * @return
+     */
+    protected Planet[] getPlanets() {
         return Planets;
+    }
+
+    /**
+     * Returns a deep-copied list of planets
+     *
+     * @return
+     */
+    public Planet[] getPlanetsData() {
+        Planet[] temp = new Planet[Planets.length];
+        for (int x = 0; x < temp.length; x++) {
+            temp[x] = Planets[x].copy();
+        }
+        return temp;
     }
 
     /**
@@ -195,8 +228,21 @@ public class Map {
      *
      * @return
      */
-    public ArrayList<Bullet> getBullets() {
+    protected ArrayList<Bullet> getBullets() {
         return Bullets;
+    }
+
+    /**
+     * Returns a deep-copied list of bullets
+     *
+     * @return
+     */
+    public ArrayList<Bullet> getBulletsData() {
+        ArrayList<Bullet> temp = new ArrayList<Bullet>();
+        for (int x = 0; x < Bullets.size(); x++) {
+            temp.add(Bullets.get(x).copy());
+        }
+        return temp;
     }
 
     /**
@@ -243,7 +289,7 @@ public class Map {
         return scores;
     }
 
-    public void useAIAll() {
+    protected void useAIAll() {
         for (int x = 1; x < Teams.length; x++) {
             Teams[x].useAI();
         }
@@ -340,7 +386,7 @@ public class Map {
                     if (Controllables[i] instanceof Drone) {
                         ((Drone) Controllables[i]).collideHarvestable(Harvestables[j]);
                         //makes the new resource when one is collected
-                        Harvestables[j] = new Harvestable(100 + rand.nextInt(this.getMax().x - 200), 100 + rand.nextInt(this.getMax().y - 200), this);
+                        Harvestables[j] = resetHarvestable();
                     }
                 }
             }

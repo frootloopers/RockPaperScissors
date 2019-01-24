@@ -5,8 +5,9 @@
  */
 package Development;
 
+import RazeSource.Movable;
+import RazeSource.Controllable;
 import Blocks.*;
-import Entities.*;
 
 /**
  * The methods in the Command class are used to assist with the creation of AI

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entities;
+package RazeSource;
 
 /**
  * To improve efficiency, check only for collision in sectors near a movable. Not used.

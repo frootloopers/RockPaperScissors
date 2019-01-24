@@ -5,7 +5,9 @@
  */
 package Development;
 
-import Entities.*;
+import RazeSource.Planet;
+import RazeSource.Ship;
+import RazeSource.Drone;
 
 /**
  *

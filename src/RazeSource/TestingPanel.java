@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package RazeSource;
 
 import Development.Command;
 import Blocks.Pos;
 import Development.AI;
-import Entities.*;
-import Entities.Map;
-import Entities.Team;
+import RazeSource.Map;
+import RazeSource.Team;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;

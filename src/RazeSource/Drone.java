@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entities;
+package RazeSource;
 
+import Blocks.Vel;
 import java.util.Random;
 
 /**
@@ -68,6 +69,8 @@ public class Drone extends Controllable {
     //copying to allow AI devs to get info without getting the pointer, to prevent unwanted access to editing entities.
     //Jia Jia does all the copying methods
     public Drone copy() {
-        return new Drone(pos.x, pos.y, faceAngle, teamID, map);
+        Drone temp = new Drone(pos.x, pos.y, faceAngle, teamID, map);
+        temp.vel = new Vel(vel.x, vel.y);
+        return temp;
     }
 }
