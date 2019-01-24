@@ -302,6 +302,9 @@ public class TestingPanel extends javax.swing.JPanel {
             if (zoom < 0.02) {
                 zoom = 0.02;
             }
+            if (zoom > 5) {
+                zoom = 5;
+            }
         }
     };
     //--------------------------------------------------------------------------
