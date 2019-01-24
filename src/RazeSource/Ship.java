@@ -60,7 +60,6 @@ public class Ship extends Controllable {
         //show the rest of the states first
         super.showRes(g, scale, offsetX, offsetY);
         g.setColor(Color.MAGENTA);
-        //center of the controllable where everything is drawn from
         Point temp = new Point((int) ((getPos().getX() + offsetX) * scale), (int) ((getPos().getY() + offsetY) * scale));
         g.fillRect(temp.x - 5, temp.y + 35, 45, 12);
         g.setColor(Color.BLACK);
