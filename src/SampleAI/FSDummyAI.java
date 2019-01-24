@@ -29,7 +29,7 @@ public class FSDummyAI extends AIShell {
     }
 
     private void gather(Drone drone) {
-        Pos pos = drone.getMap().getHarvest()[0].getPos();
+        Pos pos = drone.getMap().getHarvestData()[0].getPos();
         getTo(drone, pos, 1);
     }
     
