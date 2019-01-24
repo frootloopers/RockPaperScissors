@@ -98,3 +98,11 @@ ForesightAI,1855
 ForesightAI,1880
 FSHarvesterAI,945
 UserControlAI,0
+ForesightAI,905
+ForesightAI,1040
+FSHarvesterAI,680
+UserControlAI,0
+ForesightAI,1700
+ForesightAI,1640
+FSHarvesterAI,885
+UserControlAI,0

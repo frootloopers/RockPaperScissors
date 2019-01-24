@@ -10,6 +10,7 @@ import Blocks.Pos;
 import Development.AI;
 import RazeSource.Map;
 import RazeSource.Team;
+import SampleAI.UserControlAI;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -76,8 +77,9 @@ public class TestingPanel extends javax.swing.JPanel {
     private Point mouse = new Point(0, 0);
     //background img (Carl)
     private final Image img = Toolkit.getDefaultToolkit().getImage("src/spaceRazeBackground1.png");
+    private final Image img2 = Toolkit.getDefaultToolkit().getImage("src/cvstry.jpg");
     private GameFrame gameframe;
-    Controllable selected = null;
+    protected Controllable selected = null;
 
     //---------------------------GUI-UTILITIES----------------------------------
     //Graphics timer
@@ -119,6 +121,7 @@ public class TestingPanel extends javax.swing.JPanel {
              * G to change game skin.
              * O to manually take control of the unit your pointer is over. Press O again to lose control.
              * W to move forward, A and D to turn the unit you control.
+             * J to fire bullet, K to shield, and L to pulse. Only available for Ship.
              */
             for (Integer k : pressed) {
                 switch (k) {
@@ -153,11 +156,12 @@ public class TestingPanel extends javax.swing.JPanel {
                         break;
                     case KeyEvent.VK_G:
                         graphicsMode++;
-                        if (graphicsMode > 2) {
+                        if (graphicsMode > 3) {
                             graphicsMode = 0;
                         }
                         break;
                     case KeyEvent.VK_W:
+                        //make sure you are controlling something to prevent a nullPointerException
                         if (selected != null) {
                             selected.setThrustF(100);
                         }
@@ -172,12 +176,18 @@ public class TestingPanel extends javax.swing.JPanel {
                             selected.setThrustRotL(100);
                         }
                         break;
-                    case KeyEvent.VK_N:
+                    case KeyEvent.VK_J:
+                        //verify selected unit is a ship, since only a ship can use abilities
                         if (selected instanceof Ship) {
                             ((Ship) selected).fireBullet();
                         }
                         break;
-                    case KeyEvent.VK_M:
+                    case KeyEvent.VK_K:
+                        if (selected instanceof Ship) {
+                            ((Ship) selected).shield();
+                        }
+                        break;
+                    case KeyEvent.VK_L:
                         if (selected instanceof Ship) {
                             ((Ship) selected).pulse();
                         }
@@ -346,11 +356,13 @@ public class TestingPanel extends javax.swing.JPanel {
             double dist = Math.sqrt(Math.pow(((mouse.x - (offsetX * zoom)) / zoom) - (c.getPos().x), 2) + (Math.pow(((mouse.y - (offsetY * zoom)) / zoom) - (c.getPos().y), 2)));
             //select if the cursor is within the radius of a controllable, otherwise deselect
             if (dist <= c.getRadius()) {
-                selected = c;
-                return;
-            } else {
-                selected = null;
+                //verify the selected entity belongs to the skeleton AI to prevent cheating
+                if (GameBoard.getTeams()[c.getTeamID()].getAI() instanceof UserControlAI) {
+                    selected = c;
+                    return;
+                }
             }
+            selected = null;
         }
     }
 
@@ -430,7 +442,7 @@ public class TestingPanel extends javax.swing.JPanel {
         g.drawString("This software is brought to you by Foresight Software: Carl Wu, John Popovici, and Jia Jia Chen.", 5, 280);
         g.drawString("Special thanks to Luke Classen, Sean Zhang, and the one and only Mr. RD.", 5, 295);
         g.drawString("Press R to show developer stats, G to change background palette, SPACE to start/stop the simulation,", 5, 320);
-        g.drawString("MOUSE2 to do one game loop, O to take manual control of a controllable, W, A, and D to move, and N and M to use abilities.", 5, 335);
+        g.drawString("MOUSE2 to do one game loop, O to take control of a UserControlAI controllable. Use W, A, D, J, K, and L when in control.", 5, 335);
     }
 
     /**
@@ -533,13 +545,19 @@ public class TestingPanel extends javax.swing.JPanel {
                 g.setColor(Color.BLACK);
                 g.fillRect(0, 0, this.getWidth(), this.getHeight());
                 g.drawImage(img, (int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom), this);
+                break;
+            case 3:
+                g.setColor(Color.BLACK);
+                g.fillRect(0, 0, this.getWidth(), this.getHeight());
+                g.drawImage(img2, (int) (offsetX * zoom), (int) (offsetY * zoom), (int) (mapX * zoom), (int) (mapY * zoom), this);
+                break;
 
-                /*
+            /*
                 Way to do AI: As Demonstrated by John
                 entity.draw(g, zoom, offsetX, offsetY);
                 //algorithm code
                 entity.move();
-                 */
+             */
 //                d.draw(g, zoom, offsetX, offsetY);
 //                d.setThrustF(100);
 //                d.move();
@@ -556,7 +574,6 @@ public class TestingPanel extends javax.swing.JPanel {
 //                chaser.draw(g, zoom, offsetX, offsetY);
 //                Command.chase(chaser, s, 50);
 //                chaser.move();
-                break;
         }
 
         //update the other graphics

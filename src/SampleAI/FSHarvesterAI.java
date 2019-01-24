@@ -73,10 +73,10 @@ public class FSHarvesterAI extends AIShell {
 
     private void playGameShip() {
         ArrayList<Bullet> Bullets = m.getBulletsData();
-        //pulse if about to be hit
+        //shield if about to be hit
         for (int i = 0; i < Bullets.size(); i++) {
-            if (distance(s.getPos(), Bullets.get(i).getPos()) <= 30 && s.getStorage() > 0) {
-                s.pulse();
+            if (distance(s.getPos(), Bullets.get(i).getPos()) <= (s.getRadius() + s.SHIELDRANGE) && s.getStorage() > s.SHIELDCOST) {
+                s.shield();
             }
         }
         if (s.getStorage() >= SHIP_MAX) {

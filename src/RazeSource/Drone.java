@@ -71,6 +71,7 @@ public class Drone extends Controllable {
     public Drone copy() {
         Drone temp = new Drone(pos.x, pos.y, faceAngle, teamID, map);
         temp.vel = new Vel(vel.x, vel.y);
+        temp.storage = storage;
         return temp;
     }
 }

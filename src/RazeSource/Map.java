@@ -145,7 +145,8 @@ public class Map {
     /**
      * Returns the max time
      *
-     * @return The number of game ticks (1 game tick = 10 ms) before the game ends.
+     * @return The number of game ticks (1 game tick = 10 ms) before the game
+     * ends.
      */
     public int getMaxTime() {
         return maxTime;
@@ -259,7 +260,7 @@ public class Map {
      *
      * @throws IOException
      */
-    public void saveTeams() throws IOException {
+    protected void saveTeams() throws IOException {
         Saviour.saveScore(Teams);
     }
 
@@ -298,7 +299,7 @@ public class Map {
     /**
      * Main game loop
      */
-    public void moveAll() {
+    protected void moveAll() {
         //keep time
         time++;
 
@@ -337,15 +338,32 @@ public class Map {
      *
      * @param pos The position from which to scan (Center point of the entity).
      * @param range The range of the scan.
-     * @return
+     * @return ArrayList of Bullet within range
      */
-    public ArrayList<Bullet> aoe(Pos pos, double range) {
+    protected ArrayList<Bullet> aoeBullet(Pos pos, double range) {
         ArrayList<Bullet> temp = new ArrayList<>();
         //find targets within the range
         for (Bullet e : Bullets) {
-            //if (distance - radius of bullet) <= range of pulse
+            //if (distance - radius of bullet) <= range of pulse, then record it
             if (Math.sqrt(Math.pow(pos.x - (e.getPos().x), 2) + (Math.pow(pos.y - (e.getPos().y), 2))) - e.radius <= range) {
                 temp.add(e);
+            }
+        }
+        return temp;
+    }
+
+    /**
+     * Returns a list of all controllables within striking range
+     *
+     * @param pos The position from which to scan (Center point of the entity).
+     * @param range The range of the scan.
+     * @return ArrayList of Controllable within range
+     */
+    protected ArrayList<Controllable> aoeControllable(Pos pos, double range) {
+        ArrayList<Controllable> temp = new ArrayList<>();
+        for (Controllable c : Controllables) {
+            if (Math.sqrt(Math.pow(pos.x - (c.getPos().x), 2) + (Math.pow(pos.y - (c.getPos().y), 2))) - c.radius <= range) {
+                temp.add(c);
             }
         }
         return temp;

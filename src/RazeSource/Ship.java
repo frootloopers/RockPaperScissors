@@ -29,13 +29,19 @@ public class Ship extends Controllable {
     }
 
     //bullet velocity
-    private final double BARRELVELOCITY = 2;
+    public final double BARRELVELOCITY = 2;
     //firing resource cost
-    private final double FIRECOST = 1;
+    public final double FIRECOST = 1;
+
     //aoe attack range
-    private final double PULSERANGE = 15;
+    public final double PULSERANGE = 20;
     //aoe attack resource cost
-    private final double PULSECOST = 2;
+    public final int PULSECOST = 10;
+
+    //aoe attack range
+    public final double SHIELDRANGE = 15;
+    //aoe attack resource cost
+    public final int SHIELDCOST = 3;
 
     /**
      * By Jia Jia: This spawns a bullet in the map in the direction of the ship.
@@ -51,22 +57,42 @@ public class Ship extends Controllable {
     }
 
     /**
-     * By Jia Jia: Fire a pulse that erases nearby bullets.
+     * By Jia Jia: Damages nearby enemies.
      */
     public void pulse() {
         if (hasAct == false && storage >= PULSECOST) {
             hasAct = true;
-            //get the enemies within range and put them in an arraylist
-            ArrayList<Bullet> temp = map.aoe(pos, PULSERANGE + radius);
-            //erase the enemy bullets found in the arrayList
-            for (Bullet e : temp) {
-                if (e.getTeamID() != teamID) {
-                    map.getBullets().remove(e);
-                    //uncomment line below if you want to give points for bullet erasure
+            //get the controllables within range and put them in an arraylist
+            ArrayList<Controllable> temp = map.aoeControllable(pos, PULSERANGE + radius);
+            //damage enemies in range
+            for (Controllable c : temp) {
+                //verify they are enemies
+                if (c.getTeamID() != teamID) {
+                    c.storage = 0;
+                    //uncomment line below if you want to give points per enemy hit
 //                    map.getTeams()[e.teamID].addScore(1);
                 }
             }
             storage -= PULSECOST;
+        }
+    }
+
+    /**
+     * By Jia Jia: Erases nearby bullets.
+     */
+    public void shield() {
+        if (hasAct == false && storage >= SHIELDCOST) {
+            hasAct = true;
+            ArrayList<Bullet> temp = map.aoeBullet(pos, SHIELDRANGE + radius);
+            //erase the enemy bullets found in the arrayList
+            for (Bullet b : temp) {
+                if (b.getTeamID() != teamID) {
+                    map.getBullets().remove(b);
+                    //uncomment line below if you want to give points per bullet erased
+//                    map.getTeams()[e.teamID].addScore(1);
+                }
+            }
+            storage -= SHIELDCOST;
         }
     }
 
@@ -111,6 +137,7 @@ public class Ship extends Controllable {
     public Ship copy() {
         Ship temp = new Ship(pos.x, pos.y, faceAngle, teamID, map);
         temp.vel = new Vel(vel.x, vel.y);
+        temp.storage = storage;
         return temp;
     }
 }
