@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entities;
+package RazeSource;
 
-import Entities.Saviour;
-import Entities.Team;
+import RazeSource.Saviour;
+import RazeSource.Team;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;

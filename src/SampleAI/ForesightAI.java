@@ -5,10 +5,14 @@
  */
 package SampleAI;
 
+import RazeSource.Planet;
+import RazeSource.Map;
+import RazeSource.Controllable;
+import RazeSource.Ship;
+import RazeSource.Drone;
 import Blocks.Pos;
 import Development.AIShell;
 import static Development.Command.*;
-import Entities.*;
 import java.util.Random;
 
 /**
