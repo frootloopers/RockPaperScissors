@@ -201,18 +201,19 @@ public class AISelection extends javax.swing.JFrame {
             hold[3] = makeAI(jComboBox8.getSelectedItem().toString());
         }
 
-        AI[] AIplayers = new AI[players];
-        int helper = 0;
-        for (int i = 0; i < players; i++) {
-            while (hold[helper] == null && helper+1<maxPlayers) {
-                helper++;
-            }
-            AIplayers[i] = hold[helper];
-        }
+//        AI[] AIplayers = new AI[players];
+//        int helper = 0;
+//        for (int i = 0; i < players; i++) {
+//            while (hold[helper] == null && helper+1<maxPlayers) {
+//                helper++;
+//            }
+//            AIplayers[i] = hold[helper];
+//        }
         //makes a gameframe and deletes the AI selection frame        
         System.out.println(players);
         if (players > 0) {
-            new GameFrame(AIplayers).setVisible(true);
+            //edited
+            new GameFrame(hold).setVisible(true);
         } else {
             new GameFrame().setVisible(true);
         }
