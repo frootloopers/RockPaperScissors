@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Game;
+package RazeSource;
 
 import Development.AI;
-import Game.Map;
+import RazeSource.Map;
 import SampleAI.*;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -83,11 +83,11 @@ public class GameFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        testingPanel1 = new Game.TestingPanel();
+        testingPanel1 = new RazeSource.TestingPanel();
         jToggleButton1 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        scoreboard1 = new Game.Scoreboard();
+        scoreboard1 = new RazeSource.Scoreboard();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -309,7 +309,7 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JToggleButton jToggleButton1;
-    private Game.Scoreboard scoreboard1;
-    private Game.TestingPanel testingPanel1;
+    private RazeSource.Scoreboard scoreboard1;
+    private RazeSource.TestingPanel testingPanel1;
     // End of variables declaration//GEN-END:variables
 }

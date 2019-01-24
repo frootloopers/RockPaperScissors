@@ -5,8 +5,8 @@
  */
 package Development;
 
-import Game.Movable;
-import Game.Controllable;
+import RazeSource.Movable;
+import RazeSource.Controllable;
 import Blocks.*;
 
 /**

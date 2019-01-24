@@ -5,9 +5,9 @@
  */
 package Development;
 
-import Game.Drone;
-import Game.Planet;
-import Game.Ship;
+import RazeSource.Drone;
+import RazeSource.Planet;
+import RazeSource.Ship;
 
 /**
  * Extend this to make an AI.

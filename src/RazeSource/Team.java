@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Game;
+package RazeSource;
 
 import Development.AI;
-import Game.Entity;
+import RazeSource.Entity;
 import java.awt.Color;
 
 /**

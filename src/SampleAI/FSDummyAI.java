@@ -5,7 +5,7 @@
  */
 package SampleAI;
 
-import Game.Drone;
+import RazeSource.Drone;
 import Blocks.Pos;
 import Development.AIShell;
 import static Development.Command.getTo;
