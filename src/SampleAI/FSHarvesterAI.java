@@ -13,6 +13,9 @@ import RazeSource.Drone;
 import Blocks.Pos;
 import Development.AIShell;
 import static Development.Command.*;
+import RazeSource.Bullet;
+import RazeSource.Harvestable;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -68,9 +71,10 @@ public class FSHarvesterAI extends AIShell {
     }
 
     private void playGameShip() {
+        ArrayList<Bullet> Bullets = m.getBulletsData();
         //pulse if about to be hit
-        for (int i = 0; i < m.getBulletsData().size(); i++) {
-            if (distance(s.getPos(), m.getBulletsData().get(i).getPos()) <= 30 && s.getStorage() > 0) {
+        for (int i = 0; i < Bullets.size(); i++) {
+            if (distance(s.getPos(), Bullets.get(i).getPos()) <= 30 && s.getStorage() > 0) {
                 s.pulse();
             }
         }
@@ -85,8 +89,9 @@ public class FSHarvesterAI extends AIShell {
 
     private void fireShip() {
         //for every entity if still, turn to and fire
-        for (int i = 0; i < m.getControllablesData().length; i++) {
-            if (m.getControllablesData()[i].getVel().getSpeed() == 0 && turnTo(s, m.getControllablesData()[i].getPos(), 0.5)
+        Controllable[] Controllables = m.getControllablesData();
+        for (int i = 0; i < Controllables.length; i++) {
+            if (Controllables[i].getVel().getSpeed() == 0 && turnTo(s, Controllables[i].getPos(), 0.5)
                     && (m.getTime() - timeFire) >= FIRE_DELAY) {
                 s.fireBullet();
                 timeFire = m.getTime();
@@ -95,20 +100,21 @@ public class FSHarvesterAI extends AIShell {
     }
 
     private void playGameDrone(Controllable c, int k) {
+        Harvestable[] Harvestables = m.getHarvestData();
         if (!harvestingRandom[k] && cs[k].getStorage() < DRONE_MAX) {
             double shortest = 10000;
-            for (int i = 0; i < m.getHarvestData().length; i++) {
-                if (distance(cs[k].getPos(), m.getHarvestData()[i].getPos()) < shortest) {
-                    shortest = distance(cs[k].getPos(), m.getHarvestData()[i].getPos());
-                    toPos[k] = m.getHarvestData()[i].getPos();
+            for (int i = 0; i < Harvestables.length; i++) {
+                if (distance(cs[k].getPos(), Harvestables[i].getPos()) < shortest) {
+                    shortest = distance(cs[k].getPos(), Harvestables[i].getPos());
+                    toPos[k] = Harvestables[i].getPos();
                 }
             }
             timeChase[k] = m.getTime();
         }
         if (!harvestingRandom[k] && m.getTime() - timeChase[k] > DRONE_GIVEUP) {
             Random rand = new Random();
-            int randomNum = rand.nextInt((m.getHarvestData().length));
-            toPos[k] = m.getHarvestData()[randomNum].getPos();
+            int randomNum = rand.nextInt((Harvestables.length));
+            toPos[k] = Harvestables[randomNum].getPos();
             harvestingRandom[k] = true;
         }
         if (getTo(cs[k], toPos[k], 3)) {
@@ -136,10 +142,11 @@ public class FSHarvesterAI extends AIShell {
     }
 
     private boolean willBeHit(Controllable c, int k) {
+        ArrayList<Bullet> Bullets = m.getBulletsData();
         try {
-            for (int i = 0; i < m.getBulletsData().size(); i++) {
+            for (int i = 0; i < Bullets.size(); i++) {
                 //checks if will collide in the future
-                if (willCollide(c, m.getBulletsData().get(i), COLLIDE_TOLERANCE)) {
+                if (willCollide(c, Bullets.get(i), COLLIDE_TOLERANCE)) {
                     return true;
                 }
             }
