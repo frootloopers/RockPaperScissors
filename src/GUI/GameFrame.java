@@ -29,7 +29,7 @@ public class GameFrame extends javax.swing.JFrame {
         //default AIs
         ais = new AI[4];
         for (int x = 0; x < ais.length; x++) {
-            ais[x] = new ForesightHarvesterAI();
+            ais[x] = new ForesightAI();
         }
         setup();
     }

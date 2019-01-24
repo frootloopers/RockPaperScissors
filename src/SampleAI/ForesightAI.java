@@ -38,8 +38,8 @@ public class ForesightAI extends AIShell {
     private int[] timeChase = {0, 0, 0};
     //changeable variables
     private final int COLLIDE_TOLERANCE = 10;
-    private final int SHIP_MAX = 40;
-    private final int DRONE_MAX = 20;
+    private final int SHIP_MAX = 70;
+    private final int DRONE_MAX = 35;
     private final int FIRE_DELAY = 100;
     private final int DRONE_GIVEUP = 500;
 
