@@ -290,6 +290,17 @@ public class Map {
         return scores;
     }
 
+    /**
+     * Give a new position to a controllable
+     *
+     * @param c The controllable to have its position reset.
+     */
+    protected void resetPos(Controllable c) {
+        Pos temp = new Pos(rand.nextInt(xMax - c.radius * 2) + c.radius, rand.nextInt(yMax - c.radius * 2) + c.radius);
+        //todo: verify random location is good.
+        c.pos = temp;
+    }
+
     protected void useAIAll() {
         for (int x = 1; x < Teams.length; x++) {
             Teams[x].useAI();

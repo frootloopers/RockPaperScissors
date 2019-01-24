@@ -30,7 +30,7 @@ import java.util.Random;
 public class FSHunterKillerAI extends AIShell {
 
     public FSHunterKillerAI() {
-        name = "Hunter-Killer Specialist";
+        name = "Hunter-Killer";
         author = "Foresight Software Developers";
         desc = "A very annoying version of ForesightAI modified with a Ship that pulses at nearby enemies with resources.";
     }
@@ -56,6 +56,8 @@ public class FSHunterKillerAI extends AIShell {
     private final int FIRE_DELAY = 100;
     private final int DRONE_GIVEUP = 250;
 
+    private final int INIT_DELAY = 100;
+
     private Random rand = new Random();
 
     @Override
@@ -71,7 +73,9 @@ public class FSHunterKillerAI extends AIShell {
             } else if (i == 0) {
                 playGameShip();
             } else {
-                playGameDrone(cs[i], i);
+                if (!(i == 2 && m.getTime() < INIT_DELAY)) {
+                    playGameDrone(cs[i], i);
+                }
             }
         }
     }
@@ -80,7 +84,7 @@ public class FSHunterKillerAI extends AIShell {
         //shield if about to be hit
         ArrayList<Bullet> Bullets = m.getBulletsData();
         for (int i = 0; i < Bullets.size(); i++) {
-            if (distance(s.getPos(), Bullets.get(i).getPos()) <= (s.getRadius() + Bullets.get(i).getRadius() * 2)) {
+            if (distance(s.getPos(), Bullets.get(i).getPos()) <= (s.getRadius() + Bullets.get(i).getRadius() + Bullets.get(i).getVel().getSpeed())) {
                 s.shield();
             }
         }

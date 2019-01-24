@@ -106,3 +106,7 @@ ForesightAI,1700
 ForesightAI,1640
 FSHarvesterAI,885
 UserControlAI,0
+ForesightAI,1430
+Hunter-Killer Specialist,885
+FSHarvesterAI,725
+UserControlAI,0

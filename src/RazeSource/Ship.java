@@ -32,24 +32,30 @@ public class Ship extends Controllable {
     public final double BARRELVELOCITY = 2;
     //firing resource cost
     public final double FIRECOST = 1;
+    //firing cooldown (game ticks)
+    public final int FIRECD = 5;
 
     //aoe attack range
     public final double PULSERANGE = 5;
     //aoe attack resource cost
     public final int PULSECOST = 10;
+    //pulse cooldown
+    public final int PULSECD = 500;
 
     //aoe attack range
     public final double SHIELDRANGE = 15;
     //aoe attack resource cost
     public final int SHIELDCOST = 5;
+    //shield cooldown (game ticks)
+    public final int SHIELDCD = 100;
 
     /**
      * By Jia Jia: This spawns a bullet in the map in the direction of the ship.
      */
     public void fireBullet() {
         //prevent a ship from firing infinite times in a single loop, requires resources and the ship to have not fired before
-        if (hasAct == false && storage >= FIRECOST) {
-            hasAct = true;
+        if (cooldown == 0 && storage >= FIRECOST) {
+            cooldown = FIRECD;
             //add bullet to the arraylist
             map.getBullets().add(new Bullet(pos.x, pos.y, BARRELVELOCITY, faceAngle, teamID, map));
             storage -= FIRECOST;
@@ -60,8 +66,8 @@ public class Ship extends Controllable {
      * By Jia Jia: Damages nearby enemies.
      */
     public void pulse() {
-        if (hasAct == false && storage >= PULSECOST) {
-            hasAct = true;
+        if (cooldown == 0 && storage >= PULSECOST) {
+            cooldown = PULSECD;
             //get the controllables within range and put them in an arraylist
             ArrayList<Controllable> temp = map.aoeControllable(pos, PULSERANGE + radius);
             //damage enemies in range
@@ -69,10 +75,10 @@ public class Ship extends Controllable {
                 //verify they are enemies
                 if (c.getTeamID() != teamID) {
                     //uncomment line below if you want pulse to steal points
-//                    map.getTeams()[e.teamID].addScore(c.storage);
+                    map.getTeams()[teamID].addScore(c.storage);
                     c.storage = 0;
                     //uncomment line below if you want to give points per enemy hit
-//                    map.getTeams()[e.teamID].addScore(1);
+//                    map.getTeams()[c.teamID].addScore(1);
                 }
             }
             storage -= PULSECOST;
@@ -83,15 +89,17 @@ public class Ship extends Controllable {
      * By Jia Jia: Erases nearby bullets.
      */
     public void shield() {
-        if (hasAct == false && storage >= SHIELDCOST) {
-            hasAct = true;
+        if (cooldown == 0 && storage >= SHIELDCOST) {
+            cooldown = SHIELDCD;
             ArrayList<Bullet> temp = map.aoeBullet(pos, SHIELDRANGE + radius);
             //erase the enemy bullets found in the arrayList
             for (Bullet b : temp) {
                 if (b.getTeamID() != teamID) {
+                    //uncomment line below if you want to give points to bullet owner
+//                    map.getTeams()[b.teamID].addScore(1);
                     map.getBullets().remove(b);
                     //uncomment line below if you want to give points per bullet erased
-//                    map.getTeams()[e.teamID].addScore(1);
+//                    map.getTeams()[teamID].addScore(1);
                 }
             }
             storage -= SHIELDCOST;
@@ -99,8 +107,10 @@ public class Ship extends Controllable {
     }
 
     @Override
-    public void move() {
-        hasAct = false;
+    protected void move() {
+        if (cooldown > 0) {
+            cooldown--;
+        }
         //add acceleration
         vel.x += Math.sin(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);
         vel.y -= Math.cos(Math.toRadians(faceAngle)) * (thrustF / 100.0 * SHIP_STERN_STRENGTH);

@@ -91,7 +91,7 @@ public abstract class Controllable extends Movable {
     protected boolean collideBullet(Bullet other) {
         if (this.checkCollision(other) && !(teamID == other.teamID)) {
             //uncomment line below if you want to steal points on hit
-//            map.getTeams()[other.teamID].addScore(storage);
+            map.getTeams()[other.teamID].addScore(storage);
             storage = 0;
             //uncomment line below if you want to give points per enemy hit
 //            map.getTeams()[other.teamID].addScore(1);
@@ -127,7 +127,7 @@ public abstract class Controllable extends Movable {
      * whether the entity has acted this frame such that the move method only
      * functions once per frame even if called multiple times
      */
-    protected boolean hasAct = false;
+    protected int cooldown = 0;
 
     /**
      * Gets the amount of resources stored by the entity
