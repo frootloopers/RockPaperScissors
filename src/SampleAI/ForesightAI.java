@@ -29,22 +29,19 @@ public class ForesightAI extends AIShell {
     private Controllable[] cs;
     private Planet p;
     private Map m;
-    //dictates if drones are going to ship
     private Pos parkS;
     private int timeFire = 0;
+    private int endTime;
     //dictates if drones are harvesting
-    private boolean[] harvesting = {true, false, false}; //burn, r, l
-    private boolean[] activeHarvesting = {true, false, false};
+    private boolean[] harvestingRandom = {true, false, false};
     private Pos[] toPos = new Pos[3];
     private int[] timeChase = {0, 0, 0};
-    //private int[] focusHarvestable = new int[3];
     //changeable variables
-    private int endTime;
     private final int COLLIDE_TOLERANCE = 10;
-    private final int SHIP_MAX = 50;
-    private final int DRONE_MAX = 25;
+    private final int SHIP_MAX = 40;
+    private final int DRONE_MAX = 20;
     private final int FIRE_DELAY = 100;
-    private final int DRONE_GIVEUP = 300;
+    private final int DRONE_GIVEUP = 500;
 
     @Override
     public void act() {
@@ -54,11 +51,10 @@ public class ForesightAI extends AIShell {
             cs[i].setThrustF(0);
             cs[i].setThrustRotL(0);
             cs[i].setThrustRotR(0);
-
 //            if (willBeHit(cs[i], i)) {
 //                avoidBeHit(cs[i]);
 //            } else
-            if (m.getTime() >= END_TIME) {
+            if (m.getTime() >= endTime) {
                 endGame();
             } else if (i == 0) {
                 playGameShip();
@@ -96,26 +92,26 @@ public class ForesightAI extends AIShell {
     }
 
     private void playGameDrone(Controllable c, int k) {
-        if (cs[k].getStorage() < DRONE_MAX) {
+        if (!harvestingRandom[k] && cs[k].getStorage() < DRONE_MAX) {
             double shortest = 10000;
             for (int i = 0; i < m.getHarvest().length; i++) {
-                if (distance(cs[k].getPos(), m.getHarvest()[i].getPos()) < shortest) {
+                if (distance(cs[k].getPos(), m.getHarvest()[i].getPos()) + distance(s.getPos(), m.getHarvest()[i].getPos()) < shortest) {
                     shortest = distance(cs[k].getPos(), m.getHarvest()[i].getPos());
                     toPos[k] = m.getHarvest()[i].getPos();
                 }
             }
-
             timeChase[k] = m.getTime();
-            harvesting[k] = true;
-            activeHarvesting[k] = true;
         }
-        if (m.getTime() - timeChase[k] > DRONE_GIVEUP) {
+        if (!harvestingRandom[k] && m.getTime() - timeChase[k] > DRONE_GIVEUP) {
             Random rand = new Random();
             int randomNum = rand.nextInt((m.getHarvest().length));
             toPos[k] = m.getHarvest()[randomNum].getPos();
+            harvestingRandom[k] = true;
         }
-        getTo(cs[k], toPos[k], 1);
-        if (cs[k].getStorage() >= DRONE_MAX) { //&& !toPlanet) {
+        if (getTo(cs[k], toPos[k], 3)) {
+            harvestingRandom[k] = false;
+        }
+        if (cs[k].getStorage() >= DRONE_MAX) {
             chase(cs[k], s, 50);
         }
     }
@@ -151,7 +147,6 @@ public class ForesightAI extends AIShell {
     }
 
     private void endGame() {
-        //returns all resources to the planet
         getTo(s, p.getPos(), 0.5);
         chase(r, s, 50);
         chase(l, s, 50);
@@ -166,7 +161,7 @@ public class ForesightAI extends AIShell {
         m = planet.getMap();
         cs = new Controllable[]{ship, drone1, drone2};
         parkS = ship.getPos();
-        //endTime = m.get
+        endTime = m.getMaxTime() - 600;
     }
 
     @Override

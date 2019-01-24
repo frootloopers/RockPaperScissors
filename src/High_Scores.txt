@@ -38,3 +38,15 @@ ForesightAI,1240
 ForesightAI,1305
 ForesightAI,1195
 ForesightAI,245
+ForesightAI,1195
+ForesightAI,605
+ForesightAI,305
+ForesightAI,1370
+ForesightAI,1105
+ForesightAI,625
+ForesightAI,900
+ForesightAI,55
+ForesightAI,470
+ForesightAI,620
+ForesightAI,560
+ForesightAI,800
