@@ -5,10 +5,10 @@
  */
 package SampleAI;
 
+import Game.Drone;
 import Blocks.Pos;
 import Development.AIShell;
 import static Development.Command.getTo;
-import Entities.*;
 
 /**
  * A very dumb AI that targets the first rock created in the game with its drones and makes its motherships go infinitely forward.

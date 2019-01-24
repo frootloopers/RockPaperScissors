@@ -5,8 +5,9 @@
  */
 package Development;
 
+import Game.Movable;
+import Game.Controllable;
 import Blocks.*;
-import Entities.*;
 
 /**
  * The methods in the Command class are used to assist with the creation of AI

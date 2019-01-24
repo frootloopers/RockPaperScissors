@@ -5,10 +5,14 @@
  */
 package SampleAI;
 
+import Game.Planet;
+import Game.Map;
+import Game.Controllable;
+import Game.Ship;
+import Game.Drone;
 import Blocks.Pos;
 import Development.AIShell;
 import static Development.Command.*;
-import Entities.*;
 import java.util.Random;
 
 /**

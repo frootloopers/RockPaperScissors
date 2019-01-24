@@ -5,7 +5,9 @@
  */
 package Development;
 
-import Entities.*;
+import Game.Planet;
+import Game.Ship;
+import Game.Drone;
 
 /**
  *

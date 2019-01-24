@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entities;
+package Game;
 
-import Entities.Team;
+import Game.Team;
 import Blocks.Pos;
 import Development.AI;
-import Entities.*;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;

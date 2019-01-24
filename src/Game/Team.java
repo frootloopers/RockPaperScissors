@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entities;
+package Game;
 
 import Development.AI;
-import Entities.Entity;
+import Game.Entity;
 import java.awt.Color;
 
 /**

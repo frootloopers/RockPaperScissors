@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entities;
+package Game;
 
 import Development.Command;
 import Blocks.Pos;
 import Development.AI;
-import Entities.*;
-import Entities.Map;
-import Entities.Team;
+import Game.Map;
+import Game.Team;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Entities;
+package Game;
 
-import Entities.Saviour;
-import Entities.Team;
+import Game.Saviour;
+import Game.Team;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
