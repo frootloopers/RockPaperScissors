@@ -16,7 +16,8 @@ import static Development.Command.*;
 import java.util.Random;
 
 /**
- * A demo AI Algorithm created by Foresight Software
+ * A demo AI Algorithm created by Foresight Software. Focuses on harvesting
+ * single resources before returning
  *
  * @author John Popovici
  */

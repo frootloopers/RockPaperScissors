@@ -29,9 +29,9 @@ public class GameFrame extends javax.swing.JFrame {
         //default AIs
         ais = new AI[4];
         ais[0] = new ForesightAI();
-        ais[1] = new ForesightAI(); //FSDummyAI();
-        ais[2] = new ForesightAI();
-        ais[3] = new ForesightAI(); //FSHarvesterAI();
+        ais[1] = new UserControlAI();
+        ais[2] = new UserControlAI();
+        ais[3] = new UserControlAI();
         setup();
     }
 
