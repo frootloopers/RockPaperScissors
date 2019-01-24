@@ -126,10 +126,19 @@ public class Map {
     /**
      * Returns the time
      *
-     * @return The number of game ticks that have passed since reset.
+     * @return The number of game ticks (1 game tick = 10 ms) that have passed since reset.
      */
     public int getTime() {
         return time;
+    }
+
+    /**
+     * Returns the max time
+     *
+     * @return The number of game ticks (1 game tick = 10 ms) that have passed since reset.
+     */
+    public int getMaxTime() {
+        return maxTime;
     }
 
     //Just realized getters like this should be protected, and public getters should be made that return ONLY the information of an entity, not the actual pointer.
