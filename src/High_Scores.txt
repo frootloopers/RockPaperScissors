@@ -66,3 +66,11 @@ ForesightAI,1275
 ForesightAI,1005
 ForesightAI,1465
 ForesightAI,880
+ForesightAI,1250
+ForesightAI,1070
+ForesightAI,865
+ForesightAI,1360
+ForesightAI,1285
+ForesightAI,1290
+ForesightAI,1290
+ForesightAI,1485
