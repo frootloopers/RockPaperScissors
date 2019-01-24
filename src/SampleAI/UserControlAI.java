@@ -21,6 +21,7 @@ public class UserControlAI extends AIShell {
 
     @Override
     public void act() {
+        //empty so users can manually control entities
     }
     
         @Override
