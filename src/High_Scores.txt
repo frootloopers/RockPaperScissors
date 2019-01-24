@@ -1,15 +1,3 @@
-Dummy,310
-Dummy,325
-Dummy,155
-Dummy,240
-Dummy,230
-Dummy,420
-Dummy,320
-Dummy,280
-Dummy,225
-Dummy,200
-Dummy,225
-Dummy,215
 ForesightAI,60
 ForesightAI,0
 ForesightAI,140
