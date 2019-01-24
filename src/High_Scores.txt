@@ -94,3 +94,7 @@ ForesightAI,1730
 UserControlAI,0
 UserControlAI,0
 UserControlAI,0
+ForesightAI,1765
+ForesightAI,1815
+FSHarvesterAI,955
+UserControlAI,0
