@@ -91,7 +91,7 @@ public abstract class Movable extends Entity {
      *
      * @author John Popovici
      */
-    public void move() {
+    protected void move() {
         //changes the position according to the vel
         pos.x += vel.x;
         pos.y += vel.y;

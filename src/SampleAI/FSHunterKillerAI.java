@@ -5,28 +5,34 @@
  */
 package SampleAI;
 
-import RazeSource.Planet;
-import RazeSource.Map;
-import RazeSource.Controllable;
-import RazeSource.Ship;
-import RazeSource.Drone;
 import Blocks.Pos;
 import Development.AIShell;
-import static Development.Command.*;
+import static Development.Command.chase;
+import static Development.Command.circle;
+import static Development.Command.distance;
+import static Development.Command.getTo;
+import static Development.Command.turnTo;
+import static Development.Command.willCollide;
 import RazeSource.Bullet;
+import RazeSource.Controllable;
+import RazeSource.Drone;
 import RazeSource.Harvestable;
+import RazeSource.Map;
+import RazeSource.Planet;
+import RazeSource.Ship;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * A demo AI Algorithm created by Foresight Software
  *
- * @author John Popovici
+ * @author John Popovici, Jia Jia Chen
  */
-public class ForesightAI extends AIShell {
+public class FSHunterKillerAI extends AIShell {
 
-    public ForesightAI() {
-        name = "ForesightAI";
+    public FSHunterKillerAI() {
+        name = "Hunter-Killer Specialist";
+        author = "Foresight Software Developers";
+        desc = "A very annoying version of ForesightAI modified with a Ship that pulses at nearby enemies with resources.";
     }
 
     //name entities
@@ -41,15 +47,16 @@ public class ForesightAI extends AIShell {
     private int endTime;
     //dictates if drones are harvesting
     private boolean[] harvestingRandom = {true, false, false};
-    private boolean[] harvesting = {true, false, false};
     private Pos[] toPos = new Pos[3];
     private int[] timeChase = {0, 0, 0};
     //changeable variables
-    private final int COLLIDE_TOLERANCE = 20;
-    private final int SHIP_MAX = 70;
-    private final int DRONE_MAX = 45;
+    private final int COLLIDE_TOLERANCE = 10;
+    private final int SHIP_MAX = 200;
+    private final int DRONE_MAX = 35;
     private final int FIRE_DELAY = 100;
-    private final int DRONE_GIVEUP = 500;
+    private final int DRONE_GIVEUP = 250;
+
+    private Random rand = new Random();
 
     @Override
     public void act() {
@@ -59,9 +66,7 @@ public class ForesightAI extends AIShell {
             cs[i].setThrustF(0);
             cs[i].setThrustRotL(0);
             cs[i].setThrustRotR(0);
-            if (i != 0 && willBeHit(cs[i], i)) {
-                avoidBeHit(cs[i]);
-            } else if (m.getTime() >= endTime) {
+            if (m.getTime() >= endTime) {
                 endGame();
             } else if (i == 0) {
                 playGameShip();
@@ -75,17 +80,39 @@ public class ForesightAI extends AIShell {
         //shield if about to be hit
         ArrayList<Bullet> Bullets = m.getBulletsData();
         for (int i = 0; i < Bullets.size(); i++) {
-            if (distance(s.getPos(), Bullets.get(i).getPos()) <= (s.getRadius() + s.SHIELDRANGE) && s.getStorage() > s.SHIELDCOST) {
+            if (distance(s.getPos(), Bullets.get(i).getPos()) <= (s.getRadius() + Bullets.get(i).getRadius() * 2)) {
                 s.shield();
             }
         }
         if (s.getStorage() >= SHIP_MAX) {
             getTo(s, p.getPos(), 0.5);
+        } else if (s.getStorage() > s.PULSECOST) {
+            Controllable target = getTarget();
+            if (getTo(s, target.getPos(), s.getRadius() + s.PULSERANGE + target.getRadius())) {
+                if (distance(s.getPos(), target.getPos()) <= (s.getRadius() + s.PULSERANGE) && target.getPos().x != s.getPos().x && target.getPos().y != s.getPos().y) {
+                    s.pulse();
+                }
+            }
         } else {
-            if (getTo(s, parkS, 10)) {
-                //fireShip();
+            s.setThrustF(0);
+            s.setThrustRotL(0);
+            s.setThrustRotR(0);
+        }
+    }
+
+    private Controllable getTarget() {
+        double shortest = 10000;
+        Controllable temp = s;
+        Controllable[] Controllables = m.getControllablesData();
+        for (int i = 0; i < Controllables.length; i++) {
+            if (Controllables[i].getTeamID() != s.getTeamID() && Controllables[i].getStorage() > 0) {
+                if (distance(s.getPos(), Controllables[i].getPos()) < shortest) {
+                    shortest = distance(s.getPos(), Controllables[i].getPos());
+                    temp = Controllables[i];
+                }
             }
         }
+        return temp;
     }
 
     private void fireShip() {
@@ -102,29 +129,26 @@ public class ForesightAI extends AIShell {
 
     private void playGameDrone(Controllable c, int k) {
         Harvestable[] Harvestables = m.getHarvestData();
-        if (cs[k].getStorage() < DRONE_MAX) {
+        if (!harvestingRandom[k] && cs[k].getStorage() < DRONE_MAX) {
             double shortest = 10000;
-            Pos oldPos = toPos[k];
-            //tracks closest harvestable
             for (int i = 0; i < Harvestables.length; i++) {
                 if (distance(cs[k].getPos(), Harvestables[i].getPos()) < shortest) {
                     shortest = distance(cs[k].getPos(), Harvestables[i].getPos());
                     toPos[k] = Harvestables[i].getPos();
                 }
             }
-            //resets chase timer if harvestable is different
-            if (oldPos != toPos[k]) {
-                timeChase[k] = m.getTime();
-            }
-            //if stuck chasing
-            if (m.getTime() - timeChase[k] > DRONE_GIVEUP) {
-                Random rand = new Random();
-                int randomNum = rand.nextInt((Harvestables.length));
-                toPos[k] = Harvestables[randomNum].getPos();
-                timeChase[k] = m.getTime();
-            }
-            getTo(cs[k], toPos[k], 0.5);
-        } else {
+            timeChase[k] = m.getTime();
+        }
+        if (!harvestingRandom[k] && m.getTime() - timeChase[k] > DRONE_GIVEUP) {
+            Random rand = new Random();
+            int randomNum = rand.nextInt((Harvestables.length));
+            toPos[k] = Harvestables[randomNum].getPos();
+            harvestingRandom[k] = true;
+        }
+        if (getTo(cs[k], toPos[k], 3)) {
+            harvestingRandom[k] = false;
+        }
+        if (cs[k].getStorage() >= DRONE_MAX) {
             chase(cs[k], s, 50);
         }
     }
@@ -177,21 +201,6 @@ public class ForesightAI extends AIShell {
         cs = new Controllable[]{ship, drone1, drone2};
         parkS = ship.getPos();
         endTime = m.getMaxTime() - 600;
-    }
-
-    @Override
-    public String getDesc() {
-        return "A Simple Straightforward Sample AI Algorithm";
-    }
-
-    @Override
-    public String getName() {
-        return "ForesightAI";
-    }
-
-    @Override
-    public String getAuthor() {
-        return "Foresight Software Developers";
     }
 
 }
