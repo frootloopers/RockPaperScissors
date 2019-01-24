@@ -42,7 +42,7 @@ public class FSHarvesterAI extends AIShell {
     private int[] timeChase = {0, 0, 0};
     //changeable variables
     private final int COLLIDE_TOLERANCE = 10;
-    private final int SHIP_MAX = 40;
+    private final int SHIP_MAX = 70;
     private final int DRONE_MAX = 5;
     private final int FIRE_DELAY = 100;
     private final int DRONE_GIVEUP = 500;
@@ -55,10 +55,9 @@ public class FSHarvesterAI extends AIShell {
             cs[i].setThrustF(0);
             cs[i].setThrustRotL(0);
             cs[i].setThrustRotR(0);
-//            if (willBeHit(cs[i], i)) {
-//                avoidBeHit(cs[i]);
-//            } else
-            if (m.getTime() >= endTime) {
+            if (i != 0 && willBeHit(cs[i], i)) {
+                avoidBeHit(cs[i]);
+            } else if (m.getTime() >= endTime) {
                 endGame();
             } else if (i == 0) {
                 playGameShip();
@@ -137,7 +136,7 @@ public class FSHarvesterAI extends AIShell {
     }
 
     private boolean willBeHit(Controllable c, int k) {
-        if (m.getBulletsData().size() > 0) {
+        try {
             for (int i = 0; i < m.getBulletsData().size(); i++) {
                 //checks if will collide in the future
                 if (willCollide(c, m.getBulletsData().get(i), COLLIDE_TOLERANCE)) {
@@ -146,8 +145,9 @@ public class FSHarvesterAI extends AIShell {
             }
 
             return false;
+        } catch (Exception e) {
+            return false;
         }
-        return false;
     }
 
     private void endGame() {
