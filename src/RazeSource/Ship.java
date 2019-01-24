@@ -34,14 +34,14 @@ public class Ship extends Controllable {
     public final double FIRECOST = 1;
 
     //aoe attack range
-    public final double PULSERANGE = 20;
+    public final double PULSERANGE = 5;
     //aoe attack resource cost
     public final int PULSECOST = 10;
 
     //aoe attack range
     public final double SHIELDRANGE = 15;
     //aoe attack resource cost
-    public final int SHIELDCOST = 3;
+    public final int SHIELDCOST = 5;
 
     /**
      * By Jia Jia: This spawns a bullet in the map in the direction of the ship.
@@ -68,6 +68,8 @@ public class Ship extends Controllable {
             for (Controllable c : temp) {
                 //verify they are enemies
                 if (c.getTeamID() != teamID) {
+                    //uncomment line below if you want pulse to steal points
+//                    map.getTeams()[e.teamID].addScore(c.storage);
                     c.storage = 0;
                     //uncomment line below if you want to give points per enemy hit
 //                    map.getTeams()[e.teamID].addScore(1);
@@ -125,7 +127,7 @@ public class Ship extends Controllable {
      *
      * @param other the planet the ship is transferring to
      */
-    public void collidePlanet(Planet other) {
+    protected void collidePlanet(Planet other) {
         if (this.checkCollision(other) && teamID == other.teamID) {
             other.collideShip(this, storage);
             storage = 0;

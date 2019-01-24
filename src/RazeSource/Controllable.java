@@ -76,7 +76,7 @@ public abstract class Controllable extends Movable {
         //Position
         g.drawString(Math.round(getPos().x) + ", " + Math.round(getPos().y), temp.x + 3, temp.y + 11);
         //Face Angle
-        g.drawString(Integer.toString((int)(faceAngle)) + " deg", temp.x + 3, temp.y + 22);
+        g.drawString(Integer.toString((int) (faceAngle)) + " deg", temp.x + 3, temp.y + 22);
         //Resources Stored
         g.drawString(Integer.toString(storage) + " res", temp.x + 3, temp.y + 33);
     }
@@ -88,10 +88,13 @@ public abstract class Controllable extends Movable {
      *
      * @author Carl Wu
      */
-    public boolean collideBullet(Bullet other) {
+    protected boolean collideBullet(Bullet other) {
         if (this.checkCollision(other) && !(teamID == other.teamID)) {
+            //uncomment line below if you want to steal points on hit
+//            map.getTeams()[other.teamID].addScore(storage);
             storage = 0;
-            map.getTeams()[other.teamID].addScore(1);
+            //uncomment line below if you want to give points per enemy hit
+//            map.getTeams()[other.teamID].addScore(1);
             return true;
         }
         return false;
@@ -210,7 +213,7 @@ public abstract class Controllable extends Movable {
     }
 
     @Override
-    public void move() {
+    protected void move() {
         //maintain maximum velocity of 1 pixel per frame
         if (vel.getSpeed() > 1.0) {
             double newx = vel.x / vel.getSpeed();

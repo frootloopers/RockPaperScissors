@@ -16,7 +16,7 @@ public class Missile extends Controllable {
 
     protected static final int RADIUS_MISSILE = 5;
 
-    public Missile(double x, double y, double faceAngle, int teamID, Map map) {
+    protected Missile(double x, double y, double faceAngle, int teamID, Map map) {
         super(x, y, RADIUS_MISSILE, faceAngle, 1.1, teamID, map);
     }
 

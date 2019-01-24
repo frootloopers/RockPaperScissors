@@ -30,7 +30,7 @@ public class Team implements Comparable {
      * @param drone2
      * @param aiName Name of the team
      */
-    public Team(Planet planet, Ship ship, Drone drone1, Drone drone2, String aiName, Map map, AI ai) {
+    protected Team(Planet planet, Ship ship, Drone drone1, Drone drone2, String aiName, Map map, AI ai) {
         score = 0;
         entities = new Entity[4];
         entities[0] = planet;
@@ -43,7 +43,7 @@ public class Team implements Comparable {
         this.map = map;
     }
 
-    public void useAI() {
+    protected void useAI() {
         ai.act();
     }
 

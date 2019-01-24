@@ -32,7 +32,7 @@ public class FSHunterKillerAI extends AIShell {
     public FSHunterKillerAI() {
         name = "Hunter-Killer Specialist";
         author = "Foresight Software Developers";
-        desc = "A version of ForesightAI modified with a Ship that pulses at nearby enemies with resources.";
+        desc = "A very annoying version of ForesightAI modified with a Ship that pulses at nearby enemies with resources.";
     }
 
     //name entities

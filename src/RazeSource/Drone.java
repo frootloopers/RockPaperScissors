@@ -32,7 +32,7 @@ public class Drone extends Controllable {
     private final static int HarvestableValue = 5;
 
     @Override
-    public void move() {
+    protected void move() {
         //add acceleration
         vel.x += Math.sin(Math.toRadians(faceAngle)) * (thrustF / 100.0 * DRONE_STERN_STRENGTH);
         vel.y -= Math.cos(Math.toRadians(faceAngle)) * (thrustF / 100.0 * DRONE_STERN_STRENGTH);
@@ -47,7 +47,7 @@ public class Drone extends Controllable {
      *
      * @param other the Harvestable the drone is colliding with
      */
-    public void collideHarvestable(Harvestable other) {
+    protected void collideHarvestable(Harvestable other) {
         if (this.checkCollision(other)) {
             storage += HarvestableValue;
         }
@@ -58,7 +58,7 @@ public class Drone extends Controllable {
      *
      * @param other the Ship the drone is colliding with
      */
-    public void collideShip(Ship other) {
+    protected void collideShip(Ship other) {
         //make sure the ship is of the same team and transfers all resources
         if (this.checkCollision(other) && teamID == other.teamID) {
             other.collideDrone(this, storage);
