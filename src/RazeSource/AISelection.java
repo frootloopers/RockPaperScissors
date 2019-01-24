@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 public class AISelection extends javax.swing.JFrame {
 
     private final static int maxPlayers = 4;
-    
+
     /**
      * Creates new frame AISelection
      */
@@ -87,13 +87,13 @@ public class AISelection extends javax.swing.JFrame {
 
         jLabel3.setText("Team Colour:");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI" }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI" }));
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI" }));
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
 
         jLabel4.setFont(new java.awt.Font("OCR A Extended", 0, 48)); // NOI18N
         jLabel4.setText("AI Selection");
@@ -196,7 +196,7 @@ public class AISelection extends javax.swing.JFrame {
             players++;
             hold[2] = makeAI(jComboBox7.getSelectedItem().toString());
         }
-        if (!jComboBox8.getSelectedItem().equals("No AI")) {       
+        if (!jComboBox8.getSelectedItem().equals("No AI")) {
             players++;
             hold[3] = makeAI(jComboBox8.getSelectedItem().toString());
         }
@@ -204,13 +204,13 @@ public class AISelection extends javax.swing.JFrame {
         AI[] AIplayers = new AI[players];
         int helper = 0;
         for (int i = 0; i < players; i++) {
-            while (hold[helper] == null && helper+1<maxPlayers) {
+            while (hold[helper] == null && helper + 1 < maxPlayers) {
                 helper++;
             }
             AIplayers[i] = hold[helper];
         }
         //makes a gameframe and deletes the AI selection frame        
-        System.out.println(players);
+
         if (players > 0) {
             new GameFrame(AIplayers).setVisible(true);
         } else {
@@ -223,13 +223,20 @@ public class AISelection extends javax.swing.JFrame {
         AI out;
         switch (AI) {
             case "FSDummy AI":
+                System.out.println("1");
                 out = new FSDummyAI();
                 break;
             case "FSHarvester AI":
+                System.out.println("2");
                 out = new FSHarvesterAI();
                 break;
             case "Foresight AI":
+                System.out.println("3");
                 out = new ForesightAI();
+                break;
+            case "User Control AI":
+                System.out.println("4");
+                out = new UserControlAI();
                 break;
             default:
                 out = null;
