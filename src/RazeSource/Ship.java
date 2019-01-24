@@ -39,7 +39,7 @@ public class Ship extends Controllable {
     public final double PULSERANGE = 5;
     //aoe attack resource cost
     public final int PULSECOST = 10;
-    //pulse cooldown
+    //pulse cooldown (game ticks)
     public final int PULSECD = 500;
 
     //aoe attack range
