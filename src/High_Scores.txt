@@ -10,3 +10,7 @@ Dummy,225
 Dummy,200
 Dummy,225
 Dummy,215
+ForesightAI,0
+ForesightAI,0
+ForesightAI,0
+ForesightAI,0

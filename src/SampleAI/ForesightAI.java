@@ -70,9 +70,9 @@ public class ForesightAI extends AIShell {
             //if in default position
             if (getTo(s, new Pos(((m.getMax().x / 2) + p.getPos().x) / 2, ((m.getMax().y / 2) + p.getPos().y) / 2), 10)) {
                 //for every ship if still, turn to and fire
-                for (int i = 0; i < m.getControllables().length; i++) {
-                    if (m.getControllables()[i].getVel().getSpeed() == 0) {
-                        if (turnTo(s, m.getControllables()[i].getPos(), 1)) {
+                for (int i = 0; i < m.getControllablesData().length; i++) {
+                    if (m.getControllablesData()[i].getVel().getSpeed() == 0) {
+                        if (turnTo(s, m.getControllablesData()[i].getPos(), 1)) {
                             s.fireBullet();
                         }
                     }
@@ -85,10 +85,10 @@ public class ForesightAI extends AIShell {
         toShip[k] = false;
         if (!harvesting[k] && ((Drone) (cs[k])).getStorage() < DRONE_MAX) {
             //Change to calculate smallest distance
-            int harvestMax = m.getHarvest().length;
+            int harvestMax = m.getHarvestData().length;
             Random rand = new Random();
             int randomNum = rand.nextInt((harvestMax));
-            Pos toPos = new Pos(m.getHarvest()[randomNum].getPos().x, m.getHarvest()[randomNum].getPos().y);
+            Pos toPos = new Pos(m.getHarvestData()[randomNum].getPos().x, m.getHarvestData()[randomNum].getPos().y);
             harvesting[k] = true;
             if (getTo(cs[k], toPos, 1)) {
                 harvesting[k] = false;
@@ -118,13 +118,13 @@ public class ForesightAI extends AIShell {
     }
 
     private boolean willBeHit(Controllable c, int k) {
-        for (int i = 0; i < m.getBullets().size(); i++) {
+        for (int i = 0; i < m.getBulletsData().size(); i++) {
             //pulses if bullets too close
-            if (k == 0 && distance(c.getPos(), m.getBullets().get(i).getPos()) <= 30 && c.getStorage() > 0) {
+            if (k == 0 && distance(c.getPos(), m.getBulletsData().get(i).getPos()) <= 30 && c.getStorage() > 0) {
                 s.pulse();
             }
             //checks if will collide
-            if (willCollide(c, m.getBullets().get(i), COLLIDE_TOLERANCE)) {
+            if (willCollide(c, m.getBulletsData().get(i), COLLIDE_TOLERANCE)) {
                 return true;
             }
         }
@@ -140,28 +140,28 @@ public class ForesightAI extends AIShell {
     }
 
     @Override
-        public void setUnits(Planet planet, Ship ship, Drone drone1, Drone drone2) {
+    public void setUnits(Planet planet, Ship ship, Drone drone1, Drone drone2) {
         this.p = planet;
         this.s = ship;
         this.r = drone1;
         this.l = drone2;
         m = planet.getMap();
-        cs = new Controllable[] {ship, drone1, drone2};
+        cs = new Controllable[]{ship, drone1, drone2};
     }
-    
+
     @Override
     public String getDesc() {
         return "A Simple Straightforward Sample AI Algorithm";
     }
-    
+
     @Override
     public String getName() {
         return "ForesightAI";
     }
-    
+
     @Override
     public String getAuthor() {
         return "Foresight Software Developers";
     }
-    
+
 }

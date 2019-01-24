@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package Entities;
 
 import java.awt.Toolkit;
 
@@ -42,7 +42,7 @@ public class WinFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new GUI.HighScore(scores, names);
+        jPanel1 = new Entities.HighScore(scores, names);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 

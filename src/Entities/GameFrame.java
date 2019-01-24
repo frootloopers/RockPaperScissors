@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package Entities;
 
 import Development.AI;
 import Development.DummyAI;
@@ -83,11 +83,11 @@ public class GameFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        testingPanel1 = new GUI.TestingPanel();
+        testingPanel1 = new Entities.TestingPanel();
         jToggleButton1 = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        scoreboard1 = new GUI.Scoreboard();
+        scoreboard1 = new Entities.Scoreboard();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -309,7 +309,7 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JToggleButton jToggleButton1;
-    private GUI.Scoreboard scoreboard1;
-    private GUI.TestingPanel testingPanel1;
+    private Entities.Scoreboard scoreboard1;
+    private Entities.TestingPanel testingPanel1;
     // End of variables declaration//GEN-END:variables
 }
