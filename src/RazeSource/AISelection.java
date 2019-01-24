@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
  * @author carlw
  */
 public class AISelection extends javax.swing.JFrame {
-
+    //maximum players the game can handel 
     private final static int maxPlayers = 4;
 
     /**
@@ -87,13 +87,13 @@ public class AISelection extends javax.swing.JFrame {
 
         jLabel3.setText("Team Colour:");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "FSDummy AI", "FSHarvester AI", "Foresight AI", "User Control AI" }));
 
         jLabel4.setFont(new java.awt.Font("OCR A Extended", 0, 48)); // NOI18N
         jLabel4.setText("AI Selection");
@@ -180,10 +180,17 @@ public class AISelection extends javax.swing.JFrame {
      */
     private void BeginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BeginMouseClicked
         // TODO add your handling code here:   
-        //finds the number of players playing 
+        //finds the number of players playing         
+        AI[] hold = new AI[maxPlayers];
+         hold[0] = makeAI(jComboBox5.getSelectedItem().toString());
+         hold[1] = makeAI(jComboBox6.getSelectedItem().toString());
+         hold[2] = makeAI(jComboBox7.getSelectedItem().toString());
+         hold[3] = makeAI(jComboBox8.getSelectedItem().toString());
+         new GameFrame(hold).setVisible(true);       
+        this.dispose();
+        /** this part can be uncommented to inculde a bugged way to
+         *  allow for no ai for a team (this isn't supported by GameFrame/Testing Panel/Map)
         int players = 0;
-        AI[] hold = new AI[4];
-        AI a;
         if (!jComboBox5.getSelectedItem().toString().equals("No AI")) {
             players++;
             hold[0] = makeAI(jComboBox5.getSelectedItem().toString());
@@ -209,38 +216,41 @@ public class AISelection extends javax.swing.JFrame {
             }
             AIplayers[i] = hold[helper];
         }
+        
         //makes a gameframe and deletes the AI selection frame        
 
         if (players > 0) {
+            //edited
             new GameFrame(AIplayers).setVisible(true);
         } else {
             new GameFrame().setVisible(true);
         }
         this.dispose();
+        */ 
     }//GEN-LAST:event_BeginMouseClicked
 
+    /*
+        makes a new AI given it's name
+    */
     private AI makeAI(String AI) {
         AI out;
         switch (AI) {
             case "FSDummy AI":
-                System.out.println("1");
                 out = new FSDummyAI();
                 break;
             case "FSHarvester AI":
-                System.out.println("2");
                 out = new FSHarvesterAI();
                 break;
             case "Foresight AI":
-                System.out.println("3");
                 out = new ForesightAI();
                 break;
             case "User Control AI":
-                System.out.println("4");
                 out = new UserControlAI();
                 break;
             default:
-                out = null;
-            //case 0: out = new FSDummyAI(); break;
+                out =  new UserControlAI();
+            //to add an ai add using thr below format also add the choice to all combo boxes (5, 6, 7, and 8)
+            //case "Insert Name AI": out = new InsertNameAI(); break;
         }
         return out;
     }
