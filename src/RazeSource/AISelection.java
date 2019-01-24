@@ -5,12 +5,18 @@
  */
 package RazeSource;
 
+import Development.AI;
+import SampleAI.*;
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author carlw
  */
 public class AISelection extends javax.swing.JFrame {
 
+    private final static int maxPlayers = 4;
+    
     /**
      * Creates new frame AISelection
      */
@@ -43,6 +49,7 @@ public class AISelection extends javax.swing.JFrame {
         jComboBox6 = new javax.swing.JComboBox();
         jComboBox7 = new javax.swing.JComboBox();
         jComboBox8 = new javax.swing.JComboBox();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -80,55 +87,63 @@ public class AISelection extends javax.swing.JFrame {
 
         jLabel3.setText("Team Colour:");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Basic AI", "Custom AI 1" }));
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI" }));
 
-        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Basic AI", "Custom AI 1" }));
+        jComboBox6.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI" }));
 
-        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Basic AI", "Custom AI 1" }));
+        jComboBox7.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI" }));
 
-        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Basic AI", "Custom AI 1" }));
+        jComboBox8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No AI", "FSDummy AI", "FSHarvester AI", "Foresight AI" }));
+
+        jLabel4.setFont(new java.awt.Font("OCR A Extended", 0, 48)); // NOI18N
+        jLabel4.setText("AI Selection");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Begin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Begin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel1))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jTextField1)
+                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jLabel2))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox5, 0, 1, Short.MAX_VALUE)))
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox6, 0, 1, Short.MAX_VALUE))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox7, 0, 1, Short.MAX_VALUE))
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox8, 0, 1, Short.MAX_VALUE))
+                                    .addComponent(jComboBox6, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextField2)
+                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBox7, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextField4)
+                                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBox8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextField3)
+                                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(17, 17, 17)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -143,7 +158,7 @@ public class AISelection extends javax.swing.JFrame {
                     .addComponent(jComboBox6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -167,23 +182,61 @@ public class AISelection extends javax.swing.JFrame {
         // TODO add your handling code here:   
         //finds the number of players playing 
         int players = 0;
-        if (jComboBox1.getSelectedIndex() > 0) {
+        AI[] hold = new AI[4];
+        AI a;
+        if (!jComboBox5.getSelectedItem().toString().equals("No AI")) {
             players++;
+            hold[0] = makeAI(jComboBox5.getSelectedItem().toString());
         }
-        if (jComboBox2.getSelectedIndex() > 0) {
+        if (!jComboBox6.getSelectedItem().equals("No AI")) {
             players++;
+            hold[1] = makeAI(jComboBox6.getSelectedItem().toString());
         }
-        if (jComboBox3.getSelectedIndex() > 0) {
+        if (!jComboBox7.getSelectedItem().equals("No AI")) {
             players++;
+            hold[2] = makeAI(jComboBox7.getSelectedItem().toString());
         }
-        if (jComboBox4.getSelectedIndex() > 0) {
+        if (!jComboBox8.getSelectedItem().equals("No AI")) {       
             players++;
+            hold[3] = makeAI(jComboBox8.getSelectedItem().toString());
         }
-//        AI 1 = new AI();
-        //makes a gameframe and deletes the AI selection frame 
-        new GameFrame().setVisible(true);
+
+        AI[] AIplayers = new AI[players];
+        int helper = 0;
+        for (int i = 0; i < players; i++) {
+            while (hold[helper] == null && helper+1<maxPlayers) {
+                helper++;
+            }
+            AIplayers[i] = hold[helper];
+        }
+        //makes a gameframe and deletes the AI selection frame        
+        System.out.println(players);
+        if (players > 0) {
+            new GameFrame(AIplayers).setVisible(true);
+        } else {
+            new GameFrame().setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_BeginMouseClicked
+
+    private AI makeAI(String AI) {
+        AI out;
+        switch (AI) {
+            case "FSDummy AI":
+                out = new FSDummyAI();
+                break;
+            case "FSHarvester AI":
+                out = new FSHarvesterAI();
+                break;
+            case "Foresight AI":
+                out = new ForesightAI();
+                break;
+            default:
+                out = null;
+            //case 0: out = new FSDummyAI(); break;
+        }
+        return out;
+    }
 
     /**
      * @param args the command line arguments
@@ -233,6 +286,7 @@ public class AISelection extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
