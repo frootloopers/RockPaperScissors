@@ -6,6 +6,9 @@
 package RazeSource;
 
 import Blocks.Vel;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -36,18 +39,34 @@ public class Ship extends Controllable {
     public final int FIRECD = 5;
 
     //aoe attack range
-    public final double PULSERANGE = 5;
+    public final double PULSERANGE = 10;
     //aoe attack resource cost
-    public final int PULSECOST = 10;
+    public final int PULSECOST = 0;
     //pulse cooldown (game ticks)
     public final int PULSECD = 500;
 
     //aoe attack range
     public final double SHIELDRANGE = 15;
     //aoe attack resource cost
-    public final int SHIELDCOST = 5;
+    public final int SHIELDCOST = 0;
     //shield cooldown (game ticks)
     public final int SHIELDCD = 100;
+
+    /**
+     * Jia Jia
+     */
+    @Override
+    public void showRes(Graphics g, double scale, int offsetX, int offsetY) {
+        super.showRes(g, scale, offsetX, offsetY);
+        g.setColor(Color.MAGENTA);
+        //center of the controllable where everything is drawn from
+        Point temp = new Point((int) ((getPos().getX() + offsetX) * scale), (int) ((getPos().getY() + offsetY) * scale));
+        g.fillRect(temp.x - 5, temp.y + 35, 45, 12);
+        g.setColor(Color.BLACK);
+        g.drawRect(temp.x - 5, temp.y + 35, 45, 12);
+        //Cool down
+        g.drawString("CD " + Integer.toString(cooldown), temp.x, temp.y + 45);
+    }
 
     /**
      * By Jia Jia: This spawns a bullet in the map in the direction of the ship.
