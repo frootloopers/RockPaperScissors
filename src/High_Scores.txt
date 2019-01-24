@@ -50,3 +50,7 @@ ForesightAI,470
 ForesightAI,620
 ForesightAI,560
 ForesightAI,800
+ForesightAI,1550
+ForesightAI,1420
+ForesightAI,1345
+ForesightAI,1425

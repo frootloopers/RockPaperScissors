@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Development;
+package SampleAI;
 
 import Blocks.Pos;
+import Development.AIShell;
 import static Development.Command.getTo;
 import Entities.*;
 
@@ -14,12 +15,10 @@ import Entities.*;
  * 
  * @author Jia Jia Chen
  */
-public class DummyAI extends AIShell {
+public class FSDummyAI extends AIShell {
 
-    public DummyAI() {
-        name = "Dummy";
-        author = "Jia Jia Chen";
-        desc = "Testing AI";
+    public FSDummyAI() {
+        name = "FSDummyAI";
     }
 
     @Override
@@ -32,6 +31,21 @@ public class DummyAI extends AIShell {
     private void gather(Drone drone) {
         Pos pos = drone.getMap().getHarvest()[0].getPos();
         getTo(drone, pos, 1);
+    }
+    
+        @Override
+    public String getDesc() {
+        return "A Dummy AI Algorithm";
+    }
+
+    @Override
+    public String getName() {
+        return "FSDummyAI";
+    }
+
+    @Override
+    public String getAuthor() {
+        return "Foresight Software Developers";
     }
 
 }

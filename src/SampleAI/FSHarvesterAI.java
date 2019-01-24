@@ -16,10 +16,10 @@ import java.util.Random;
  *
  * @author John Popovici
  */
-public class ForesightAI extends AIShell {
+public class FSHarvesterAI extends AIShell {
 
-    public ForesightAI() {
-        name = "ForesightAI";
+    public FSHarvesterAI() {
+        name = "FSHarvesterAI";
     }
 
     //name entities
@@ -39,7 +39,7 @@ public class ForesightAI extends AIShell {
     //changeable variables
     private final int COLLIDE_TOLERANCE = 10;
     private final int SHIP_MAX = 40;
-    private final int DRONE_MAX = 20;
+    private final int DRONE_MAX = 5;
     private final int FIRE_DELAY = 100;
     private final int DRONE_GIVEUP = 500;
 
@@ -171,7 +171,7 @@ public class ForesightAI extends AIShell {
 
     @Override
     public String getName() {
-        return "ForesightAI";
+        return "FSHarvesterAI";
     }
 
     @Override
