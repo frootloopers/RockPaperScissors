@@ -184,21 +184,21 @@ public class AISelection extends javax.swing.JFrame {
         int players = 0;
         AI[] hold = new AI[4];
         AI a;
-        if (!jComboBox1.getSelectedItem().toString().equals("No AI")) {
+        if (!jComboBox5.getSelectedItem().toString().equals("No AI")) {
             players++;
-            hold[0] = makeAI(jComboBox1.getSelectedItem().toString());
+            hold[0] = makeAI(jComboBox5.getSelectedItem().toString());
         }
-        if (!jComboBox2.getSelectedItem().equals("No AI")) {
+        if (!jComboBox6.getSelectedItem().equals("No AI")) {
             players++;
-            hold[1] = makeAI(jComboBox2.getSelectedItem().toString());
+            hold[1] = makeAI(jComboBox6.getSelectedItem().toString());
         }
-        if (!jComboBox3.getSelectedItem().equals("No AI")) {
+        if (!jComboBox7.getSelectedItem().equals("No AI")) {
             players++;
-            hold[2] = makeAI(jComboBox3.getSelectedItem().toString());
+            hold[2] = makeAI(jComboBox7.getSelectedItem().toString());
         }
-        if (!jComboBox4.getSelectedItem().equals("No AI")) {
+        if (!jComboBox8.getSelectedItem().equals("No AI")) {       
             players++;
-            hold[3] = makeAI(jComboBox4.getSelectedItem().toString());
+            hold[3] = makeAI(jComboBox8.getSelectedItem().toString());
         }
 
         AI[] AIplayers = new AI[players];
