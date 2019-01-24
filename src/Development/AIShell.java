@@ -24,6 +24,9 @@ public class AIShell implements AI {
     protected Drone drone1;
     protected Drone drone2;
 
+    /**
+     * Do not put anything but the name, author and description here. If you want to make the AI do something else at setup, override setUnits.
+     */
     public AIShell() {
         //give the AI a name here.
         name = "NO AI";
