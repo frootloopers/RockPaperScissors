@@ -139,6 +139,15 @@ public abstract class Controllable extends Movable {
     }
 
     /**
+     * Gets the cooldown time a controllable currently has
+     *
+     * @return the cooldown time in game ticks
+     */
+    public int getCooldown() {
+        return cooldown;
+    }
+
+    /**
      * Gets the percent of the forward thruster being used.
      *
      * @return the percent of the forward thruster being used. The value must be
