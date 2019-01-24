@@ -119,7 +119,7 @@ public class Command {
         //if facing at a difference of 60 degrees, start accelerating
         //else if facing, accelerate towards target depending on distance
         //final turnTo method will turn entity towards target
-        if (turnTo(c, pos, 60) && !turnTo(c, pos, 0.5)) {
+        if (turnTo(c, pos, 30) && !turnTo(c, pos, 0.5)) {
             c.setThrustF(50);
         } else if (turnTo(c, pos, 0.5)) {
             if (dist <= 50.0) {

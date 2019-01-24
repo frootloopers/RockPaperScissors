@@ -6,9 +6,8 @@
 package Entities;
 
 import Development.AI;
-import Development.DummyAI;
 import Entities.Map;
-import SampleAI.ForesightAI;
+import SampleAI.*;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -29,9 +28,10 @@ public class GameFrame extends javax.swing.JFrame {
     public GameFrame() {
         //default AIs
         ais = new AI[4];
-        for (int x = 0; x < ais.length; x++) {
-            ais[x] = new ForesightAI();
-        }
+        ais[0] = new ForesightAI();
+        ais[1] = new ForesightAI(); //FSDummyAI();
+        ais[2] = new ForesightAI();
+        ais[3] = new ForesightAI(); //FSHarvesterAI();
         setup();
     }
 

@@ -46,7 +46,7 @@ public class Map {
     private static final int xPlanet = 40;
     private static final int yPlanet = 40;
     //how far from eachother the other entities are offset
-    private static final int offset = 40;
+    private static final int offset = 60;
     //max time is equivalent to maxTime*2ms
     public static final int maxTime = 30000;
 

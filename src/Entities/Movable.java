@@ -99,20 +99,23 @@ public abstract class Movable extends Entity {
         hasMove = false;
     }
 
-    protected void collision() {
-        if (faceAngle > 180) {
-            faceAngle -= 180;
-        } else {
-            faceAngle += 180;
-        }
-        vel.x = -vel.x;
-        vel.y = -vel.y;
+    private void collision() {
+
+        /**
+         * double oldVel = vel.y * vel.y + vel.x * vel.x; if(oldVel > 0.001){
+         * double oldAngle = Math.toDegrees(Math.atan(Math.abs(vel.x) /
+         * Math.abs(vel.y))); faceAngle = (180 - oldAngle + 360) % 360;
+         *
+         * vel.y = Math.sqrt(oldVel) * Math.sin(Math.toRadians(faceAngle));
+         * vel.x = Math.sqrt(oldVel) * Math.cos(Math.toRadians(faceAngle));}
+         */
+        //faceAngle = (450 - faceAngle) % 360;
     }
 
     // a VERY bugy collision handeler for more realist collision (carl (i tried)) 
     //finds the acute complementary angle of the two movables
-    protected void collision(Movable other) {
-        if (vel.y > 0 || vel.x > 0) {
+    private void collision(Movable other) {
+        if ((vel.y > 0.01 || vel.x > 0.01) && (other.vel.y > 0.01 || other.vel.x > 0.01)) {
             double difx = pos.x - other.getPos().x;
             double dify = pos.y - other.getPos().y;
             double targetAngle;
@@ -125,28 +128,46 @@ public abstract class Movable extends Entity {
             } else { //if (x <= 0.0 && y <= 0.0) { //top left, x negative, y negative
                 targetAngle = (360 - Math.toDegrees(Math.atan(Math.abs(difx) / Math.abs(dify))));
             }
-            targetAngle = (targetAngle + 90) % 180;
-            collision(targetAngle);
+            double oldAngle = Math.toDegrees(Math.atan(Math.abs(vel.x) / Math.abs(vel.y)));
+            double otherAngle = Math.toDegrees(Math.atan(Math.abs(other.vel.x) / Math.abs(other.vel.y)));
+            System.out.println(targetAngle + " " + faceAngle + " " + oldAngle);
+            double oldVel = Math.sqrt(vel.y * vel.y + vel.x * vel.x);
+            double otherVel = Math.sqrt(other.vel.y * other.vel.y + other.vel.x * other.vel.x);
+            vel.x = otherVel * Math.cos(Math.toRadians(otherAngle - targetAngle)) * Math.cos(Math.toRadians(targetAngle))
+                    + oldVel * Math.sin(Math.toRadians(otherAngle - targetAngle)) * Math.sin(Math.toRadians(targetAngle));
+            vel.y = otherVel * Math.cos(Math.toRadians(otherAngle - targetAngle)) * Math.sin(Math.toRadians(targetAngle))
+                    + oldVel * Math.sin(Math.toRadians(otherAngle - targetAngle)) * Math.cos(Math.toRadians(targetAngle));
+            other.vel.x = oldVel * Math.cos(Math.toRadians(oldAngle - (targetAngle + 180) % 360)) * Math.cos(Math.toRadians((targetAngle + 180) % 360))
+                    + otherVel * Math.sin(Math.toRadians(oldAngle - (targetAngle + 180) % 360)) * Math.sin(Math.toRadians((targetAngle + 180) % 360));
+            other.vel.y = oldVel * Math.cos(Math.toRadians(oldAngle - (targetAngle + 180) % 360)) * Math.sin(Math.toRadians((targetAngle + 180) % 360))
+                    + otherVel * Math.sin(Math.toRadians(oldAngle - (targetAngle + 180) % 360)) * Math.cos(Math.toRadians((targetAngle + 180) % 360));
+            other.faceAngle = Math.toDegrees(Math.atan(Math.abs(other.vel.x) / Math.abs(other.vel.y)));
+            faceAngle = Math.toDegrees(Math.atan(Math.abs(vel.x) / Math.abs(vel.y)));
+            System.out.println(faceAngle);
+            //collision(targetAngle);
         }
     }
 
     // a VERY bugy collision handeler for more realist collision (carl (i tried)) 
     //tries to simlate a ball to wall collision with acute complementary angle of the two movables
-    protected void collision(double targetAngle) {
+    private void collision(double targetAngle) {
         double oldAngle = Math.toDegrees(Math.atan(Math.abs(vel.x) / Math.abs(vel.y)));
         System.out.println(targetAngle + " " + faceAngle + " " + oldAngle);
         double oldVel = vel.y * vel.y + vel.x * vel.x;
         double difAngle = Math.abs(targetAngle - oldAngle);
-        if (targetAngle > oldAngle && 180 - targetAngle < oldAngle) {
-            faceAngle = targetAngle + difAngle;
-        } else if (180 - targetAngle > oldAngle && 180 + targetAngle < oldAngle) {
-            faceAngle = targetAngle - difAngle;
-        } else if (180 + targetAngle > oldAngle && 360 - targetAngle > oldAngle) {
-            faceAngle = targetAngle - difAngle + 360;
-        } else if (360 - targetAngle > oldAngle) {
-            faceAngle = 180 - targetAngle - (180 + oldAngle - targetAngle) % 360;
+        /**
+         * if (targetAngle > oldAngle && 180 - targetAngle < oldAngle) {
+         * faceAngle = targetAngle + difAngle;
+         * } else if (180 - targetAngle > oldAngle && 180 + targetAngle < oldAngle) {
+         * faceAngle = targetAngle - difAngle;
+         * } else if (180 + targetAngle > oldAngle && 360 - targetAngle >
+         * oldAngle) { faceAngle = targetAngle - difAngle + 360; } else if (360
+         * - targetAngle > oldAngle) { faceAngle = 180 - targetAngle - (180 +
+         * oldAngle - targetAngle) % 360; }
+         */
+        if (targetAngle < oldAngle && targetAngle + 180 > oldAngle) {
+            System.out.println(faceAngle);
         }
-        System.out.println(faceAngle);
         vel.y = Math.sqrt(oldVel) * Math.sin(Math.toRadians(faceAngle));
         vel.x = Math.sqrt(oldVel) * Math.cos(Math.toRadians(faceAngle));
         faceAngle = (450 - faceAngle) % 360;
@@ -155,27 +176,38 @@ public abstract class Movable extends Entity {
     /* wall collisions on the x axis
     *  (Carl) 
      */
-    public void collisionX() {
+    protected void collisionX() {
         faceAngle = (faceAngle + 360) % 360;
-        faceAngle = (360 - faceAngle) % 360;
+        faceAngle = (-faceAngle + 360) % 360;
         vel.x = -vel.x;
     }
 
     /* wall collisions on the y axis
     *  (Carl) 
      */
-    public void collisionY() {
+    protected void collisionY() {
         faceAngle = (faceAngle + 360) % 360;
         faceAngle = (180 - faceAngle + 360) % 360;
         vel.y = -vel.y;
     }
 
-    public void collision(Entity other) {
-        /**
-         * uncomment this for the bugged collision version if
-         * (this.checkCollision(other)) { if(other instanceof Movable){
-         * collision((Movable)other);} else
-         */
-        collision();
+    protected void collision(Entity other) {
+
+//          uncomment this for the bugged collision version 
+//        if (this.checkCollision(other)) {
+//            if (other instanceof Movable) {
+//                collision((Movable) other);
+//            } else {
+        if (!(this instanceof Ship && other instanceof Drone)) {
+            if (faceAngle > 180) {
+                faceAngle -= 180;
+            } else {
+                faceAngle += 180;
+            }
+        }
+        vel.x = -vel.x;
+        vel.y = -vel.y;
+//            }
+//        }
     }
 }
