@@ -100,28 +100,31 @@ public class FSHarvesterAI extends AIShell {
         }
     }
 
-    private void playGameDrone(Controllable c, int k) {
+private void playGameDrone(Controllable c, int k) {
         Harvestable[] Harvestables = m.getHarvestData();
-        if (!harvestingRandom[k] && cs[k].getStorage() < DRONE_MAX) {
+        if (cs[k].getStorage() < DRONE_MAX) {
             double shortest = 10000;
+            Pos oldPos = toPos[k];
+            //tracks closest harvestable
             for (int i = 0; i < Harvestables.length; i++) {
                 if (distance(cs[k].getPos(), Harvestables[i].getPos()) < shortest) {
                     shortest = distance(cs[k].getPos(), Harvestables[i].getPos());
                     toPos[k] = Harvestables[i].getPos();
                 }
             }
-            timeChase[k] = m.getTime();
-        }
-        if (!harvestingRandom[k] && m.getTime() - timeChase[k] > DRONE_GIVEUP) {
-            Random rand = new Random();
-            int randomNum = rand.nextInt((Harvestables.length));
-            toPos[k] = Harvestables[randomNum].getPos();
-            harvestingRandom[k] = true;
-        }
-        if (getTo(cs[k], toPos[k], 3)) {
-            harvestingRandom[k] = false;
-        }
-        if (cs[k].getStorage() >= DRONE_MAX) {
+            //resets chase timer if harvestable is different
+            if (oldPos != toPos[k]) {
+                timeChase[k] = m.getTime();
+            }
+            //if stuck chasing
+            if (m.getTime() - timeChase[k] > DRONE_GIVEUP) {
+                Random rand = new Random();
+                int randomNum = rand.nextInt((Harvestables.length));
+                toPos[k] = Harvestables[randomNum].getPos();
+                timeChase[k] = m.getTime();
+            }
+            getTo(cs[k], toPos[k], 0.5);
+        } else {
             chase(cs[k], s, 50);
         }
     }
