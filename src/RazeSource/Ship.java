@@ -41,16 +41,16 @@ public class Ship extends Controllable {
     //aoe attack range
     public final double PULSERANGE = 10;
     //aoe attack resource cost
-    public final int PULSECOST = 0;
+    public final int PULSECOST = 20;
     //pulse cooldown (game ticks)
-    public final int PULSECD = 500;
+    public final int PULSECD = 400;
 
     //aoe attack range
-    public final double SHIELDRANGE = 15;
+    public final double SHIELDRANGE = 20;
     //aoe attack resource cost
-    public final int SHIELDCOST = 0;
+    public final int SHIELDCOST = 5;
     //shield cooldown (game ticks)
-    public final int SHIELDCD = 100;
+    public final int SHIELDCD = 75;
 
     /**
      * Jia Jia: Attaches a cooldown monitor to only the ships
