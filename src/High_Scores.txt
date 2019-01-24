@@ -74,3 +74,7 @@ ForesightAI,1285
 ForesightAI,1290
 ForesightAI,1290
 ForesightAI,1485
+ForesightAI,1635
+ForesightAI,1765
+ForesightAI,990
+ForesightAI,1760

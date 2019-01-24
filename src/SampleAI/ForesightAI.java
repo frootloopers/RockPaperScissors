@@ -55,7 +55,7 @@ public class ForesightAI extends AIShell {
             cs[i].setThrustF(0);
             cs[i].setThrustRotL(0);
             cs[i].setThrustRotR(0);
-            if (willBeHit(cs[i], i)) {
+            if (i != 0 && willBeHit(cs[i], i)) {
                 avoidBeHit(cs[i]);
             } else if (m.getTime() >= endTime) {
                 endGame();
