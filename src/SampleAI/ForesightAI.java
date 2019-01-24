@@ -30,26 +30,35 @@ public class ForesightAI extends AIShell {
     private Planet p;
     private Map m;
     //dictates if drones are going to ship
-    private boolean[] toShip = {true, false, false}; //burn, r, l
-    //dictates if ship is going to planet
-    private boolean toPlanet = false;
+    private Pos parkS;
+    private int timeFire = 0;
     //dictates if drones are harvesting
     private boolean[] harvesting = {true, false, false}; //burn, r, l
+    private boolean[] activeHarvesting = {true, false, false};
+    private Pos[] toPos = new Pos[3];
+    private int[] timeChase = {0, 0, 0};
+    //private int[] focusHarvestable = new int[3];
     //changeable variables
-    private final int END_TIME = 285000; //Map.getTime();
+    private int endTime;
     private final int COLLIDE_TOLERANCE = 10;
     private final int SHIP_MAX = 50;
     private final int DRONE_MAX = 25;
+    private final int FIRE_DELAY = 100;
+    private final int DRONE_GIVEUP = 300;
 
     @Override
     public void act() {
         //commands each entity
         for (int i = 0; i < 3; i++) {
-            //calculates if enetity will be hit
-            //special commands for end of game
-            if (willBeHit(cs[i], i)) {
-                avoidBeHit(cs[i]);
-            } else if (m.getTime() >= END_TIME) {
+            //reset all thrusters
+            cs[i].setThrustF(0);
+            cs[i].setThrustRotL(0);
+            cs[i].setThrustRotR(0);
+
+//            if (willBeHit(cs[i], i)) {
+//                avoidBeHit(cs[i]);
+//            } else
+            if (m.getTime() >= END_TIME) {
                 endGame();
             } else if (i == 0) {
                 playGameShip();
@@ -60,44 +69,54 @@ public class ForesightAI extends AIShell {
     }
 
     private void playGameShip() {
-        toPlanet = false;
-        if (toShip[1] || toShip[2]) {
-            s.setThrustF(0);
-        } else if (s.getStorage() >= SHIP_MAX && (r.getStorage() > 0 || r.getStorage() > 0)) {
-            toPlanet = true;
+        //pulse if about to be hit
+        for (int i = 0; i < m.getBullets().size(); i++) {
+            if (distance(s.getPos(), m.getBullets().get(i).getPos()) <= 30 && s.getStorage() > 0) {
+                s.pulse();
+            }
+        }
+        if (s.getStorage() >= SHIP_MAX) {
             getTo(s, p.getPos(), 0.5);
         } else {
-            //if in default position
-            if (getTo(s, new Pos(((m.getMax().x / 2) + p.getPos().x) / 2, ((m.getMax().y / 2) + p.getPos().y) / 2), 10)) {
-                //for every ship if still, turn to and fire
-                for (int i = 0; i < m.getControllables().length; i++) {
-                    if (m.getControllables()[i].getVel().getSpeed() == 0) {
-                        if (turnTo(s, m.getControllables()[i].getPos(), 1)) {
-                            s.fireBullet();
-                        }
-                    }
-                }
+            if (getTo(s, parkS, 10)) {
+                //fireShip();
+            }
+        }
+    }
+
+    private void fireShip() {
+        //for every entity if still, turn to and fire
+        for (int i = 0; i < m.getControllables().length; i++) {
+            if (m.getControllables()[i].getVel().getSpeed() == 0 && turnTo(s, m.getControllables()[i].getPos(), 0.5)
+                    && (m.getTime() - timeFire) >= FIRE_DELAY) {
+                s.fireBullet();
+                timeFire = m.getTime();
             }
         }
     }
 
     private void playGameDrone(Controllable c, int k) {
-        toShip[k] = false;
-        if (!harvesting[k] && ((Drone) (cs[k])).getStorage() < DRONE_MAX) {
-            //Change to calculate smallest distance
-            int harvestMax = m.getHarvest().length;
-            Random rand = new Random();
-            int randomNum = rand.nextInt((harvestMax));
-            Pos toPos = new Pos(m.getHarvest()[randomNum].getPos().x, m.getHarvest()[randomNum].getPos().y);
-            harvesting[k] = true;
-            if (getTo(cs[k], toPos, 1)) {
-                harvesting[k] = false;
+        if (cs[k].getStorage() < DRONE_MAX) {
+            double shortest = 10000;
+            for (int i = 0; i < m.getHarvest().length; i++) {
+                if (distance(cs[k].getPos(), m.getHarvest()[i].getPos()) < shortest) {
+                    shortest = distance(cs[k].getPos(), m.getHarvest()[i].getPos());
+                    toPos[k] = m.getHarvest()[i].getPos();
+                }
             }
-        } else if (!harvesting[k] && !toPlanet) {
-            toShip[k] = true;
+
+            timeChase[k] = m.getTime();
+            harvesting[k] = true;
+            activeHarvesting[k] = true;
+        }
+        if (m.getTime() - timeChase[k] > DRONE_GIVEUP) {
+            Random rand = new Random();
+            int randomNum = rand.nextInt((m.getHarvest().length));
+            toPos[k] = m.getHarvest()[randomNum].getPos();
+        }
+        getTo(cs[k], toPos[k], 1);
+        if (cs[k].getStorage() >= DRONE_MAX) { //&& !toPlanet) {
             chase(cs[k], s, 50);
-        } else if (!harvesting[k]) {
-            getTo(cs[k], s.getPos(), 50);
         }
     }
 
@@ -118,17 +137,16 @@ public class ForesightAI extends AIShell {
     }
 
     private boolean willBeHit(Controllable c, int k) {
-        for (int i = 0; i < m.getBullets().size(); i++) {
-            //pulses if bullets too close
-            if (k == 0 && distance(c.getPos(), m.getBullets().get(i).getPos()) <= 30 && c.getStorage() > 0) {
-                s.pulse();
+        if (m.getBullets().size() > 0) {
+            for (int i = 0; i < m.getBullets().size(); i++) {
+                //checks if will collide in the future
+                if (willCollide(c, m.getBullets().get(i), COLLIDE_TOLERANCE)) {
+                    return true;
+                }
             }
-            //checks if will collide
-            if (willCollide(c, m.getBullets().get(i), COLLIDE_TOLERANCE)) {
-                return true;
-            }
-        }
 
+            return false;
+        }
         return false;
     }
 
@@ -140,28 +158,30 @@ public class ForesightAI extends AIShell {
     }
 
     @Override
-        public void setUnits(Planet planet, Ship ship, Drone drone1, Drone drone2) {
+    public void setUnits(Planet planet, Ship ship, Drone drone1, Drone drone2) {
         this.p = planet;
         this.s = ship;
         this.r = drone1;
         this.l = drone2;
         m = planet.getMap();
-        cs = new Controllable[] {ship, drone1, drone2};
+        cs = new Controllable[]{ship, drone1, drone2};
+        parkS = ship.getPos();
+        //endTime = m.get
     }
-    
+
     @Override
     public String getDesc() {
         return "A Simple Straightforward Sample AI Algorithm";
     }
-    
+
     @Override
     public String getName() {
         return "ForesightAI";
     }
-    
+
     @Override
     public String getAuthor() {
         return "Foresight Software Developers";
     }
-    
+
 }
